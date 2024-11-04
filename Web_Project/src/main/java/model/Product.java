@@ -32,6 +32,15 @@ public class Product {
 		this.cid = cid;
 	}
 
+	public Product(int id, String title, double price, String description, String thumbnail) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.price = price;
+		this.description = description;
+		this.thumbnail = thumbnail;
+	}
+
 	public int getId() {
 		return id;
 	}

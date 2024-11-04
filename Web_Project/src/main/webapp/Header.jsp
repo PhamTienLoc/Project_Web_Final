@@ -42,7 +42,7 @@
 					</button>
 				</div>
 			</form>
-			<a href="#" class="btn btn-outline-dark me-2 position-relative">
+			<a href="#" class="btn btn-outline-dark me-2 position-relative mr-3 ml-3">
 				<i class="fas fa-shopping-cart"></i> <!-- Thêm thông báo số lượng nếu cần -->
 				<span
 				class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
