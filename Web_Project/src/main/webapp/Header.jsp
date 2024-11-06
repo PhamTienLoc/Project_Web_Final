@@ -6,7 +6,7 @@
 	<div
 		class="d-flex flex-wrap align-items-center justify-content-between">
 		<!-- Logo -->
-		<a href="/"
+		<a href="home"
 			class="d-flex align-items-center text-dark text-decoration-none">
 			<img src="logo.png" alt="Logo" width="40" height="32" class="me-2">
 			<span class="fs-4">BrandName</span>
@@ -49,10 +49,10 @@
 					3 <!-- Số lượng sản phẩm trong giỏ -->
 			</span>
 			</a>
-			<!--  <button type="button" class="btn btn-outline-primary">Login</button>-->
+			  <button type="button" class="btn btn-outline-primary ">Login</button>
 
 			<!-- Dropdown Menu for Login -->
-			<div class="dropdown">
+			<!--<div class="dropdown">
 				<button class="btn btn-outline-primary dropdown-toggle"
 					type="button" id="loginDropdown" data-bs-toggle="dropdown"
 					aria-expanded="false">Hello Phát</button>
@@ -66,7 +66,8 @@
 					</li>
 					<li><a class="dropdown-item" href="#">Forgot Password?</a></li>
 				</ul>
-			</div>
+			</div>  -->
+			
 
 
 		</div>
