@@ -34,9 +34,9 @@
 
 		<!-- Search, Cart, and Login Button -->
 		<div class="d-flex align-items-center">
-			<form class="d-flex align-items-center me-2">
+			<form action="search" method="get" class="d-flex align-items-center me-2">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Search...">
+					<input type="text" class="form-control" name="txt" placeholder="Search..." value="${txtS}">
 					<button class="btn btn-outline-secondary" type="submit">
 						<i class="fas fa-search"></i>
 					</button>

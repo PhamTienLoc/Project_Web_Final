@@ -165,4 +165,53 @@ public class ProductDAO implements DAOInterface<Product> {
 		return ketQua;
 	}
 
+	public ArrayList<Product> searchByName(String title) {
+		ArrayList<Product> ketQua = new ArrayList<Product>();
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "SELECT * FROM product\r\n" + " WHERE title LIKE ?"; // Thêm khoảng trắng ở đây
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, "%" + title + "%");
+
+			// Bước 3: thực thi câu lệnh SQL
+			System.out.println(sql);
+			ResultSet rs = st.executeQuery();
+
+			// Bước 4:
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				int cid = rs.getInt("categoryId");
+				String title1 = rs.getString("title");
+				double price = rs.getDouble("price");
+				int discount = rs.getInt("discount");
+				int inventoryNumber = rs.getInt("inventoryNumber");
+				String description = rs.getString("description");
+				String thumbnail = rs.getString("thumbnail");
+
+				Product p = new Product(id, title1, price, discount, inventoryNumber, description, thumbnail, cid);
+
+				ketQua.add(p);
+			}
+
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return ketQua;
+	}
+
+	public static void main(String[] args) {
+		ProductDAO pd = new ProductDAO();
+		ArrayList<Product> list = pd.searchByName("pha lê");
+		for (Product product : list) {
+			System.out.println(product);
+		}
+	}
+
 }
