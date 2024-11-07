@@ -1,0 +1,7 @@
+.adadvertisement{
+
+}
+.advertisement-sub {
+    display: flex;
+    justify-content: space-between;
+}

@@ -1,0 +1,113 @@
+#header{
+}
+
+.header-nav{
+    display: flex;
+    flex-direction: column;
+    
+}
+hr{
+    margin: 0 48px;
+}
+
+.header-nav-sub1{
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    margin-left: 150px;
+    margin-right: 150px;
+
+}
+
+.nav-sub1-left{
+
+}
+
+.nav-sub1-left .sub1-left-element{
+    padding: 0;
+    margin: 0;
+}
+
+.nav-sub1-left .sub1-left-element > li{
+    display: inline-block;
+    line-height: 64px;
+    margin-right: 15px;
+   
+}
+.sub1-left-element > li > a{
+    text-decoration: none;
+    color: #4d4d4d;
+}
+
+.nav-sub1-right{
+
+}
+
+.nav-sub1-right .sub1-right-element > li {
+    display: inline-block;
+    line-height: 64px;
+    margin-right: 15px;
+}
+
+.sub1-right-element > li > a{
+    text-decoration: none;
+    color: #4d4d4d;
+}
+
+.header-nav-sub2{
+    margin-top: 8px;
+    margin-left: 150px;
+    margin-right: 150px;
+
+}
+
+.header-nav-sub2 .sub2-element {
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    padding: 0;
+}
+
+.sub2-element > li{
+    display: inline-block;
+}
+.sub2-element > li >a{
+    text-decoration: none;
+    color: black;
+}
+.sub2-element > li >a > span{
+    color: red;
+}
+
+.sub2-element > li:last-child{
+    display: flex;
+    align-items: center;
+    background-color: #f2f2f2;
+    border-radius: 30px;
+    padding: 5px 10px;
+    width: 300px;
+}
+
+.sub2-element input{
+    border: none;
+    background: none;
+    outline: none;
+    flex-grow: 1;
+    font-size: 16px;
+    color: #555;
+}
+.sub2-element button{
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.sub2-element button i {
+    font-size: 18px;
+    color: #555;
+  }
+  .sub2-element input::placeholder {
+    color: #aaa;
+  }
+
+
+
