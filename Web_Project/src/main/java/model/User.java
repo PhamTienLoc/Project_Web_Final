@@ -1,13 +1,11 @@
 package model;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class User {
 	private int id;
-	private String fullName;
 	private String user;
+	private String fullName;
 	private String password;
 	private boolean gender;
 	private Date birthDay;
@@ -16,31 +14,13 @@ public class User {
 	private String address;
 	private Date createdAt;
 	private Date updatedAt;
-	private int isAdmin;
+	private boolean isAdmin;
 
 	public User() {
-		super();
 	}
 
-	public User(String fullName, String user, String password, boolean gender, Date birthDay, String email,
-			String phoneNumber, String address, Date createdAt, Date updatedAt) {
-		super();
-		this.fullName = fullName;
-		this.user = user;
-		this.password = password;
-		this.gender = gender;
-		this.birthDay = birthDay;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.address = address;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-	}
-
-	public User(int id, String fullName, String user, String password, boolean gender, Date birthDay, String email,
-			String phoneNumber, String address, Date createdAt, Date updatedAt, int isAdmin) {
-		super();
-		this.id = id;
+	public User(String user, String fullName, String password, boolean gender, Date birthDay, String email,
+			String phoneNumber, String address, Date createdAt, Date updatedAt, boolean isAdmin) {
 		this.fullName = fullName;
 		this.user = user;
 		this.password = password;
@@ -52,22 +32,6 @@ public class User {
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.isAdmin = isAdmin;
-	}
-
-	public User(int id, String fullName, String user, String password, boolean gender, Date birthDay, String email,
-			String phoneNumber, String address, Date createdAt, Date updatedAt) {
-		super();
-		this.id = id;
-		this.fullName = fullName;
-		this.user = user;
-		this.password = password;
-		this.gender = gender;
-		this.birthDay = birthDay;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.address = address;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
 	}
 
 	public int getId() {
@@ -158,11 +122,11 @@ public class User {
 		this.updatedAt = updatedAt;
 	}
 
-	public int getIsAdmin() {
+	public boolean isAdmin() {
 		return isAdmin;
 	}
 
-	public void setIsAdmin(int isAdmin) {
+	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
 

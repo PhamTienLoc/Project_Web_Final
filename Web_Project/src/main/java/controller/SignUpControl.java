@@ -88,8 +88,7 @@ public class SignUpControl extends HttpServlet {
 			url = "/Signup.jsp";
 		} else {
 			success = "Đăng ký thành công";
-			User us = new User(fullName, userName, rePassword, gioiTinh, Date.valueOf(birthDay), email, phoneNumber,
-					address, new java.util.Date(), new java.util.Date());
+			User us = new User(userName, fullName, passWord, gioiTinh, Date.valueOf(birthDay), email, phoneNumber, address, new java.util.Date(), new java.util.Date(), false);
 			ud.insert(us);
 			request.setAttribute("success", success);
 			url = "/Signup.jsp";

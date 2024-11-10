@@ -10,7 +10,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import context.JDBCUtil;
+import database.JDBCUtil;
+import model.Product;
 import model.User;
 
 public class UserDAO implements DAOInterface<User> {
@@ -25,6 +26,53 @@ public class UserDAO implements DAOInterface<User> {
 	public User selectById(User o) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public User selectByUsernameAndPassword(User u) {
+		User user = null;
+		
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "SELECT * FROM USER WHERE USER=? AND PASSWORD=?";
+
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, u.getUser());
+			st.setString(2, u.getPassword());
+
+			// Bước 3: thực thi câu lệnh SQL
+			ResultSet rs = st.executeQuery();
+
+			// Bước 4:
+			while (rs.next()) {
+				String username = rs.getString("user");
+				String fullname = rs.getString("fullname");
+				String password = rs.getString("password");
+				int genderInt = rs.getInt("gender");
+			    boolean gender = (genderInt == 1); 
+				Date birthDay = rs.getDate("birthDay");
+				String email = rs.getString("email");
+				String phoneNumber = rs.getString("phoneNumber");
+				String address = rs.getString("address");
+				Date createdAt = rs.getDate("createdAt");
+				Date updatedAt = rs.getDate("updatedAt");
+				int isAdminInt = rs.getInt("isAdmin");
+				boolean isAdmin = (genderInt == 1); 
+				
+				user = new User(username, fullname, password, gender, birthDay, email, phoneNumber, address, createdAt, updatedAt, isAdmin);
+
+			}
+
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return user;
 	}
 
 	@Override

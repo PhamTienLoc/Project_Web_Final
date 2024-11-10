@@ -41,8 +41,8 @@
 				<form action="signup" method="post">
 					<div class="mb-3">
 						<label for="username" class="form-label">Username</label> <input
-							type="text" class="form-control" id="username" name="username" value="${userName}"
-							placeholder="Enter your username" required >
+							type="text" class="form-control" id="username" name="username"
+							value="${userName}" placeholder="Enter your username" required>
 					</div>
 
 					<div class="mb-3">
@@ -61,8 +61,8 @@
 
 					<div class="mb-3">
 						<label for="fullName" class="form-label">Full Name</label> <input
-							type="text" class="form-control" id="fullName" name="fullName" value="${fullName}"
-							placeholder="Enter your full name" required >
+							type="text" class="form-control" id="fullName" name="fullName"
+							value="${fullName}" placeholder="Enter your full name" required>
 					</div>
 					<div class="mb-3">
 						<label class="form-label">Gender</label>
@@ -99,7 +99,8 @@
 					<div class="mb-3">
 						<label for="address" class="form-label">Address</label> <input
 							type="text" class="form-control" id="address"
-							placeholder="Enter your address" name="address" value="${address}">
+							placeholder="Enter your address" name="address"
+							value="${address}">
 					</div>
 					<button type="submit" class="btn btn-primary">Sign Up</button>
 				</form>
