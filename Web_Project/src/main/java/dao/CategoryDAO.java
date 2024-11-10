@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import context.JDBCUtil;
+import database.JDBCUtil;
 import model.Category;
 
 public class CategoryDAO implements DAOInterface<Category> {

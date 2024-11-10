@@ -8,8 +8,8 @@
 		<!-- Logo -->
 		<a href="home"
 			class="d-flex align-items-center text-dark text-decoration-none">
-			<img src="logo.png" alt="Logo" width="40" height="32" class="me-2">
-			<span class="fs-4">BrandName</span>
+			<img src="${pageContext.request.contextPath}/image/Phát Lộc.png" alt="Logo" width="40" height="100%" class="me-2">
+			<span class="fs-4">PLJ</span>
 		</a>
 
 		<!-- Navigation -->
