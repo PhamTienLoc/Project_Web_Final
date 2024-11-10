@@ -8,8 +8,8 @@
 		<!-- Logo -->
 		<a href="home"
 			class="d-flex align-items-center text-dark text-decoration-none">
-			<img src="${pageContext.request.contextPath}/image/Phát Lộc.png" alt="Logo" width="40" height="100%" class="me-2">
-			<span class="fs-4">PLJ</span>
+			<img src="${pageContext.request.contextPath}/image/Phát Lộc.png" alt="Logo" width="40" height="100%" class="me-2 rounded-circle">
+			<span class="fs-4 ml-3">PLJ</span>
 		</a>
 
 		<!-- Navigation -->
@@ -49,24 +49,29 @@
 					3 <!-- Số lượng sản phẩm trong giỏ -->
 			</span>
 			</a>
-			  <button type="button" class="btn btn-outline-primary ">Login</button>
-
-			<!-- Dropdown Menu for Login -->
-			<!--<div class="dropdown">
-				<button class="btn btn-outline-primary dropdown-toggle"
-					type="button" id="loginDropdown" data-bs-toggle="dropdown"
-					aria-expanded="false">Hello Phát</button>
-				<ul class="dropdown-menu dropdown-menu-end"
-					aria-labelledby="loginDropdown">
-					<li><a class="dropdown-item" href="#">Thay Đổi thông tin</a></li>
-					<li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>
-					<li><a class="dropdown-item" href="#">Login with Facebook</a></li>
-					<li>
-						<hr class="dropdown-divider">
-					</li>
-					<li><a class="dropdown-item" href="#">Forgot Password?</a></li>
-				</ul>
-			</div>  -->
+			
+			<c:choose>
+				<c:when test="${sessionScope.user !=null}">
+					<!-- Dropdown Menu for Logged User -->
+					<div class="dropdown">
+						<button class="btn btn-outline-primary dropdown-toggle"
+							type="button" id="loginDropdown" data-bs-toggle="dropdown"
+							aria-expanded="false">Hello ${sessionScope.user.fullName}</button>
+						<ul class="dropdown-menu dropdown-menu-end"
+							aria-labelledby="loginDropdown">
+							<li><a class="dropdown-item" href="#">Thay đổi thông tin</a></li>
+							<li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>
+							<li><hr class="dropdown-divider"></li>
+							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Đăng xuất</a></li>
+						</ul>
+					</div>
+					
+				</c:when>
+				<c:otherwise>
+					<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/Login.jsp">Login</a>
+				</c:otherwise>
+			</c:choose>
+			
 			
 
 

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,20 +30,28 @@
 			src="${pageContext.request.contextPath}/image/Phát Lộc.png" alt="Logo" width="78">
 			
 		<div class="form-wrapper">
-			<form class="text-center" action="LoginServlet" method="POST">
+			<form class="text-center" action="login" method="POST">
 				<h1 class="h3 mb-3 fw-semibold">Log in to PLJewelry</h1>
 				
 				<div class="form-floating mb-2 rounded">
-					<input type="text" class="form-control" id="tenDangNhap" name="tenDangNhap" placeholder="Tên đăng nhập"> 
+					<input type="text" class="form-control" id="tenDangNhap" name="username" 
+					value="${requestScope.username!=null?requestScope.username:""}" placeholder="Tên đăng nhập"> 
 					<label for="tenDangNhap">Tên đăng nhập</label>
 				</div>
 				
-				<div class="form-floating rounded">
-					<input type="password" class="form-control" id="matKhau" name="matKhau" placeholder="Mật Khẩu"> 
+				<div class="form-floating mb-2 rounded">
+					<input type="password" class="form-control" id="matKhau" name="password" placeholder="Mật Khẩu"> 
 					<label for="matKhau">Mật Khẩu</label>
 				</div>
 
+				<c:if test="${error != null}">
+					<div class="mb-2">
+						<p class="error-txt text-start my-0"> ${requestScope.error}
+					</div>
+				</c:if>
+
 				<button class="w-100 btn btn-lg btn-primary mt-2" type="submit">Đăng Nhập</button>
+				
 				<div class="mt-3 justify-content-evenly">
 					<a class="text-decoration-none" href="#">Quên mật khẩu?</a> - 
 					<a class="text-decoration-none" href="Signup.jsp">Đăng ký tài khoản </a>

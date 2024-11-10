@@ -40,3 +40,8 @@ body {
 .form-signin input[type="password"] {
 	margin-bottom: 10px;
 }
+
+.error-txt {
+	font-size: 14px;
+	color: #f02849;
+}
