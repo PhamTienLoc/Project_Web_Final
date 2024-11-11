@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet {
 		if (checkUser != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", checkUser);
-			url = "/Home.jsp";
+			url = "/home";
 		} else {
 			error = "Bạn nhập sai tên đăng nhập hoặc mật khẩu";
 			request.setAttribute("error", error);

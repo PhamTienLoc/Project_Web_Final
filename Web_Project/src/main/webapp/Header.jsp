@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <header
-	class="container-fluid bg-light py-3 mb-4 border-bottom shadow-sm">
+	class="container-fluid bg-light py-3 border-bottom shadow-sm">
 	<div
 		class="d-flex flex-wrap align-items-center justify-content-between">
 		<!-- Logo -->
@@ -60,7 +60,7 @@
 						<ul class="dropdown-menu dropdown-menu-end"
 							aria-labelledby="loginDropdown">
 							<li><a class="dropdown-item" href="#">Thay đổi thông tin</a></li>
-							<li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>
+							<li><a class="dropdown-item" href="ChangePassWord.jsp">Đổi mật khẩu</a></li>
 							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Đăng xuất</a></li>
 						</ul>
@@ -79,48 +79,18 @@
 	</div>
 </header>
 <!--Slider 1920x640 hoặc 1920x960.-->
-<div id="carouselExampleIndicators" class="carousel slide"
+<div id="carouselExampleSlidesOnly" class="carousel slide mb-4"
 	data-bs-ride="carousel">
-	<div class="carousel-indicators">
-		<button type="button" data-bs-target="#carouselExampleIndicators"
-			data-bs-slide-to="0" class="active" aria-current="true"
-			aria-label="Slide 1"></button>
-		<button type="button" data-bs-target="#carouselExampleIndicators"
-			data-bs-slide-to="1" aria-label="Slide 2"></button>
-		<button type="button" data-bs-target="#carouselExampleIndicators"
-			data-bs-slide-to="2" aria-label="Slide 3"></button>
-	</div>
 	<div class="carousel-inner">
 		<div class="carousel-item active">
-			<img src="image1.jpg" class="d-block w-100" alt="First Slide">
-			<div class="carousel-caption d-none d-md-block">
-				<h5>First Slide Title</h5>
-				<p>Description for the first slide.</p>
-			</div>
+			<img
+				src="https://cdn.pnj.io/images/promo/228/ngaydoi-1111-1972x640CTA.jpg"
+				class="d-block w-100" alt="...">
 		</div>
 		<div class="carousel-item">
-			<img src="image2.jpg" class="d-block w-100" alt="Second Slide">
-			<div class="carousel-caption d-none d-md-block">
-				<h5>Second Slide Title</h5>
-				<p>Description for the second slide.</p>
-			</div>
-		</div>
-		<div class="carousel-item">
-			<img src="image3.jpg" class="d-block w-100" alt="Third Slide">
-			<div class="carousel-caption d-none d-md-block">
-				<h5>Third Slide Title</h5>
-				<p>Description for the third slide.</p>
-			</div>
+			<img
+				src="https://cdn.pnj.io/images/promo/227/tabsale-t11-24-1972x640-chung.jpg"
+				class="d-block w-100" alt="...">
 		</div>
 	</div>
-	<button class="carousel-control-prev" type="button"
-		data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-		<span class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-			class="visually-hidden">Previous</span>
-	</button>
-	<button class="carousel-control-next" type="button"
-		data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-		<span class="carousel-control-next-icon" aria-hidden="true"></span> <span
-			class="visually-hidden">Next</span>
-	</button>
 </div>
