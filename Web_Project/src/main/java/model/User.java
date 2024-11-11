@@ -19,6 +19,23 @@ public class User {
 	public User() {
 	}
 
+	public User(int id, String user, String fullName, String password, boolean gender, Date birthDay, String email,
+			String phoneNumber, String address, Date createdAt, Date updatedAt, boolean isAdmin) {
+		super();
+		this.id = id;
+		this.user = user;
+		this.fullName = fullName;
+		this.password = password;
+		this.gender = gender;
+		this.birthDay = birthDay;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.isAdmin = isAdmin;
+	}
+
 	public User(String user, String fullName, String password, boolean gender, Date birthDay, String email,
 			String phoneNumber, String address, Date createdAt, Date updatedAt, boolean isAdmin) {
 		this.fullName = fullName;
