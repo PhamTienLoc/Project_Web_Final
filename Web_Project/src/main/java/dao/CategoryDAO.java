@@ -30,8 +30,9 @@ public class CategoryDAO implements DAOInterface<Category> {
 			while (rs.next()) {
 				int cid = rs.getInt("id");
 				String cname = rs.getString("name");
+				String thumb =rs.getString("thumb");
 
-				Category c = new Category(cid, cname);
+				Category c = new Category(cid, cname, thumb);
 
 				ketQua.add(c);
 			}

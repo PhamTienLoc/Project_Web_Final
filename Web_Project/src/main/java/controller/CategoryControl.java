@@ -37,16 +37,16 @@ public class CategoryControl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String cid = request.getParameter("cidPhat");
+		String cid = request.getParameter("id");
 		ProductDAO pdao = new ProductDAO();
 		CategoryDAO cdao = new CategoryDAO();
 		ArrayList<Product> list = pdao.getProductByCID(cid);
 		ArrayList<Category> list1 = cdao.selectAll();
-		Product pLast = pdao.getProductLast();
+		ArrayList<Product> list2= pdao.selectFourProductNew();
 
 		request.setAttribute("listP", list);
 		request.setAttribute("listC", list1);
-		request.setAttribute("p", pLast);
+		request.setAttribute("list2", list2);
 		request.setAttribute("tag", cid);
 		String url = "/Home.jsp";
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
