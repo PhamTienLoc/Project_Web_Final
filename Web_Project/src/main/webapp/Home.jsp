@@ -30,6 +30,23 @@
 
 	<jsp:include page="Header.jsp"></jsp:include>
 
+	<!--Slider 1920x640 hoặc 1920x960.-->
+	<div id="carouselExampleSlidesOnly" class="carousel slide mb-4"
+		data-bs-ride="carousel">
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img
+					src="https://cdn.pnj.io/images/promo/228/ngaydoi-1111-1972x640CTA.jpg"
+					class="d-block w-100" alt="...">
+			</div>
+			<div class="carousel-item">
+				<img
+					src="https://cdn.pnj.io/images/promo/227/tabsale-t11-24-1972x640-chung.jpg"
+					class="d-block w-100" alt="...">
+			</div>
+		</div>
+	</div>
+	
 	<div class="container">
 		<div class="row">
 			<div class="col">
@@ -56,7 +73,7 @@
 								alt="Product Image">
 							<div class="card-body text-center">
 								<h5 class="card-title">${p.title}</h5>
-								<p class="card-text">${p.price} $</p>
+								<p class="card-text">${p.price}$</p>
 								<button class="btn btn-primary">Add to Cart</button>
 							</div>
 						</div>
@@ -98,7 +115,7 @@
 								alt="Product Image">
 							<div class="card-body text-center">
 								<h5 class="card-title">${p.title}</h5>
-								<p class="card-text">${p.price} $</p>
+								<p class="card-text">${p.price}$</p>
 								<a href="#" class="btn btn-success">Add to Cart</a>
 							</div>
 						</div>

@@ -59,8 +59,8 @@
 							aria-expanded="false">Hello ${sessionScope.user.fullName}</button>
 						<ul class="dropdown-menu dropdown-menu-end"
 							aria-labelledby="loginDropdown">
-							<li><a class="dropdown-item" href="#">Thay đổi thông tin</a></li>
-							<li><a class="dropdown-item" href="ChangePassWord.jsp">Đổi mật khẩu</a></li>
+							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/ChangeUserInfo.jsp">Thay đổi thông tin</a></li>
+							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/ChangePassWord.jsp">Đổi mật khẩu</a></li>
 							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Đăng xuất</a></li>
 						</ul>
@@ -71,26 +71,7 @@
 					<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/Login.jsp">Login</a>
 				</c:otherwise>
 			</c:choose>
-			
-			
-
 
 		</div>
 	</div>
 </header>
-<!--Slider 1920x640 hoặc 1920x960.-->
-<div id="carouselExampleSlidesOnly" class="carousel slide mb-4"
-	data-bs-ride="carousel">
-	<div class="carousel-inner">
-		<div class="carousel-item active">
-			<img
-				src="https://cdn.pnj.io/images/promo/228/ngaydoi-1111-1972x640CTA.jpg"
-				class="d-block w-100" alt="...">
-		</div>
-		<div class="carousel-item">
-			<img
-				src="https://cdn.pnj.io/images/promo/227/tabsale-t11-24-1972x640-chung.jpg"
-				class="d-block w-100" alt="...">
-		</div>
-	</div>
-</div>

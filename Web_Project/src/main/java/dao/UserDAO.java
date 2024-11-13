@@ -23,9 +23,50 @@ public class UserDAO implements DAOInterface<User> {
 	}
 
 	@Override
-	public User selectById(User o) {
-		// TODO Auto-generated method stub
-		return null;
+	public User selectById(User u) {
+		User user = null;
+
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "SELECT * FROM USER WHERE id=?";
+
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, u.getId());
+
+			// Bước 3: thực thi câu lệnh SQL
+			ResultSet rs = st.executeQuery();
+
+			// Bước 4:
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String username = rs.getString("user");
+				String fullname = rs.getString("fullname");
+				String password = rs.getString("password");
+				boolean gender = rs.getBoolean("gender");
+				Date birthDay = rs.getDate("birthDay");
+				String email = rs.getString("email");
+				String phoneNumber = rs.getString("phoneNumber");
+				String address = rs.getString("address");
+				Date createdAt = rs.getDate("createdAt");
+				Date updatedAt = rs.getDate("updatedAt");
+				boolean isAmind = rs.getBoolean("isAdmin");
+
+				user = new User(id, username, fullname, password, gender, birthDay, email, phoneNumber, address,
+						createdAt, updatedAt, isAmind);
+
+			}
+
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return user;
 	}
 
 	public User selectByUsernameAndPassword(User u) {
@@ -139,6 +180,45 @@ public class UserDAO implements DAOInterface<User> {
 		return 0;
 	}
 
+	public int updateInfo(User u) {
+		int res = 0;
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "UPDATE user " + " SET " + " fullname=?" + ", gender=?" + ", birthDay=?" + ", email=?"
+					+ ", phoneNumber=?" + ", address=?" + ", updatedAt=?" + " WHERE id=?";
+
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, u.getFullName());
+			st.setBoolean(2, u.isGender());
+			st.setDate(3, new java.sql.Date(u.getBirthDay().getTime()));
+			st.setString(4, u.getEmail());
+			st.setString(5, u.getPhoneNumber());
+			st.setString(6, u.getAddress());
+			Timestamp updateTime = new Timestamp(u.getUpdatedAt().getTime());
+			st.setTimestamp(7, updateTime);
+			st.setInt(8, u.getId());
+			// Bước 3: thực thi câu lệnh SQL
+
+			System.out.println(sql);
+			res = st.executeUpdate();
+
+			// Bước 4:
+			System.out.println("Bạn đã thực thi: " + sql);
+			System.out.println("Có " + res + " dòng bị thay đổi!");
+
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return res;
+	}
+
 	public boolean checkUser(String tenDangNhap) {
 		boolean ketQua = false;
 		try {
@@ -205,7 +285,7 @@ public class UserDAO implements DAOInterface<User> {
 
 //		User u = new User("Lê Tuấn Phát", "phat21", "123", true, new Date(2003 - 1900, 01 - 1, 24),
 //				"ltphat240103@gmail.com", "0935822771", "65a đường số 18", LocalDateTime.now(), null);
-		System.out.println(ud.checkUser("phat21"));
+//		System.out.println(ud.checkUser("phat21"));
 	}
 
 }
