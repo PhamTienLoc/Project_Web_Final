@@ -14,7 +14,7 @@
 
 		<!-- Navigation -->
 		<ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-			<li><a href="#" class="nav-link px-3 link-secondary">Home</a></li>
+			<li><a href="home" class="nav-link px-3 link-secondary">Home</a></li>
 
 			<!-- Dropdown Menu -->
 			<li class="nav-item dropdown"><a
@@ -29,7 +29,7 @@
 
 			<li><a href="#" class="nav-link px-3 link-dark">Blog</a></li>
 			<li><a href="#" class="nav-link px-3 link-dark">Chính sách</a></li>
-			<li><a href="#" class="nav-link px-3 link-dark">About</a></li>
+			<li><a href="About.jsp" class="nav-link px-3 link-dark">About</a></li>
 		</ul>
 
 		<!-- Search, Cart, and Login Button -->
@@ -74,4 +74,6 @@
 
 		</div>
 	</div>
+
 </header>
+

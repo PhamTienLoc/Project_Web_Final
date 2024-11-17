@@ -46,7 +46,6 @@
 			</div>
 		</div>
 	</div>
-	
 	<div class="container">
 		<div class="row">
 			<div class="col">
@@ -69,10 +68,19 @@
 				<c:forEach var="p" items="${list2}">
 					<div class="col-md-3">
 						<div class="card card-hover">
-							<img src="${p.thumbnail}" class="card-img-top"
-								alt="Product Image">
+							<c:url var="productdetail" value="/detail">
+								<c:param name="id" value="${p.id}" />
+								<c:param name="cid" value="${p.cid}" />
+							</c:url>
+							<a href="${productdetail}"> <img src="${p.thumbnail}"
+								class="card-img-top" alt="Product Image">
+							</a>
 							<div class="card-body text-center">
-								<h5 class="card-title">${p.title}</h5>
+
+								<a href="${productdetail}">
+									<h5 class="card-title">${p.title}</h5>
+								</a>
+
 								<p class="card-text">${p.price}$</p>
 								<button class="btn btn-primary">Add to Cart</button>
 							</div>
@@ -109,12 +117,24 @@
 			<div id="content" class="row">
 				<!-- Sử dụng JSTL để lặp qua danh sách loạt sản phẩm -->
 				<c:forEach var="p" items="${listP}">
+					<c:url var="productdetail" value="/detail">
+						<c:param name="id" value="${p.id}" />
+						<c:param name="cid" value="${p.cid}" />
+					</c:url>
+
 					<div class="product col-md-3 mb-4">
 						<div class="card card-hover">
-							<img src="${p.thumbnail}" class="card-img-top"
-								alt="Product Image">
+							<!-- Link bọc hình ảnh -->
+							<a href="${productdetail}"> <img src="${p.thumbnail}"
+								class="card-img-top" alt="Product Image">
+							</a>
 							<div class="card-body text-center">
-								<h5 class="card-title">${p.title}</h5>
+
+								<!-- Link bọc title, đảm bảo không có khoảng trắng bên trong -->
+								<a href="${productdetail}" class="text-decoration-none">
+									<h5 class="card-title">${p.title}</h5>
+								</a>
+
 								<p class="card-text">${p.price}$</p>
 								<a href="#" class="btn btn-success">Add to Cart</a>
 							</div>
