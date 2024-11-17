@@ -50,7 +50,7 @@ public class ProductDAO implements DAOInterface<Product> {
 
 		return ketQua;
 	}
-	
+
 	public ArrayList<Product> selectFourProductNew() {
 		ArrayList<Product> ketQua = new ArrayList<Product>();
 		try {
@@ -58,9 +58,7 @@ public class ProductDAO implements DAOInterface<Product> {
 			Connection con = JDBCUtil.getConnection();
 
 			// Bước 2: tạo ra đối tượng statement
-			String sql = "SELECT * FROM product\r\n"
-					+ "order BY id desc\r\n"
-					+ "LIMIT 4";
+			String sql = "SELECT * FROM product\r\n" + "order BY id desc\r\n" + "LIMIT 4";
 			PreparedStatement st = con.prepareStatement(sql);
 
 			// Bước 3: thực thi câu lệnh SQL
@@ -92,7 +90,7 @@ public class ProductDAO implements DAOInterface<Product> {
 
 		return ketQua;
 	}
-	
+
 	public ArrayList<Product> selectFourProduct() {
 		ArrayList<Product> ketQua = new ArrayList<Product>();
 		try {
@@ -100,8 +98,7 @@ public class ProductDAO implements DAOInterface<Product> {
 			Connection con = JDBCUtil.getConnection();
 
 			// Bước 2: tạo ra đối tượng statement
-			String sql = "SELECT * FROM product\r\n"
-					+ "LIMIT 4";
+			String sql = "SELECT * FROM product\r\n" + "LIMIT 4";
 			PreparedStatement st = con.prepareStatement(sql);
 
 			// Bước 3: thực thi câu lệnh SQL
@@ -133,7 +130,7 @@ public class ProductDAO implements DAOInterface<Product> {
 
 		return ketQua;
 	}
-	
+
 	public ArrayList<Product> ChiLay4SPTiepTheo(int amount) {
 		ArrayList<Product> ketQua = new ArrayList<Product>();
 		try {
@@ -269,12 +266,15 @@ public class ProductDAO implements DAOInterface<Product> {
 			// Bước 4:
 			while (rs.next()) {
 				int id = rs.getInt("id");
+				int cid1 = rs.getInt("categoryId");
 				String title = rs.getString("title");
 				double price = rs.getDouble("price");
+				int discount = rs.getInt("discount");
+				int inventoryNumber = rs.getInt("inventoryNumber");
 				String description = rs.getString("description");
 				String thumbnail = rs.getString("thumbnail");
 
-				Product p = new Product(id, title, price, description, thumbnail);
+				Product p = new Product(id, title, price, discount, inventoryNumber, description, thumbnail, cid1);
 
 				ketQua.add(p);
 			}
@@ -329,6 +329,60 @@ public class ProductDAO implements DAOInterface<Product> {
 
 		return ketQua;
 	}
+
+	public Product getProductByID(String id) {
+		Product ketQua = null;
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "SELECT * FROM product\r\n" + "WHERE id = ?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, id);
+
+			// Bước 3: thực thi câu lệnh SQL
+			System.out.println(sql);
+			ResultSet rs = st.executeQuery();
+
+			// Bước 4:
+			while (rs.next()) {
+				int id1 = rs.getInt("id");
+				int cid = rs.getInt("categoryId");
+				String title = rs.getString("title");
+				double price = rs.getDouble("price");
+				int discount = rs.getInt("discount");
+				int inventoryNumber = rs.getInt("inventoryNumber");
+				String description = rs.getString("description");
+				String thumbnail = rs.getString("thumbnail");
+
+				Product p = new Product(id1, title, price, discount, inventoryNumber, description, thumbnail, cid);
+
+				ketQua = p;
+			}
+
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return ketQua;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -340,7 +394,7 @@ public class ProductDAO implements DAOInterface<Product> {
 		for (Product product : list) {
 			System.out.println(product);
 		}
-		
+
 	}
 
 }
