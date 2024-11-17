@@ -14,7 +14,7 @@
 
 		<!-- Navigation -->
 		<ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-			<li><a href="#" class="nav-link px-3 link-secondary">Home</a></li>
+			<li><a href="home" class="nav-link px-3 link-secondary">Home</a></li>
 
 			<!-- Dropdown Menu -->
 			<li class="nav-item dropdown"><a
@@ -29,7 +29,7 @@
 
 			<li><a href="#" class="nav-link px-3 link-dark">Blog</a></li>
 			<li><a href="#" class="nav-link px-3 link-dark">Chính sách</a></li>
-			<li><a href="#" class="nav-link px-3 link-dark">About</a></li>
+			<li><a href="About.jsp" class="nav-link px-3 link-dark">About</a></li>
 		</ul>
 
 		<!-- Search, Cart, and Login Button -->
@@ -78,19 +78,3 @@
 		</div>
 	</div>
 </header>
-<!--Slider 1920x640 hoặc 1920x960.-->
-<div id="carouselExampleSlidesOnly" class="carousel slide mb-4"
-	data-bs-ride="carousel">
-	<div class="carousel-inner">
-		<div class="carousel-item active">
-			<img
-				src="https://cdn.pnj.io/images/promo/228/ngaydoi-1111-1972x640CTA.jpg"
-				class="d-block w-100" alt="...">
-		</div>
-		<div class="carousel-item">
-			<img
-				src="https://cdn.pnj.io/images/promo/227/tabsale-t11-24-1972x640-chung.jpg"
-				class="d-block w-100" alt="...">
-		</div>
-	</div>
-</div>
