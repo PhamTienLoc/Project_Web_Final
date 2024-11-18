@@ -1,0 +1,44 @@
+.blog-card {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border: 1px solid #e9ecef;
+    border-radius: 5px;
+    transition: transform 0.3s;
+}
+
+.blog-card .text-secondary {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Chỉ hiển thị 3 dòng */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.blog-card:hover {
+    transform: scale(1.02);
+}
+
+.blog-thumbnail {
+    width: 290px;
+    height: auto;
+    object-fit: cover;
+}
+
+.blog-list-item {
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.blog-list-item:last-child {
+    border-bottom: none;
+}
+
+.blog-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.blog-link h5:hover {
+    color: #db4e5a; /* Tùy chỉnh màu hover */
+}
