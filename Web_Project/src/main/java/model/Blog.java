@@ -5,27 +5,29 @@ import java.util.List;
 
 public class Blog {
 	private int id;
-	private int authorId;
+	private String author;
 	private String title;
 	private String description;
 	private String thumbnail;
 	private String contentPath;
 	private Date createdAt;
+	private Date updatedAt;
 	private boolean status;
 	private List<BlogImage> images;
 
 	public Blog() {
 	}
 
-	public Blog(int id, int authorId, String title, String description, String thumbnail, String contentPath,
-			Date createdAt, boolean status, List<BlogImage> images) {
+	public Blog(int id, String author, String title, String description, String thumbnail, String contentPath,
+			Date createdAt, Date updatedAt, boolean status, List<BlogImage> images) {
 		this.id = id;
-		this.authorId = authorId;
+		this.author = author;
 		this.title = title;
 		this.description = description;
 		this.thumbnail = thumbnail;
 		this.contentPath = contentPath;
 		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
 		this.status = status;
 		this.images = images;
 	}
@@ -38,12 +40,12 @@ public class Blog {
 		this.id = id;
 	}
 
-	public int getAuthorId() {
-		return authorId;
+	public String getAuthor() {
+		return author;
 	}
 
-	public void setAuthorId(int authorId) {
-		this.authorId = authorId;
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
 	public String getTitle() {
@@ -86,6 +88,14 @@ public class Blog {
 		this.createdAt = createdAt;
 	}
 
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
 	public boolean isStatus() {
 		return status;
 	}
@@ -104,9 +114,9 @@ public class Blog {
 
 	@Override
 	public String toString() {
-		return "Blog [id=" + id + ", authorId=" + authorId + ", title=" + title + ", description=" + description
-				+ ", thumbnail=" + thumbnail + ", contentPath=" + contentPath + ", createdAt=" + createdAt + ", status="
-				+ status + ", images=" + images + "]";
+		return "Blog [id=" + id + ", author=" + author + ", title=" + title + ", description=" + description
+				+ ", thumbnail=" + thumbnail + ", contentPath=" + contentPath + ", createdAt=" + createdAt
+				+ ", updatedAt=" + updatedAt + ", status=" + status + ", images=" + images + "]";
 	}
 
 }

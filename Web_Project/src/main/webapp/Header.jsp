@@ -27,7 +27,7 @@
 					<li><a class="dropdown-item" href="#">Feature 3</a></li>
 				</ul></li>
 
-			<li><a href="#" class="nav-link px-3 link-dark">Blog</a></li>
+			<li><a href="blogs" class="nav-link px-3 link-dark">Blog</a></li>
 			<li><a href="#" class="nav-link px-3 link-dark">Chính sách</a></li>
 			<li><a href="About.jsp" class="nav-link px-3 link-dark">About</a></li>
 		</ul>
@@ -56,7 +56,7 @@
 					<div class="dropdown">
 						<button class="btn btn-outline-primary dropdown-toggle"
 							type="button" id="loginDropdown" data-bs-toggle="dropdown"
-							aria-expanded="false">Hello ${sessionScope.user.fullName}</button>
+							aria-expanded="false">Hello ${sessionScope.user.user}</button>
 						<ul class="dropdown-menu dropdown-menu-end"
 							aria-labelledby="loginDropdown">
 							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/ChangeUserInfo.jsp">Thay đổi thông tin</a></li>
