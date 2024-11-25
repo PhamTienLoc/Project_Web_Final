@@ -1,0 +1,76 @@
+<div class="text-center mb-3">
+img_placeholder1
+</div>
+<p>Sự kiện diễn ra từ 20/11 – 01/12/2024 trên toàn quốc, chi tiết thời gian và địa điểm như sau:</p>
+<table class="table table-bordered">
+<tr>
+<th>STT</th>
+<th>ĐỊA ĐIỂM</th>
+<th>THỜI GIAN</th>
+<th>CA SĨ</th>
+</tr>
+<tr>
+<td>1</td>
+<td>AEON MALL BÌNH TÂN</td>
+<td>20 – 21/11/2024</td>
+<td>PHẠM ANH DUY</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GO! BUÔN MA THUỘT</td>
+<td>23 – 24/11/2024</td>
+<td>JSOL</td>
+</tr>
+<tr>
+<td>3</td>
+<td>AEON MALL HUẾ</td>
+<td>29 – 30/11/2024</td>
+<td>PHẠM ANH DUY</td>
+</tr>
+<tr>
+<td>4</td>
+<td>AEON MALL LONG BIÊN</td>
+<td>29 – 30/11/2024</td>
+<td>HẢI ĐĂNG DOO</td>
+</tr>
+<tr>
+<td>5</td>
+<td>SORA GARDENT BÌNH DƯƠNG</td>
+<td>29 – 30/11/2024</td>
+<td>VŨ THỊNH</td>
+</tr>
+<tr>
+<td>6</td>
+<td>GO! BẠC LIÊU</td>
+<td>30/11 – 01/12/2024</td>
+<td>CAPTAIN</td>
+</tr>
+</table>
+<div class="text-center mb-3">
+img_placeholder2
+</div>
+<p>Đến với sự kiện “Bừng sắc lễ hội – Đón ưu đãi cùng thần tượng”, bạn sẽ có cơ hội hòa mình vào lễ
+hội rộn ràng, đắm chìm trong không gian âm nhạc và màn trình diễn bất ngờ của các ca sĩ thần
+tượng. Bên cạnh đó, PLJ mang đến vô vàn ưu đãi không thể bỏ lỡ:</p>
+<p>Hòa mình vào không gian âm nhạc với các CA SĨ THẦN TƯỢNG.</p>
+<div class="text-center mb-3">
+img_placeholder3
+</div>
+<p>Khám phá hộp Trang sức Bạc bí ẩn chỉ 149.000Đ & Hộp Trang sức Vàng bí ẩn chỉ 699.000Đ.</p>
+<div class="text-center mb-3">
+img_placeholder4
+</div>
+<p>Cơ hội trúng KIM CƯƠNG RỜI & VÀNG MINI TIỂU LỘC ĐẠI PHÁT.</p>
+<div class="text-center mb-3">
+img_placeholder5
+</div>
+<p>Quà tặng ưu đãi – Bình giữ nhiệt.</p>
+<div class="text-center mb-3">
+img_placeholder6
+</div>
+<p>Trải nghiệm hoạt động – Tay xinh thử nhẫn nhận Phiếu ưu đãi mua sắm 1.000.000Đ.</p>
+<div class="text-center mb-3">
+img_placeholder7
+</div>
+<p>Tham gia ngay sự kiện “Bừng sắc lễ hội – Đón ưu đãi cùng thần tượng” cùng PLJ để tận hưởng nhiều
+quà tặng giá trị và có cơ hội gặp gỡ, giao lưu cùng thần tượng nhé!</p>

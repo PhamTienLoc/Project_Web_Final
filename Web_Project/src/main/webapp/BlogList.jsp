@@ -61,7 +61,7 @@
 								</div>
 								<p class="text-secondary">${blog.description}</p>
 								<a class="fs-5 text-decoration-none fw-semibold text-warning"
-									href="${pageContext.request.contextPath}/blogDetail?${blog.id}">Xem
+									href="${pageContext.request.contextPath}/blogDetail?id=${blog.id}">Xem
 									chi tiết <i class="bi bi-arrow-right-short"></i>
 								</a>
 							</div>
@@ -77,7 +77,7 @@
 				<c:forEach var="blog" items="${remain}">
 					<!-- Blog Item -->
 					<div class="blog-list-item">
-						<a href="${pageContext.request.contextPath}/blogDetail?${blog.id}"
+						<a href="${pageContext.request.contextPath}/blogDetail?id=${blog.id}"
 							class="blog-link d-flex"> <img src="${blog.thumbnail}"
 							alt="Ảnh minh họa Blog" class="blog-thumbnail me-3">
 							<div>

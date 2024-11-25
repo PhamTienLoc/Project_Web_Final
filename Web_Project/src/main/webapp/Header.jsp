@@ -28,7 +28,7 @@
 				</ul></li>
 
 			<li><a href="blogs" class="nav-link px-3 link-dark">Blog</a></li>
-			<li><a href="#" class="nav-link px-3 link-dark">Chính sách</a></li>
+			<li><a href="Policy.jsp" class="nav-link px-3 link-dark">Chính sách</a></li>
 			<li><a href="About.jsp" class="nav-link px-3 link-dark">About</a></li>
 		</ul>
 

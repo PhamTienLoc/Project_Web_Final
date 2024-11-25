@@ -14,12 +14,13 @@ public class Blog {
 	private Date updatedAt;
 	private boolean status;
 	private List<BlogImage> images;
+	private int readTime;
 
 	public Blog() {
 	}
 
 	public Blog(int id, String author, String title, String description, String thumbnail, String contentPath,
-			Date createdAt, Date updatedAt, boolean status, List<BlogImage> images) {
+			Date createdAt, Date updatedAt, boolean status, List<BlogImage> images, int readTime) {
 		this.id = id;
 		this.author = author;
 		this.title = title;
@@ -30,6 +31,7 @@ public class Blog {
 		this.updatedAt = updatedAt;
 		this.status = status;
 		this.images = images;
+		this.readTime = readTime;
 	}
 
 	public int getId() {
@@ -112,11 +114,20 @@ public class Blog {
 		this.images = images;
 	}
 
+	public int getReadTime() {
+		return readTime;
+	}
+
+	public void setReadTime(int readTime) {
+		this.readTime = readTime;
+	}
+
 	@Override
 	public String toString() {
 		return "Blog [id=" + id + ", author=" + author + ", title=" + title + ", description=" + description
 				+ ", thumbnail=" + thumbnail + ", contentPath=" + contentPath + ", createdAt=" + createdAt
-				+ ", updatedAt=" + updatedAt + ", status=" + status + ", images=" + images + "]";
+				+ ", updatedAt=" + updatedAt + ", status=" + status + ", images=" + images + ", readTime=" + readTime
+				+ "]";
 	}
 
 }

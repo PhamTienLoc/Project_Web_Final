@@ -22,7 +22,7 @@ public class BlogDAO implements DAOInterface<Blog> {
 		return null;
 	}
 
-	private List<BlogImage> getBlogImagesById(int bid) {
+	public List<BlogImage> getBlogImagesById(int bid) {
 		ArrayList<BlogImage> re = new ArrayList<BlogImage>();
 		try {
 			// Bước 1: tạo kết nối đến CSDL
@@ -65,7 +65,7 @@ public class BlogDAO implements DAOInterface<Blog> {
 			Connection con = JDBCUtil.getConnection();
 
 			// Bước 2: tạo ra đối tượng statement
-			String sql = "SELECT b.*, u.fullName FROM Blog b JOIN User u ON b.author_id = u.id WHERE id = ?";
+			String sql = "SELECT b.*, u.fullName FROM Blog b JOIN User u ON b.author_id = u.id WHERE b.id = ?";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setInt(1, b.getId());
 			// Bước 3: thực thi câu lệnh SQL
@@ -75,18 +75,19 @@ public class BlogDAO implements DAOInterface<Blog> {
 			// Bước 4:
 			while (rs.next()) {
 				int id = rs.getInt("id");
-				String author = rs.getString("fullName");
+				String author = rs.getString("fullname");
 				String title = rs.getString("title");
 				String description = rs.getString("description");
 				String thumbnail = rs.getString("thumbnail");
-				String contentPath = rs.getString("content_Path");
+				String contentPath = rs.getString("content_path");
 				Date createdAt = rs.getDate("createdAt");
 				Date updatedAt = rs.getDate("updatedAt");
 				boolean status = rs.getBoolean("status");
 				List<BlogImage> images = getBlogImagesById(id);
-
+				int readTime = rs.getInt("read_time");
+				
 				re = new Blog(id, author, title, description, thumbnail, contentPath, createdAt, updatedAt, status,
-						images);
+						images, readTime);
 			}
 
 			// Bước 5:
@@ -115,18 +116,19 @@ public class BlogDAO implements DAOInterface<Blog> {
 			// Bước 4:
 			while (rs.next()) {
 				int id = rs.getInt("id");
-				String author = rs.getString("fullName");
+				String author = rs.getString("fullname");
 				String title = rs.getString("title");
 				String description = rs.getString("description");
 				String thumbnail = rs.getString("thumbnail");
-				String contentPath = rs.getString("content_Path");
+				String contentPath = rs.getString("content_path");
 				Date createdAt = rs.getDate("createdAt");
 				Date updatedAt = rs.getDate("updatedAt");
 				boolean status = rs.getBoolean("status");
 				List<BlogImage> images = getBlogImagesById(id);
-
+				int readTime = rs.getInt("read_time");
+				
 				re.add(new Blog(id, author, title, description, thumbnail, contentPath, createdAt, updatedAt, status,
-						images));
+						images, readTime));
 			}
 
 			// Bước 5:
@@ -155,18 +157,19 @@ public class BlogDAO implements DAOInterface<Blog> {
 			// Bước 4:
 			while (rs.next()) {
 				int id = rs.getInt("id");
-				String author = rs.getString("fullName");
+				String author = rs.getString("fullname");
 				String title = rs.getString("title");
 				String description = rs.getString("description");
 				String thumbnail = rs.getString("thumbnail");
-				String contentPath = rs.getString("content_Path");
+				String contentPath = rs.getString("content_path");
 				Date createdAt = rs.getDate("createdAt");
 				Date updatedAt = rs.getDate("updatedAt");
 				boolean status = rs.getBoolean("status");
 				List<BlogImage> images = getBlogImagesById(id);
+				int readTime = rs.getInt("read_time");
 
 				re.add(new Blog(id, author, title, description, thumbnail, contentPath, createdAt, updatedAt, status,
-						images));
+						images, readTime));
 			}
 
 			// Bước 5:
