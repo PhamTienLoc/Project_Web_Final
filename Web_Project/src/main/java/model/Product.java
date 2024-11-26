@@ -19,6 +19,12 @@ public class Product {
 		super();
 	}
 
+	public Product(int id, String title) {
+		super();
+		this.id = id;
+		this.title = title;
+	}
+
 	public Product(int id, String title, double price, int discount, int inventoryNumber, String description,
 			String thumbnail, int cid) {
 		super();
@@ -135,5 +141,10 @@ public class Product {
 				+ ", inventoryNumber=" + inventoryNumber + ", description=" + description + ", thumbnail=" + thumbnail
 				+ ", cid=" + cid + "]";
 	}
+
+//	@Override
+//	public String toString() {
+//		return "id:" + id + ",title:" + title;
+//	}
 
 }
