@@ -6,14 +6,16 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Insert title here</title>
-
-
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
+
 <script
 	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script
@@ -82,7 +84,11 @@
 								</a>
 
 								<p class="card-text">${p.price}$</p>
-								<button class="btn btn-primary">Add to Cart</button>
+								<c:url var="buyct" value="/buy2">
+									<c:param name="id" value="${p.id}"></c:param>
+									<c:param name="quantity" value="1"></c:param>
+								</c:url>
+								<a href="${buyct}" class="btn btn-primary">Add to Cart</a>
 							</div>
 						</div>
 					</div>
@@ -121,6 +127,10 @@
 						<c:param name="id" value="${p.id}" />
 						<c:param name="cid" value="${p.cid}" />
 					</c:url>
+					<c:url var="buyct" value="/buy2">
+						<c:param name="id" value="${p.id}"></c:param>
+						<c:param name="quantity" value="1"></c:param>
+					</c:url>
 
 					<div class="product col-md-3 mb-4">
 						<div class="card card-hover">
@@ -136,7 +146,7 @@
 								</a>
 
 								<p class="card-text">${p.price}$</p>
-								<a href="#" class="btn btn-success">Add to Cart</a>
+								<a href="${buyct}" class="btn btn-success">Add to Cart</a>
 							</div>
 						</div>
 					</div>

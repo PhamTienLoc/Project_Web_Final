@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<header
-	class="container-fluid bg-light py-3 border-bottom shadow-sm">
+<header class="container-fluid bg-light py-3 border-bottom shadow-sm">
 	<div
 		class="d-flex flex-wrap align-items-center justify-content-between">
 		<!-- Logo -->
 		<a href="home"
 			class="d-flex align-items-center text-dark text-decoration-none">
-			<img src="${pageContext.request.contextPath}/image/Phát Lộc.png" alt="Logo" width="40" height="100%" class="me-2 rounded-circle">
+			<img src="${pageContext.request.contextPath}/image/Phát Lộc.png"
+			alt="Logo" width="40" height="100%" class="me-2 rounded-circle">
 			<span class="fs-4 ml-3">PLJ</span>
 		</a>
 
@@ -34,22 +34,30 @@
 
 		<!-- Search, Cart, and Login Button -->
 		<div class="d-flex align-items-center">
-			<form action="search" method="get" class="d-flex align-items-center me-2">
+			<form action="search" method="get"
+				class="d-flex align-items-center me-2">
 				<div class="input-group">
-					<input type="text" class="form-control" name="txt" placeholder="Search..." value="${txtS}">
+					<input type="text" class="form-control" name="txt"
+						placeholder="Search..." value="${txtS}">
 					<button class="btn btn-outline-secondary" type="submit">
 						<i class="fas fa-search"></i>
 					</button>
 				</div>
 			</form>
-			<a href="#" class="btn btn-outline-dark me-2 position-relative mr-3 ml-3">
-				<i class="fas fa-shopping-cart"></i> <!-- Thêm thông báo số lượng nếu cần -->
-				<span
-				class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-					3 <!-- Số lượng sản phẩm trong giỏ -->
-			</span>
+			<a href="Cart.jsp"
+				class="btn btn-outline-dark me-2 position-relative mr-3 ml-3"> <i
+				class="fas fa-shopping-cart"></i> <!-- Thêm thông báo số lượng nếu cần -->
+				<c:if test="${not empty sessionScope.size}">
+					<span
+						class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+						${sessionScope.size} </span>
+				</c:if> <c:if test="${empty sessionScope.size}">
+					<span
+						class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+						0 </span>
+				</c:if>
 			</a>
-			
+
 			<c:choose>
 				<c:when test="${sessionScope.user !=null}">
 					<!-- Dropdown Menu for Logged User -->
@@ -61,14 +69,17 @@
 							aria-labelledby="loginDropdown">
 							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/ChangeUserInfo.jsp">Thay đổi thông tin</a></li>
 							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/ChangePassWord.jsp">Đổi mật khẩu</a></li>
+
 							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Đăng xuất</a></li>
+							<li><a class="dropdown-item"
+								href="${pageContext.request.contextPath}/logout">Đăng xuất</a></li>
 						</ul>
 					</div>
-					
+
 				</c:when>
 				<c:otherwise>
-					<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/Login.jsp">Login</a>
+					<a class="btn btn-outline-primary"
+						href="${pageContext.request.contextPath}/Login.jsp">Login</a>
 				</c:otherwise>
 			</c:choose>
 

@@ -48,7 +48,10 @@
 </style>
 </head>
 <body>
-	<jsp:include page="Header.jsp"></jsp:include>
+	<div id="menuContainer">
+		<jsp:include page="Header.jsp"></jsp:include>
+	</div>
+	<!-- Main Content -->
 	<div class="container mt-5">
 		<!-- Phần Chi Tiết Sản Phẩm -->
 		<div class="row">
@@ -89,14 +92,19 @@
 			<div class="col-md-6">
 				<h2 class="product-title">${p.title}</h2>
 				<p class="product-price">Giá: ${p.price} $</p>
-				<div class="product-quantity">
-					<label for="quantity">Số lượng:</label> <input type="number"
-						id="quantity" class="form-control w-50" min="1" value="1">
-				</div>
-				<div class="mt-3">
-					<button type="button" class="btn btn-success w-50"
-						value="Add to Cart">Add to Cart</button>
-				</div>
+				<form action="buy" method="get" onsubmit="return buy(event, this);">
+					<div class="product-quantity">
+						<label for="quantity">Số lượng:</label> <input type="number"
+							id="quantity" name="quantity" class="form-control w-50" min="1"
+							max="${p.inventoryNumber}" value="1">
+					</div>
+					<input type="hidden" name="id" value="${p.id}"> <input
+						type="hidden" name="cid" value="${p.cid}">
+					<div class="mt-3">
+						<input type="submit" class="btn btn-success w-50"
+							value="Add to Cart">
+					</div>
+				</form>
 			</div>
 		</div>
 		<div class="row mt-4">
@@ -140,7 +148,13 @@
 									<h5 class="card-title">${p.title}</h5>
 								</a>
 								<p class="card-text">${p.price}$</p>
-								<a href="#" class="btn btn-success">Add to Cart</a>
+								<form action="buy" method="get"
+									onsubmit="return buy(event, this);">
+									<input type="hidden" name="id" value="${p.id}"> <input
+										type="hidden" name="cid" value="${p.cid}"> <input
+										type="hidden" name="quantity" value="1"> <input
+										type="submit" class="btn btn-success" value="Add to Cart">
+								</form>
 							</div>
 						</div>
 					</div>
@@ -148,9 +162,6 @@
 			</div>
 		</section>
 	</div>
-	</div>
-
-
 
 
 	<jsp:include page="Footer.jsp"></jsp:include>
@@ -158,17 +169,33 @@
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/js/detail.js">
+		
+	</script>
 	<script>
-    // JavaScript điều khiển slider khi click vào thumbnail
-    document.addEventListener('DOMContentLoaded', function () {
-      const carousel = new bootstrap.Carousel(document.getElementById('productImageCarousel'));
+		function buy(event, form) {
+			event.preventDefault(); // Ngăn chặn hành động mặc định của form
+			const formData = $(form).serialize(); // Lấy dữ liệu từ form
 
-      document.querySelectorAll('.thumbnail-image').forEach((thumbnail, index) => {
-        thumbnail.addEventListener('click', () => {
-          carousel.to(index);
-        });
-      });
-    });
-  </script>
+			$.ajax({
+				url : 'buy', // URL xử lý yêu cầu
+				type : 'GET', // Phương thức GET
+				data : formData, // Dữ liệu gửi đi
+				success : function(response) {
+					// Tải lại header (hoặc cập nhật giỏ hàng)
+					$('#menuContainer').load('Header.jsp', function() {
+						alert('Thêm vào giỏ hàng thành công!'); // Hiển thị thông báo thành công
+					});
+				},
+				error : function(error) {
+					alert('Có lỗi xảy ra, vui lòng thử lại!'); // Hiển thị thông báo lỗi
+				}
+			});
+
+			return false; // Đảm bảo form không được gửi đi theo cách mặc định
+		}
+	</script>
+
 </body>
 </html>
