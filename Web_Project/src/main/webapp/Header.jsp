@@ -14,13 +14,13 @@
 
 		<!-- Navigation -->
 		<ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-			<li><a href="home" class="nav-link px-3 link-secondary">Home</a></li>
+			<li><a href="home" class="nav-link px-3 link-secondary">Trang chủ</a></li>
 
 			<!-- Dropdown Menu -->
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle px-3 link-dark" href="#"
 				id="featuresDropdown" role="button" data-bs-toggle="dropdown"
-				aria-expanded="false"> Features </a>
+				aria-expanded="false"> Thể loại </a>
 				<ul class="dropdown-menu" aria-labelledby="featuresDropdown">
 					<li><a class="dropdown-item" href="#">Feature 1</a></li>
 					<li><a class="dropdown-item" href="#">Feature 2</a></li>
@@ -29,7 +29,7 @@
 
 			<li><a href="#" class="nav-link px-3 link-dark">Blog</a></li>
 			<li><a href="#" class="nav-link px-3 link-dark">Chính sách</a></li>
-			<li><a href="About.jsp" class="nav-link px-3 link-dark">About</a></li>
+			<li><a href="About.jsp" class="nav-link px-3 link-dark">Giới thiệu</a></li>
 		</ul>
 
 		<!-- Search, Cart, and Login Button -->
@@ -38,7 +38,7 @@
 				class="d-flex align-items-center me-2">
 				<div class="input-group">
 					<input type="text" class="form-control" name="txt"
-						placeholder="Search..." value="${txtS}">
+						placeholder="Tìm Kiếm" value="${txtS}">
 					<button class="btn btn-outline-secondary" type="submit">
 						<i class="fas fa-search"></i>
 					</button>
@@ -64,13 +64,14 @@
 					<div class="dropdown">
 						<button class="btn btn-outline-primary dropdown-toggle"
 							type="button" id="loginDropdown" data-bs-toggle="dropdown"
-							aria-expanded="false">Hello
+							aria-expanded="false">Xin chào
 							${sessionScope.user.fullName}</button>
 						<ul class="dropdown-menu dropdown-menu-end"
 							aria-labelledby="loginDropdown">
 							<li><a class="dropdown-item" href="#">Thay đổi thông tin</a></li>
 							<li><a class="dropdown-item" href="ChangePassWord.jsp">Đổi
 									mật khẩu</a></li>
+							<li><a class="dropdown-item" href="listhoadon">Xem hóa đơn</a></li>
 							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item"
 								href="${pageContext.request.contextPath}/logout">Đăng xuất</a></li>
@@ -80,7 +81,7 @@
 				</c:when>
 				<c:otherwise>
 					<a class="btn btn-outline-primary"
-						href="${pageContext.request.contextPath}/Login.jsp">Login</a>
+						href="${pageContext.request.contextPath}/Login.jsp">Đăng nhập</a>
 				</c:otherwise>
 			</c:choose>
 

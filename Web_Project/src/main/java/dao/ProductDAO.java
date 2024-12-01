@@ -370,6 +370,47 @@ public class ProductDAO implements DAOInterface<Product> {
 		return ketQua;
 	}
 	
+	public Product getProductByID(int id) {
+		Product ketQua = null;
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "SELECT * FROM product\r\n" + "WHERE id = ?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, id);
+
+			// Bước 3: thực thi câu lệnh SQL
+			System.out.println(sql);
+			ResultSet rs = st.executeQuery();
+
+			// Bước 4:
+			while (rs.next()) {
+				int id1 = rs.getInt("id");
+				int cid = rs.getInt("categoryId");
+				String title = rs.getString("title");
+				double price = rs.getDouble("price");
+				int discount = rs.getInt("discount");
+				int inventoryNumber = rs.getInt("inventoryNumber");
+				String description = rs.getString("description");
+				String thumbnail = rs.getString("thumbnail");
+
+				Product p = new Product(id1, title, price, discount, inventoryNumber, description, thumbnail, cid);
+
+				ketQua = p;
+			}
+
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return ketQua;
+	}
+	
 	
 	
 	

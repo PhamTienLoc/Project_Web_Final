@@ -35,8 +35,17 @@
 	<div id="menuContainer">
 		<jsp:include page="Header.jsp"></jsp:include>
 	</div>
+	<!-- Breadcrumb -->
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a
+				href="${pageContext.request.contextPath}/home">Trang chủ</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
+		</ol>
+	</nav>
 	<div class="container mt-5 mb-3">
-		<h1 class="text-center mb-4">Shopping Cart</h1>
+		<h1 class="text-center mb-4">Giỏ hàng</h1>
+
 
 		<div class="row">
 			<!-- Cart Items -->
@@ -59,7 +68,8 @@
 									<p class="card-text">
 
 										<!-- Form cho nút trừ -->
-									<form action="updatequantity" method="get" onsubmit="return updatequantity(event,this);"
+									<form action="updatequantity" method="get"
+										onsubmit="return updatequantity(event,this);"
 										style="display: inline;">
 										<input type="hidden" name="id" value="${item.product.id}">
 										<input type="hidden" name="num" value="-1">
@@ -69,7 +79,8 @@
 									<span class="mx-2">${item.quantity}</span>
 
 									<!-- Form cho nút cộng -->
-									<form action="updatequantity" method="get" onsubmit="return updatequantity(event,this);"
+									<form action="updatequantity" method="get"
+										onsubmit="return updatequantity(event,this);"
 										style="display: inline;">
 										<input type="hidden" name="id" value="${item.product.id}">
 										<input type="hidden" name="num" value="1">
@@ -80,7 +91,7 @@
 									<form action="deleteitem" method="get" class="d-inline"
 										onsubmit="return remove(event, this);">
 										<input type="hidden" name="id" value="${item.product.id}">
-										<button type="submit" class="btn btn-danger btn-sm">Remove</button>
+										<button type="submit" class="btn btn-danger btn-sm">Xóa</button>
 									</form>
 								</div>
 							</div>
@@ -108,11 +119,11 @@
 
 						<c:if test="${not empty sessionScope.user}">
 							<a href="FormCheckOut.jsp" class="btn btn-primary w-100 mb-3"
-								role="button">Checkout</a>
+								role="button">Thanh toán</a>
 						</c:if>
 						<c:if test="${empty sessionScope.user}">
 							<a href="Login.jsp" class="btn btn-primary w-100 mb-3"
-								role="button">Checkout</a>
+								role="button">Thanh toán</a>
 						</c:if>
 
 
@@ -177,36 +188,33 @@
 			return false;
 		}
 	</script>
-	
-	
+
+
 	<script type="text/javascript">
-	
-	function updatequantity(event, form) {
-		event.preventDefault();
-		const formData = $(form).serialize();
+		function updatequantity(event, form) {
+			event.preventDefault();
+			const formData = $(form).serialize();
 
-		$.ajax({
-			url : 'updatequantity',
-			type : 'GET',
-			data : formData,
-			success : function(response) {
-				$('#menuContainer').load('Header.jsp', function() {
-				});
-				$('#cartItems').load('Cart.jsp #cartItems > *', function() {
-				});
-				$('#cartSummary').load('Cart.jsp #cartSummary > *',
-						function() {
-						});
-			},
-			error : function(error) {
-				alert('Có lỗi xảy ra, vui lòng thử lại!');
-			}
-		});
+			$.ajax({
+				url : 'updatequantity',
+				type : 'GET',
+				data : formData,
+				success : function(response) {
+					$('#menuContainer').load('Header.jsp', function() {
+					});
+					$('#cartItems').load('Cart.jsp #cartItems > *', function() {
+					});
+					$('#cartSummary').load('Cart.jsp #cartSummary > *',
+							function() {
+							});
+				},
+				error : function(error) {
+					alert('Có lỗi xảy ra, vui lòng thử lại!');
+				}
+			});
 
-		return false;
-	}
-	
-	
+			return false;
+		}
 	</script>
 
 

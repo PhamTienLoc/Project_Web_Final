@@ -59,6 +59,15 @@
 <body>
 
 	<jsp:include page="Header.jsp"></jsp:include>
+	
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="home">Trang chủ</a></li>
+			<li class="breadcrumb-item"><a href="Cart.jsp">Giỏ hàng</a></li>
+			<li class="breadcrumb-item"><a href="FormCheckOut.jsp">Kiểm tra thông tin</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Phương thức thanh toán</li>
+		</ol>
+	</nav>
 
 	<div class="container mt-5">
 		<h2 class="text-center mb-4">Chọn phương thức thanh toán</h2>

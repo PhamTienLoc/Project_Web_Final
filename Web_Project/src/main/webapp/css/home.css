@@ -1,24 +1,37 @@
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Chiều cao tối thiểu của trang */
+}
+
+footer {
+    margin-top: auto;
+    background-color: #f1f1f1;
+    text-align: center;
+    padding: 10px 0;
+}
+
+
 .card-hover {
 	transition: transform 0.3s;
-
 }
 
 .card-hover:hover {
 	transform: translateY(-10px);
 }
 
-
-
 .card-title, .card-text {
-  white-space: nowrap;         /* Không cho xuống hàng */
-  overflow: hidden;            /* Ẩn phần tràn ra */
-  text-overflow: ellipsis;     /* Hiển thị dấu "..." nếu nội dung quá dài */
+	white-space: nowrap; /* Không cho xuống hàng */
+	overflow: hidden; /* Ẩn phần tràn ra */
+	text-overflow: ellipsis; /* Hiển thị dấu "..." nếu nội dung quá dài */
 }
 
 .card-title {
-  max-width: 100%;             /* Đảm bảo chiều rộng tối đa của tiêu đề */
+	max-width: 100%; /* Đảm bảo chiều rộng tối đa của tiêu đề */
 }
 
 .card-text {
-  max-width: 100%;             /* Đảm bảo chiều rộng tối đa của mô tả */
+	max-width: 100%; /* Đảm bảo chiều rộng tối đa của mô tả */
 }
+

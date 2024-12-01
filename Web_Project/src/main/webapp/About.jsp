@@ -15,7 +15,7 @@
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
-	
+
 <script
 	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script
@@ -27,10 +27,19 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/home.css">
 
+
 </head>
 <body>
 
 	<jsp:include page="Header.jsp"></jsp:include>
+
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="home">Trang chủ</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Giới thiệu</li>
+		</ol>
+	</nav>
+
 	<h1 style="text-align: center;" class="mt-3 mb -3">Giới Thiệu Về
 		Công Ty Trang Sức Bạc</h1>
 

@@ -26,6 +26,7 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/home.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
 <style>
 .thumbnail-container {
 	width: 100px; /* Đặt chiều rộng cố định cho ảnh thu nhỏ */
@@ -173,6 +174,7 @@
 		src="${pageContext.request.contextPath}/js/detail.js">
 		
 	</script>
+	<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 	<script>
 		function buy(event, form) {
 			event.preventDefault(); // Ngăn chặn hành động mặc định của form
@@ -185,8 +187,18 @@
 				success : function(response) {
 					// Tải lại header (hoặc cập nhật giỏ hàng)
 					$('#menuContainer').load('Header.jsp', function() {
-						alert('Thêm vào giỏ hàng thành công!'); // Hiển thị thông báo thành công
+						//alert('Thêm vào giỏ hàng thành công!'); // Hiển thị thông báo thành công
 					});
+					const notyf = new Notyf()
+					notyf.open({
+						  duration: 1000,
+						  position: {
+						    x: 'right',
+						    y: 'top',
+						  },
+						  type: "success",
+						  message: "Thêm vào giỏ hàng thành công!",
+						 });
 				},
 				error : function(error) {
 					alert('Có lỗi xảy ra, vui lòng thử lại!'); // Hiển thị thông báo lỗi
