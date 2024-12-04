@@ -1,6 +1,8 @@
-package controller;
+package admincontroller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,24 +10,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.mysql.cj.Session;
-
+import dao.DiscountDAO;
 import dao.UserDAO;
+import model.Discount;
 import model.User;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class AdminManagerUserControl
  */
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/adminmanageruser")
+public class AdminManagerUserControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public AdminManagerUserControl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,37 +35,39 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
 		
-		User user = new User();
-		user.setUser(username);
-		user.setPassword(password);
-		
-		String error = "";
-		String url = "";
-		
-		UserDAO userDAO = new UserDAO();
-		
-		User checkUser = userDAO.selectByUsernameAndPassword(user);
-		if (checkUser != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("user", checkUser);
-			
-			if(checkUser.isAdmin()) {
-				url="/admindashboard";
-			}else {
-				url = "/home";
-			}
+		UserDAO d = new UserDAO();
+		ArrayList<User> list = d.selectAll();
+		int page, numperpage = 7;
+		int size = list.size();
+		int num = (size % numperpage == 0 ? (size / numperpage) : ((size / numperpage) + 1));// số trang
+
+		String xpage = request.getParameter("page");
+
+		if (xpage == null) {
+			page = 1;
 		} else {
-			error = "Bạn nhập sai tên đăng nhập hoặc mật khẩu";
-			request.setAttribute("error", error);
-			request.setAttribute("username", username);
-			url = "/Login.jsp";
+			page = Integer.parseInt(xpage);
 		}
+
+		int start, end;
+		start = (page - 1) * numperpage;
+		end = Math.min(page * numperpage, size);
+
+		ArrayList<User> list1 = d.getListBypage(list, start, end);
+		request.setAttribute("listu", list1);
+		request.setAttribute("page", page);
+		request.setAttribute("num", num);
 		
-		RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
+		RequestDispatcher rd =getServletContext().getRequestDispatcher("/admin/ManagerUser.jsp");
 		rd.forward(request, response);
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	/**

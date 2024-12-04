@@ -1,4 +1,4 @@
-package controller;
+package admincontroller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -9,16 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class LogoutServlet
+ * Servlet implementation class AdminLogoutControl
  */
-@WebServlet("/logout")
-public class LogoutServlet extends HttpServlet {
+@WebServlet("/adminlogout")
+public class AdminLogoutControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutServlet() {
+    public AdminLogoutControl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,10 +27,12 @@ public class LogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		HttpSession session = request.getSession();
 		session.invalidate();
-        response.sendRedirect(request.getContextPath()+"/home");
+        response.sendRedirect(request.getContextPath()+"/Login.jsp");
+		
+		
 	}
 
 	/**

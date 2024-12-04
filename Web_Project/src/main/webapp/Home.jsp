@@ -26,7 +26,7 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/home.css">
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
 <style type="text/css">
 .notyf {
 	z-index: 9999 !important;

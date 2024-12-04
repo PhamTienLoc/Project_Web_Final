@@ -14,13 +14,13 @@ public class User {
 	private String address;
 	private Date createdAt;
 	private Date updatedAt;
-	private boolean isAdmin;
+	private boolean admin;
 
 	public User() {
 	}
 
 	public User(int id, String user, String fullName, String password, boolean gender, Date birthDay, String email,
-			String phoneNumber, String address, Date createdAt, Date updatedAt, boolean isAdmin) {
+			String phoneNumber, String address, Date createdAt, Date updatedAt, boolean admin) {
 		super();
 		this.id = id;
 		this.user = user;
@@ -33,11 +33,11 @@ public class User {
 		this.address = address;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
-		this.isAdmin = isAdmin;
+		this.admin = admin;
 	}
 
 	public User(String user, String fullName, String password, boolean gender, Date birthDay, String email,
-			String phoneNumber, String address, Date createdAt, Date updatedAt, boolean isAdmin) {
+			String phoneNumber, String address, Date createdAt, Date updatedAt, boolean admin) {
 		this.fullName = fullName;
 		this.user = user;
 		this.password = password;
@@ -48,7 +48,7 @@ public class User {
 		this.address = address;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
-		this.isAdmin = isAdmin;
+		this.admin = admin;
 	}
 
 	public int getId() {
@@ -140,18 +140,13 @@ public class User {
 	}
 
 	public boolean isAdmin() {
-		return isAdmin;
+		return admin;
 	}
 
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", fullName=" + fullName + ", user=" + user + ", password=" + password + ", gender="
-				+ gender + ", birthDay=" + birthDay + ", email=" + email + ", phoneNumber=" + phoneNumber + ", address="
-				+ address + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", isAdmin=" + isAdmin + "]";
-	}
+	
 
 }

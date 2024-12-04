@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import database.JDBCUtil;
+import model.Discount;
 import model.Product;
 import model.User;
 
@@ -18,14 +19,91 @@ public class UserDAO implements DAOInterface<User> {
 
 	@Override
 	public ArrayList<User> selectAll() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<User> ketQua = new ArrayList<User>();
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "SELECT * FROM `user`";
+			PreparedStatement st = con.prepareStatement(sql);
+
+			// Bước 3: thực thi câu lệnh SQL
+			System.out.println(sql);
+			ResultSet rs = st.executeQuery();
+
+			// Bước 4:
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String user = rs.getString("user");
+				String fullName = rs.getString("fullname");
+				String pass = rs.getString("password");
+				boolean gender = rs.getBoolean("gender");
+				Date birthDay = rs.getDate("birthday");
+				String email = rs.getString("email");
+				String phoneNumber = rs.getString("phoneNumber");
+				String address = rs.getString("address");
+				Date createdAt = rs.getDate("createdAt");
+				Date updatedAt = rs.getDate("updatedAt");
+				boolean isAdmin = rs.getBoolean("isAdmin");
+
+				User us = new User(id, user, fullName, pass, gender, birthDay, email, phoneNumber, address, createdAt,
+						updatedAt, isAdmin);
+				ketQua.add(us);
+			}
+
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return ketQua;
 	}
 
 	@Override
 	public User selectById(User o) {
-		// TODO Auto-generated method stub
-		return null;
+		User ketQua = null;
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "SELECT * FROM `user` where id=?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, o.getId());
+
+			// Bước 3: thực thi câu lệnh SQL
+			System.out.println(sql);
+			ResultSet rs = st.executeQuery();
+
+			// Bước 4:
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String user = rs.getString("user");
+				String fullName = rs.getString("fullname");
+				String pass = rs.getString("password");
+				boolean gender = rs.getBoolean("gender");
+				Date birthDay = rs.getDate("birthday");
+				String email = rs.getString("email");
+				String phoneNumber = rs.getString("phoneNumber");
+				String address = rs.getString("address");
+				Date createdAt = rs.getDate("createdAt");
+				Date updatedAt = rs.getDate("updatedAt");
+				boolean isAdmin = rs.getBoolean("isAdmin");
+
+				User us = new User(id, user, fullName, pass, gender, birthDay, email, phoneNumber, address, createdAt,
+						updatedAt, isAdmin);
+				ketQua = us;
+			}
+
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return ketQua;
 	}
 
 	public User selectByUsernameAndPassword(User u) {
@@ -198,6 +276,15 @@ public class UserDAO implements DAOInterface<User> {
 		}
 
 		return ketQua > 0;
+	}
+
+	// Để làm chức năng phân trang cực kì thú vị kk
+	public ArrayList<User> getListBypage(ArrayList<User> list, int start, int end) {
+		ArrayList<User> arr = new ArrayList<User>();
+		for (int i = start; i < end; i++) {
+			arr.add(list.get(i));
+		}
+		return arr;
 	}
 
 	public static void main(String[] args) {

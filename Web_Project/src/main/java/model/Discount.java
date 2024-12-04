@@ -13,6 +13,14 @@ public class Discount {
 		super();
 	}
 
+	public Discount(String title, double discount, Date startDate, Date endDate) {
+		super();
+		this.title = title;
+		this.discount = discount;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+
 	public Discount(int id, String title, double discount, Date startDate, Date endDate) {
 		super();
 		this.id = id;
