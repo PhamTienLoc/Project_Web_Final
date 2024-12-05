@@ -26,7 +26,22 @@
 			<!-- Main content -->
 			<main class="col-md-9 ms-sm-auto col-lg-10 px-4">
 				<h2>Quản lý Sản phẩm</h2>
-
+				<div class="d-flex justify-content-between mb-3">
+					<button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+						data-bs-target="#addDiscountModal">
+						<i class="bi bi-plus-circle"></i> Thêm mới
+					</button>
+				</div>
+				<div class="d-flex justify-content-between mb-3">
+					<div class="alert alert-danger flex-fill me-2" id="errorMessage"
+						style="display: ${fail != null && fail != '' ? 'block' : 'none'};">
+						<p>${fail}</p>
+					</div>
+					<div class="alert alert-success flex-fill ms-2" id="successMessage"
+						style="display: ${success != null && success != '' ? 'block' : 'none'};">
+						<p>${success}</p>
+					</div>
+				</div>
 				<!-- Table for managing discount codes -->
 				<table class="table table-striped table-bordered">
 					<thead>
@@ -50,20 +65,16 @@
 								<td>${product.price}</td>
 								<td>${product.inventoryNumber}</td>
 								<td>${product.category.cname}</td>
-								<td>
-							<fmt:formatDate value="${product.createdAt}" pattern="dd/MM/yyyy" />
-								</td>
-								<td>
-								<c:if test="${product.inventoryNumber == 0}">
+								<td><fmt:formatDate value="${product.createdAt}"
+										pattern="dd/MM/yyyy" /></td>
+								<td><c:if test="${product.inventoryNumber == 0}">
                                Hết hàng
-                              </c:if> 
-                              <c:if test="${product.inventoryNumber > 0}">
+                              </c:if> <c:if
+										test="${product.inventoryNumber > 0}">
                               Còn hàng
-                                </c:if>
-								</td>
-								<td><a href=""
-									class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i>
-										Sửa</a> <a href=""
+                                </c:if></td>
+								<td><a href="" class="btn btn-warning btn-sm"><i
+										class="bi bi-pencil"></i> Sửa</a> <a href=""
 									class="btn btn-danger btn-sm"><i class="bi bi-trash"></i>
 										Xóa</a></td>
 							</tr>
@@ -77,23 +88,24 @@
 						<!-- Nút Previous -->
 						<c:if test="${page > 1}">
 							<li class="page-item"><a class="page-link"
-								href="adminmanagerproduct?page=${page - 1}" aria-label="Previous">
-									<span aria-hidden="true">&laquo;</span>
+								href="adminmanagerproduct?page=${page - 1}"
+								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 							</a></li>
 						</c:if>
 
 						<!-- Các nút trang -->
 						<c:forEach var="i" begin="1" end="${num}" step="1">
 							<li class="page-item <c:if test="${i == page}">active</c:if>">
-								<a class="page-link" href="adminmanagerproduct?page=${i}">${i}</a> <!-- Chỗ này nếu không có đường dẫn thì nó mặc định là servlet hiên tại  -->
+								<a class="page-link" href="adminmanagerproduct?page=${i}">${i}</a>
+								<!-- Chỗ này nếu không có đường dẫn thì nó mặc định là servlet hiên tại  -->
 							</li>
 						</c:forEach>
 
 						<!-- Nút Next -->
 						<c:if test="${page < num}">
 							<li class="page-item"><a class="page-link"
-								href="adminmanagerproduct?page=${page + 1}" aria-label="Next"> <span
-									aria-hidden="true">&raquo;</span>
+								href="adminmanagerproduct?page=${page + 1}" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
 							</a></li>
 						</c:if>
 					</ul>
