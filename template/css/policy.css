@@ -1,0 +1,58 @@
+.accordion {
+    max-width: 800px;
+}
+
+.policy-title {
+    font-size: 26px;
+    color: #0f3564;
+}
+
+.policy-type {
+    font-weight: bold;
+    text-decoration: none;
+    color: #4a4a4a;
+}
+
+.policy-content {
+    font-size: 14px;
+    line-height: 20px;
+    color: #4a4a4a;
+}
+
+.policy-content p {
+    margin: 0;
+    padding: 6px 0;
+}
+
+.policy-content h5 {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0;
+    padding: 6px 0;
+}
+
+.policy-content ul, ol {
+    margin: 0;
+    padding: 0 0 0 20px;
+}
+
+.policy-content li {
+    margin: 0;
+    padding: 2px 0;
+}
+
+.policy-content img {
+    max-width: 500px;
+}
+
+.policy-type .icon {
+    transition: transform 0.3s ease-in-out;
+}
+
+.policy-type.collapsed .icon {
+    transform: rotate(0deg);
+}
+
+.policy-type:not(.collapsed) .icon {
+    transform: rotate(180deg);
+}

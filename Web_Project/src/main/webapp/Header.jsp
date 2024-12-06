@@ -27,9 +27,9 @@
 					<li><a class="dropdown-item" href="#">Feature 3</a></li>
 				</ul></li>
 
-			<li><a href="#" class="nav-link px-3 link-dark">Blog</a></li>
-			<li><a href="#" class="nav-link px-3 link-dark">Chính sách</a></li>
-			<li><a href="About.jsp" class="nav-link px-3 link-dark">Giới thiệu</a></li>
+			<li><a href="blogs" class="nav-link px-3 link-dark">Blog</a></li>
+			<li><a href="Policy.jsp" class="nav-link px-3 link-dark">Chính sách</a></li>
+			<li><a href="About.jsp" class="nav-link px-3 link-dark">About</a></li>
 		</ul>
 
 		<!-- Search, Cart, and Login Button -->
@@ -68,8 +68,8 @@
 							${sessionScope.user.fullName}</button>
 						<ul class="dropdown-menu dropdown-menu-end"
 							aria-labelledby="loginDropdown">
-							<li><a class="dropdown-item" href="#">Thay đổi thông tin</a></li>
-							<li><a class="dropdown-item" href="ChangePassWord.jsp">Đổi
+							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/ChangeUserInfo.jsp">Thay đổi thông tin</a></li>
+							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/ChangePassWord.jsp">Đổi
 									mật khẩu</a></li>
 							<li><a class="dropdown-item" href="listhoadon">Xem hóa đơn</a></li>
 							<li><hr class="dropdown-divider"></li>
@@ -85,9 +85,8 @@
 				</c:otherwise>
 			</c:choose>
 
-
-
-
 		</div>
 	</div>
+
 </header>
+

@@ -1,24 +1,31 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import model.Blog;
+import service.BlogService;
 
 /**
- * Servlet implementation class LogoutServlet
+ * Servlet implementation class BlogServlet
  */
-@WebServlet("/logout")
-public class LogoutServlet extends HttpServlet {
+@WebServlet("/blogs")
+public class BlogServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private BlogService service = new BlogService();
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutServlet() {
+    public BlogServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,10 +34,15 @@ public class LogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		session.removeAttribute("user");
-        	response.sendRedirect(request.getContextPath()+"/home");
+		Map<String, List<Blog>> displayBlogs = service.getBlogToDisplay();
+		List<Blog> top3Blogs = displayBlogs.get("top3");
+		List<Blog> remandingBlogs = displayBlogs.get("remain");
+		
+		request.setAttribute("top3", top3Blogs);
+		request.setAttribute("remain", remandingBlogs);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/BlogList.jsp");
+		rd.forward(request, response);
 	}
 
 	/**

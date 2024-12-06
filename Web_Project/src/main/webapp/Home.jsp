@@ -55,7 +55,6 @@
 		</div>
 	</div>
 
-
 	<div class="container mt-5">
 		<!-- Sản phẩm nổi bật -->
 		<section class="mb-5">
@@ -73,9 +72,11 @@
 								class="card-img-top" alt="Product Image">
 							</a>
 							<div class="card-body text-center">
+
 								<a href="${productdetail}">
 									<h5 class="card-title">${p.title}</h5>
 								</a>
+
 								<p class="card-text">${p.price}$</p>
 								<form action="buy2" method="get"
 									onsubmit="return buy(event, this);">
@@ -131,10 +132,12 @@
 								class="card-img-top" alt="Product Image">
 							</a>
 							<div class="card-body text-center">
+
 								<!-- Link bọc title, đảm bảo không có khoảng trắng bên trong -->
 								<a href="${productdetail}" class="text-decoration-none">
 									<h5 class="card-title">${p.title}</h5>
 								</a>
+
 								<p class="card-text">${p.price}$</p>
 								<form action="buy2" method="get"
 									onsubmit="return buy(event, this);">

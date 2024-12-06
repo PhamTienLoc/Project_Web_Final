@@ -9,4 +9,14 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  
+  <context-param>
+  	<description>Đây là đường dẫn chứa file phân quyền</description>
+  	<param-name>AUTHENTICATION_FILE_PATH</param-name>
+  	<param-value>/WEB-INF/authentication.properties</param-value>
+  </context-param>
+  
+  <session-config>
+  	<session-timeout>30</session-timeout>
+  </session-config>
 </web-app>
