@@ -7,6 +7,7 @@ public class OrderDetail {
 	private double price; // giá gốc của từng sản phẩm
 	private int quantity;
 	private double totalMoney;
+	private Product product;
 
 	public OrderDetail(int id, int orderId, int productId, double price, int quantity, double totalMoney) {
 		super();
@@ -65,5 +66,14 @@ public class OrderDetail {
 	public void setTotalMoney(double totalMoney) {
 		this.totalMoney = totalMoney;
 	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+	
 
 }

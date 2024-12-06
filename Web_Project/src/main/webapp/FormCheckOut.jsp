@@ -31,14 +31,21 @@
 <body>
 
 	<jsp:include page="Header.jsp"></jsp:include>
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="home">Trang chủ</a></li>
+			<li class="breadcrumb-item"><a href="Cart.jsp">Giỏ hàng</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Kiểm tra thông tin</li>
+		</ol>
+	</nav>
 
 	<div class="container mt-5">
-		<h2 class="text-center mb-4">Information Form</h2>
+		<h2 class="text-center mb-4">Thông tin cá nhân</h2>
 		<form class="p-4 border rounded bg-light" action="formcheckout"
 			method="post">
 			<!-- Full Name -->
 			<div class="mb-3">
-				<label for="fullname" class="form-label">Full Name</label> <input
+				<label for="fullname" class="form-label">Họ và tên</label> <input
 					type="text" class="form-control" id="fullname" name="fullname"
 					value="${sessionScope.user.fullName}"
 					placeholder="Enter your full name" required="required">
@@ -52,7 +59,7 @@
 			</div>
 			<!-- Phone Number -->
 			<div class="mb-3">
-				<label for="phoneNumber" class="form-label">Phone Number</label> <input
+				<label for="phoneNumber" class="form-label">Số điện thoại</label> <input
 					type="tel" class="form-control" id="phoneNumber" name="phonenumber"
 					value="${sessionScope.user.phoneNumber}"
 					placeholder="Enter your phone number" required="required">
@@ -66,12 +73,12 @@
 			</div>
 			<!-- Note -->
 			<div class="mb-3">
-				<label for="note" class="form-label">Note</label>
+				<label for="note" class="form-label">Ghi chú</label>
 				<textarea class="form-control" id="note" rows="3" name="note"
 					 placeholder="Enter any notes"></textarea>
 			</div>
 			<!-- Submit Button -->
-			<button type="submit" class="btn btn-primary w-100">Submit</button>
+			<button type="submit" class="btn btn-primary w-100">Tiếp tục thanh toán</button>
 		</form>
 	</div>
 	<jsp:include page="Footer.jsp"></jsp:include>

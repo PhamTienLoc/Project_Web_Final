@@ -49,12 +49,23 @@
 	text-align: right;
 	margin-top: 15px;
 }
+
 </style>
 </head>
 <body>
 	<div id="menuContainer">
 		<jsp:include page="Header.jsp"></jsp:include>
 	</div>
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="home">Trang chủ</a></li>
+			<li class="breadcrumb-item"><a href="Cart.jsp">Giỏ Hàng</a></li>
+			<li class="breadcrumb-item"><a href="FormCheckOut.jsp">Kiêm tra thông tin</a></li>
+			<li class="breadcrumb-item"><a href="PaymentMethod.jsp">Phương thưc thanh toán</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Thanh toán</li>
+		</ol>
+	</nav>
+	
 	<div class="container mt-5 mb-5">
 		<div class="row">
 			<!-- Cột bên trái: Thông tin khách hàng -->
