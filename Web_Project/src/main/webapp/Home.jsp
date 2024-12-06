@@ -26,12 +26,18 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/home.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+<style type="text/css">
+.notyf {
+	z-index: 9999 !important;
+}
+</style>
 
 </head>
 <body>
-
-	<jsp:include page="Header.jsp"></jsp:include>
-
+	<div id="menuContainer">
+		<jsp:include page="Header.jsp"></jsp:include>
+	</div>
 	<!--Slider 1920x640 hoặc 1920x960.-->
 	<div id="carouselExampleSlidesOnly" class="carousel slide mb-4"
 		data-bs-ride="carousel">
@@ -48,19 +54,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col">
-				<nav aria-label="breadcrumb">
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="Home.jsp">Home</a></li>
-						<li class="breadcrumb-item"><a href="#">Category</a></li>
-						<li class="breadcrumb-item active" aria-current="#">Sub-category</li>
-					</ol>
-				</nav>
-			</div>
-		</div>
-	</div>
+
 	<div class="container mt-5">
 		<!-- Sản phẩm nổi bật -->
 		<section class="mb-5">
@@ -84,11 +78,13 @@
 								</a>
 
 								<p class="card-text">${p.price}$</p>
-								<c:url var="buyct" value="/buy2">
-									<c:param name="id" value="${p.id}"></c:param>
-									<c:param name="quantity" value="1"></c:param>
-								</c:url>
-								<a href="${buyct}" class="btn btn-primary">Add to Cart</a>
+								<form action="buy2" method="get"
+									onsubmit="return buy(event, this);">
+									<input type="hidden" name="id" value="${p.id}"> <input
+										type="hidden" name="quantity" value="1">
+									<button type="submit" class="btn btn-primary">Thêm vào giỏ hàng
+										</button>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -103,15 +99,17 @@
 				<!-- Sử dụng JSTL để lặp qua danh sách danh mục -->
 				<c:forEach var="c" items="${listC}">
 					<div class="col-md-4 mb-4">
-						<a href="<c:url value='/category?id=${c.cid}' />"
-							class="text-decoration-none">
-							<div class="card card-hover text-center">
-								<img src="${c.thumb}" class="card-img-top" alt="Category Image">
-								<div class="card-body">
-									<h5 class="card-title">${c.cname}</h5>
+						<form action="category" method="get" class="text-decoration-none">
+							<input type="hidden" name="id" value="${c.cid}">
+							<button type="submit" class="btn btn-link p-0">
+								<div class="card card-hover text-center">
+									<img src="${c.thumb}" class="card-img-top" alt="Category Image">
+									<div class="card-body">
+										<h5 class="card-title">${c.cname}</h5>
+									</div>
 								</div>
-							</div>
-						</a>
+							</button>
+						</form>
 					</div>
 				</c:forEach>
 			</div>
@@ -127,11 +125,6 @@
 						<c:param name="id" value="${p.id}" />
 						<c:param name="cid" value="${p.cid}" />
 					</c:url>
-					<c:url var="buyct" value="/buy2">
-						<c:param name="id" value="${p.id}"></c:param>
-						<c:param name="quantity" value="1"></c:param>
-					</c:url>
-
 					<div class="product col-md-3 mb-4">
 						<div class="card card-hover">
 							<!-- Link bọc hình ảnh -->
@@ -146,7 +139,12 @@
 								</a>
 
 								<p class="card-text">${p.price}$</p>
-								<a href="${buyct}" class="btn btn-success">Add to Cart</a>
+								<form action="buy2" method="get"
+									onsubmit="return buy(event, this);">
+									<input type="hidden" name="id" value="${p.id}"> <input
+										type="hidden" name="quantity" value="1">
+									<button type="submit" class="btn btn-success">Thêm vào giỏ hàng</button>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -155,17 +153,61 @@
 
 			<!-- Căn giữa và thêm margin-bottom -->
 			<div class="d-flex justify-content-center mb-3">
-				<button onclick="loadMore()" class="btn btn-primary">Load
-					more</button>
+				<button onclick="loadMore()" class="btn btn-primary">Xem thêm
+					</button>
 			</div>
 		</section>
 	</div>
 	<jsp:include page="Footer.jsp"></jsp:include>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-	<script type="text/javascript" src="js/home.js"></script>
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/js/home.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+	<script>
+		function buy(event, form) {
+			event.preventDefault(); // Ngăn chặn hành động mặc định của form
+			const formData = $(form).serialize(); // Lấy dữ liệu từ form
+
+			$.ajax({
+				url : 'buy2', // URL xử lý yêu cầu
+				type : 'GET', // Phương thức GET
+				data : formData, // Dữ liệu gửi đi
+				success : function(response) {
+					// Tải lại header (hoặc cập nhật giỏ hàng)
+					$('#menuContainer').load('Header.jsp', function() {
+						//alert('Thêm vào giỏ hàng thành công!'); // Hiển thị thông báo thành công
+					});
+
+					// Khởi tạo Notyf để hiển thị thông báo
+					const notyf = new Notyf();
+					notyf.open({
+						duration : 1000,
+						position : {
+							x : 'right',
+							y : 'top',
+						},
+						type : 'success', // Loại thông báo thành công
+						message : 'Thêm vào giỏ hàng thành công!', // Nội dung thông báo
+					});
+				},
+				error : function(error) {
+					// Nếu có lỗi, hiển thị thông báo lỗi
+					const notyf = new Notyf();
+					notyf.open({
+						duration : 1000,
+						position : {
+							x : 'right',
+							y : 'top',
+						},
+						type : 'error', // Loại thông báo lỗi
+						message : 'Có lỗi xảy ra, vui lòng thử lại!', // Nội dung thông báo lỗi
+					});
+				}
+			});
+
+			return false; // Đảm bảo form không được gửi đi theo cách mặc định
+		}
+	</script>
 </body>
 </html>

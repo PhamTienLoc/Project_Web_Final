@@ -114,8 +114,8 @@ public class DiscountDAO implements DAOInterface<Discount> {
 		return ketQua;
 	}
 
-	public void deleteDiscount(String did) {
-
+	public int deleteDiscount(String did) {
+		int ketQua = 0;
 		try {
 			// Bước 1: tạo kết nối đến CSDL
 			Connection con = JDBCUtil.getConnection();
@@ -125,7 +125,7 @@ public class DiscountDAO implements DAOInterface<Discount> {
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, did);
 			// Bước 3: thực thi câu lệnh SQL
-			st.executeUpdate();
+			ketQua = st.executeUpdate();
 			// Bước 4:
 			System.out.println("Bạn đã thực thi: " + sql);
 
@@ -135,6 +135,7 @@ public class DiscountDAO implements DAOInterface<Discount> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return ketQua;
 
 	}
 
@@ -146,8 +147,26 @@ public class DiscountDAO implements DAOInterface<Discount> {
 
 	@Override
 	public int insert(Discount t) {
-		// TODO Auto-generated method stub
-		return 0;
+		int ketQua = 0;
+		try {
+			Connection con = JDBCUtil.getConnection();
+			String sql = "	INSERT INTO discount(NAME,discount,start_date,end_date)\r\n" + "	VALUES (?,?,?,?)";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, t.getTitle());
+			st.setDouble(2, t.getDiscount());
+			st.setDate(3, new java.sql.Date(t.getStartDate().getTime()));
+			st.setDate(4, new java.sql.Date(t.getEndDate().getTime()));
+
+			ketQua = st.executeUpdate();
+
+			System.out.println("Bạn đã thực thi:" + sql);
+			System.out.println("Số dòng bị ảnh hưởng:" + ketQua);
+
+			JDBCUtil.closeConnection(con);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return ketQua;
 	}
 
 	@Override
@@ -170,8 +189,44 @@ public class DiscountDAO implements DAOInterface<Discount> {
 
 	@Override
 	public int update(Discount t) {
-		// TODO Auto-generated method stub
-		return 0;
+		int ketQua = 0;
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "UPDATE discount\r\n" + "	SET NAME=?,\r\n" + "	discount=?,\r\n" + "	start_date=?,\r\n"
+					+ "	end_date=?\r\n" + "	WHERE id=?;";
+
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, t.getTitle());
+			st.setDouble(2, t.getDiscount());
+			st.setDate(3, new java.sql.Date(t.getStartDate().getTime()));
+			st.setDate(4, new java.sql.Date(t.getEndDate().getTime()));
+			st.setInt(5, t.getId());
+			// Bước 3: thực thi câu lệnh SQL
+			ketQua = st.executeUpdate();
+
+			// Bước 4:
+			System.out.println("Bạn đã thực thi: " + sql);
+
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ketQua;
+
+	}
+
+	// Để làm chức năng phân trang cực kì thú vị kk
+	public ArrayList<Discount> getListBypage(ArrayList<Discount> list, int start, int end) {
+		ArrayList<Discount> arr = new ArrayList<Discount>();
+		for (int i = start; i < end; i++) {
+			arr.add(list.get(i));
+		}
+		return arr;
 	}
 
 	public static void main(String[] args) {

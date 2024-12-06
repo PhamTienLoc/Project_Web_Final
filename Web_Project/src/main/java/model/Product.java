@@ -14,6 +14,28 @@ public class Product {
 	private Date createdAt;
 	private Date updatedAt;
 	private int cid;
+	private int numOfPur;
+	private Category category;
+	
+
+	public Product(int id, String title, double price, int discount, int warranty, int inventoryNumber,
+			String description, String thumbnail, Date createdAt, Date updatedAt, int cid, int numOfPur,
+			Category category) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.price = price;
+		this.discount = discount;
+		this.warranty = warranty;
+		this.inventoryNumber = inventoryNumber;
+		this.description = description;
+		this.thumbnail = thumbnail;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.cid = cid;
+		this.numOfPur = numOfPur;
+		this.category = category;
+	}
 
 	public Product() {
 		super();
@@ -45,6 +67,34 @@ public class Product {
 		this.price = price;
 		this.description = description;
 		this.thumbnail = thumbnail;
+	}
+
+	public Product(int id, String title, double price, int discount, int warranty, int inventoryNumber,
+			String description, String thumbnail, Date createdAt, Date updatedAt, int cid, int numOfPur) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.price = price;
+		this.discount = discount;
+		this.warranty = warranty;
+		this.inventoryNumber = inventoryNumber;
+		this.description = description;
+		this.thumbnail = thumbnail;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.cid = cid;
+		this.numOfPur = numOfPur;
+	}
+
+	
+	
+	
+	public int getNumOfPur() {
+		return numOfPur;
+	}
+
+	public void setNumOfPur(int numOfPur) {
+		this.numOfPur = numOfPur;
 	}
 
 	public int getId() {
@@ -133,6 +183,15 @@ public class Product {
 
 	public void setCid(int cid) {
 		this.cid = cid;
+	}
+	
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	@Override

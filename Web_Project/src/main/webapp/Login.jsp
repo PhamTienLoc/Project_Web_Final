@@ -30,7 +30,7 @@
 			src="${pageContext.request.contextPath}/image/Phát Lộc.png" alt="Logo" width="78">
 			
 		<div class="form-wrapper">
-			<form class="text-center" action="login" method="POST">
+			<form class="text-center" action="${pageContext.request.contextPath}/login" method="POST">
 				<h1 class="h3 mb-3 fw-semibold">Log in to PLJewelry</h1>
 				
 				<div class="form-floating mb-2 rounded">

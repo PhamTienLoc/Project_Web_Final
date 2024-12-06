@@ -70,6 +70,7 @@ public class ChangePassWord extends HttpServlet {
 		String url = "/ChangePassWord.jsp";
 		request.setAttribute("fail", fail);
 		request.setAttribute("success", success);
+		session.setAttribute("user", us);
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
 		rd.forward(request, response);
 
