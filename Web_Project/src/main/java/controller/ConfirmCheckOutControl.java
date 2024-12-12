@@ -44,6 +44,7 @@ public class ConfirmCheckOutControl extends HttpServlet {
 		if (cart == null) {
 			cart = new Cart();
 		}
+
 		String disID = request.getParameter("disID");
 		DiscountDAO disDAO = new DiscountDAO();
 		Discount dis = disDAO.getDiscountByID(disID);
@@ -54,6 +55,12 @@ public class ConfirmCheckOutControl extends HttpServlet {
 			totalMoney = cart.geTotalMoney() * (1 - (dis.getDiscount() / 100));
 		}
 		Order od = (Order) session.getAttribute("order");
+
+		String method = od.getPaymentMethod();
+		if (method.equals(null)) {
+			response.sendRedirect("home");
+		}
+
 		od.setTotalMoney(totalMoney);
 		OrderDAO oDAO = new OrderDAO();
 		oDAO.addOrder(od, cart);

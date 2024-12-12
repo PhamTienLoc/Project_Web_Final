@@ -38,6 +38,10 @@ public class CheckControl extends HttpServlet {
 			throws ServletException, IOException {
 
 		String method_raw = request.getParameter("method");
+		if (method_raw.equals(null)) {
+			response.sendRedirect("home");
+		}
+
 		String method = "";
 		if (method_raw.equals("1")) {
 			method = "VNPayQR";
