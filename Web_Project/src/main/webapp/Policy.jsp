@@ -30,6 +30,18 @@
 
 	<jsp:include page="/Header.jsp"></jsp:include>
 
+	<!-- Breadcrumb -->
+	<div class="container mt-3">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb p-3 bg-body-tertiary rounded-3">
+				<li class="breadcrumb-item"><a class="text-decoration-none"
+					href="#">Home</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Chính sách</li>
+			</ol>
+		</nav>
+	</div>
+	<!-- End of Breadcrumb -->
+
 	<main class="flex-grow-1 my-3">
 		<div class="container">
 			<h2 class="policy-title text-center text-uppercase fw-bold my-3">Chính

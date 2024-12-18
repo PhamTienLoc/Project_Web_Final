@@ -56,9 +56,9 @@ public class ConfirmCheckOutControl extends HttpServlet {
 		}
 		Order od = (Order) session.getAttribute("order");
 
-		String method = od.getPaymentMethod();
-		if (method.equals(null)) {
-			response.sendRedirect("home");
+		if (od.getPaymentMethod() == null || od.getPaymentMethod().isEmpty()) {
+			response.sendRedirect("Cart.jsp");
+			return;
 		}
 
 		od.setTotalMoney(totalMoney);

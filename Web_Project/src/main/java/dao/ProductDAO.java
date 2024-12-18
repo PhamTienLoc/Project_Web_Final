@@ -198,6 +198,130 @@ public class ProductDAO implements DAOInterface<Product> {
 		return ketQua;
 	}
 
+	public ArrayList<Product> selectProductByAmount(int amount) {
+		ArrayList<Product> re = new ArrayList<Product>();
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "SELECT * FROM product ORDER BY id DESC LIMIT ? OFFSET ?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, amount);
+			st.setInt(2, amount);
+
+			// Bước 3: thực thi câu lệnh SQL
+			System.out.println(sql);
+			ResultSet rs = st.executeQuery();
+
+			// Bước 4:
+			while (rs.next()) {
+				Product p = new Product(rs.getInt("id"), rs.getString("title"), rs.getDouble("price"),
+						rs.getInt("discount"), rs.getInt("warranty"), rs.getInt("inventoryNumber"),
+						rs.getString("description"), rs.getString("thumbnail"), rs.getDate("createdAt"),
+						rs.getDate("updatedAt"), rs.getInt("categoryId"), rs.getInt("numOfPur"));
+				re.add(p);
+			}
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return re;
+	}
+
+	public ArrayList<Product> getProductByCheckedCategory(int[] cid) {
+		ArrayList<Product> re = new ArrayList<Product>();
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "SELECT * FROM product WHERE 1=1";
+			if (cid != null && cid[0] != 0) {
+				sql += " AND categoryId IN(";
+				for (int i = 0; i < cid.length; i++) {
+					sql += cid[i] + ",";
+				}
+				if (sql.endsWith(",")) {
+					sql = sql.substring(0, sql.length() - 1);
+				}
+				sql += ")";
+			}
+			PreparedStatement st = con.prepareStatement(sql);
+
+			// Bước 3: thực thi câu lệnh SQL
+			System.out.println(sql);
+			ResultSet rs = st.executeQuery();
+
+			// Bước 4:
+			while (rs.next()) {
+				Product p = new Product(
+						rs.getInt("id"), 
+						rs.getString("title"), 
+						rs.getDouble("price"),
+						rs.getInt("discount"), 
+						rs.getInt("warranty"), 
+						rs.getInt("inventoryNumber"),
+						rs.getString("description"), 
+						rs.getString("thumbnail"), 
+						rs.getDate("createdAt"),
+						rs.getDate("updatedAt"), 
+						rs.getInt("categoryId"), 
+						rs.getInt("numOfPur"));
+				re.add(p);
+			}
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return re;
+	}
+	
+	public ArrayList<Product> getProductByPriceRange(double from, double to) {
+		ArrayList<Product> re = new ArrayList<Product>();
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "SELECT * FROM product WHERE price BETWEEN ? AND ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setDouble(1, from);
+			stmt.setDouble(2, to);
+			// Bước 3: thực thi câu lệnh SQL
+			System.out.println(sql);
+			ResultSet rs = stmt.executeQuery();
+
+			// Bước 4:
+			while (rs.next()) {
+				Product p = new Product(
+						rs.getInt("id"), 
+						rs.getString("title"), 
+						rs.getDouble("price"),
+						rs.getInt("discount"), 
+						rs.getInt("warranty"), 
+						rs.getInt("inventoryNumber"),
+						rs.getString("description"), 
+						rs.getString("thumbnail"), 
+						rs.getDate("createdAt"),
+						rs.getDate("updatedAt"), 
+						rs.getInt("categoryId"), 
+						rs.getInt("numOfPur"));
+				re.add(p);
+			}
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return re;
+	}
+
 	@Override
 	public Product selectById(Product o) {
 		// TODO Auto-generated method stub

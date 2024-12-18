@@ -38,21 +38,23 @@ public class CheckControl extends HttpServlet {
 			throws ServletException, IOException {
 
 		String method_raw = request.getParameter("method");
-		if (method_raw.equals(null)) {
-			response.sendRedirect("home");
-		}
-
 		String method = "";
-		if (method_raw.equals("1")) {
-			method = "VNPayQR";
-		} else if (method_raw.equals("2")) {
-			method = "Thẻ nội địa";
-		} else if (method_raw.equals("3")) {
-			method = "Thẻ quốc tế";
-		} else if (method_raw.equals("4")) {
-			method = "Ví VNPay";
-		} else if (method_raw.equals("5")) {
-			method = "Tiền mặt";
+
+		if (method_raw != null) {
+			if (method_raw.equals("1")) {
+				method = "VNPayQR";
+			} else if (method_raw.equals("2")) {
+				method = "Thẻ nội địa";
+			} else if (method_raw.equals("3")) {
+				method = "Thẻ quốc tế";
+			} else if (method_raw.equals("4")) {
+				method = "Ví VNPay";
+			} else if (method_raw.equals("5")) {
+				method = "Tiền mặt";
+			}
+		} else {
+			response.sendRedirect("Cart.jsp");
+			return;
 		}
 
 		HttpSession session = request.getSession();
