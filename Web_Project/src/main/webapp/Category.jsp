@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<fmt:setLocale value="vi_VN" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,6 +25,7 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
 	rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
 <!-- CSS của project -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/category.css">
@@ -78,15 +81,14 @@
 							<h2>Theo Danh Mục</h2>
 							<c:set var="c" value="${categories}"/>
 							<c:set var="cc" value="${requestScope.categoryChecked}"/>
-							<c:set var="cid" value="${requestScope.cid}"/>
-							<form action="productFilter" method="get" id="categoryForm">
+							<form action="productList" method="get" id="categoryForm">
 								<div class="form-check">
 									<input 
 										class="form-check-input" 
 										type="checkbox" 
 										id="categoryIdAll" 
 										name="categoryId"
-										${cc[0]?"checked":""}
+										${cc[0] ? "checked" : ""}
 										value="${0}"
 										onClick="setCheck(this, 'categoryId', 'categoryForm')">
 									<label class="form-check-label" for="categoryIdAll"> Tất cả </label>
@@ -100,7 +102,6 @@
 											name="categoryId"
 											${(cc[i+1]) ? "checked" : ""}
 											value="${c.get(i).getCid()}"
-											${c.get(i).getCid()==cid ? "checked" : ""}
 											onClick="setCheck(this, 'categoryId', 'categoryForm')">
 										<label 
 											class="form-check-label" 
@@ -116,14 +117,14 @@
 							<h2>Khoảng Giá</h2>
 							<c:set var="pr" value="${requestScope.priceRange}"/>
 							<c:set var="prc" value="${requestScope.priceRangeChecked}"/>
-							<form action="productFilter" method="get" id="priceRangeForm">
+							<form action="productList" method="get" id="priceRangeForm">
 								<div class="form-check">
 									<input 
 										class="form-check-input" 
 										type="checkbox" 
 										id="priceIdAll"
 										name="priceId"
-										${prc[0]?"checked":""}
+										${prc[0] ? "checked" : ""}
 										value="${0}"
 										onClick="setCheck(this, 'priceId', 'priceRangeForm')">
 									<label class="form-check-label" for="priceIdAll"> Tất cả </label>
@@ -135,7 +136,7 @@
 											type="checkbox" 
 											id="priceRange${i+1}"
 											name="priceId"
-											${prc[i+1]?"checked":""}
+											${prc[i+1] ? "checked" : ""}
 											value="${i+1}"
 											onClick="setCheck(this, 'priceId', 'priceRangeForm')">
 										<label 
@@ -153,41 +154,81 @@
 					<div class="product-sort d-flex align-items-center">
 						<span class="product-sort--label me-2">Sắp xếp theo</span>
 						<div class="product-sort--options">
-							<select>
-								<option>Sản phẩm mới nhất</option>
-								<option>Giá từ thấp đến cao</option>
-								<option>Giá từ cao đến thấp</option>
-							</select>
-						</div>
-						<div
-							class="mini-page--controller d-flex flex-grow-1 justify-content-end align-items-center">
-							<div class="page-number">
-								<span class="page-index">1</span>/<span class="page-total">12</span>
+						<c:set var="defaultSortParam" value="${requestScope.param}" />
+							<c:if test="${not empty defaultSortParam}">
+							    <c:set var="sortParam" value="${defaultSortParam}" />
+							    <c:set var="sortParam" value="${sortParam.replaceAll('sortBy=[^&]*&?', '')}" />
+							</c:if>
+							<c:if test="${empty defaultSortParam}">
+							    <c:set var="sortParam" value="" />
+							</c:if>
+							<div class="dropdown">
+							    <button class="btn btn-primary dropdown-toggle" 
+									    type="button" 
+									    id="sortDropdown" 
+									    data-bs-toggle="dropdown" 
+									    aria-expanded="false">
+							        <c:choose>
+							            <c:when test="${sortBy == 'newest'}">Sản phẩm mới nhất</c:when>
+							            <c:when test="${sortBy == 'price_asc'}">Giá thấp đến cao</c:when>
+							            <c:when test="${sortBy == 'price_desc'}">Giá cao đến thấp</c:when>
+							            <c:when test="${sortBy == 'name_asc'}">Tên từ A - Z</c:when>
+							            <c:when test="${sortBy == 'name_desc'}">Tên từ Z - A</c:when>
+							        </c:choose>
+							    </button>
+							    <ul class="dropdown-menu dropdown-menu-end pe-5" aria-labelledby="sortDropdown">
+							        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=newest">Sản phẩm mới nhất</a></li>
+							        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=price_asc">Giá thấp đến cao</a></li>
+							        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=price_desc">Giá cao đến thấp</a></li>
+							        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=name_asc">Tên từ A - Z</a></li>
+							        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=name_desc">Tên từ Z - A</a></li>
+							    </ul>
 							</div>
-							<div class="d-flex">
-								<button type="button" class="btn btn-outline-primary rounded-1">
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-										fill="currentColor"
-										class="justify-content-center bi bi-chevron-left"
-										viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-											d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
-                                </svg>
-								</button>
-								<button type="button" class="btn btn-primary rounded-1">
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-										fill="currentColor" class="bi bi-chevron-right"
-										viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-											d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
-                                </svg>
-								</button>
+
+						</div>
+						<div class="mini-page--controller d-flex flex-grow-1 justify-content-end align-items-center">
+							<div class="page-number">
+								<span class="page-index">${pageIndex}</span>/<span class="page-total">${totalPage}</span>
+							</div>
+							<div class="d-flex justify-content-center align-items-center">
+							    <c:if test="${pageIndex > 1}">
+							        <a class="btn btn-outline-primary d-flex align-items-center justify-content-center me-1 py-2 px-2"
+							           href="productList?${indexParam}index=${pageIndex - 1}" aria-label="Previous">
+							            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+							                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+							            </svg>
+							        </a>
+							    </c:if>
+							    <c:if test="${pageIndex <= 1}">
+							        <a class="btn btn-primary disabled d-flex align-items-center justify-content-center me-1 py-2 px-2"
+							           href="#" aria-label="Previous">
+							            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+							                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+							            </svg>
+							        </a>
+							    </c:if>
+							    <c:if test="${pageIndex < totalPage}">
+							        <a class="btn btn-outline-primary d-flex align-items-center justify-content-center py-2 px-2"
+							           href="productList?${indexParam}index=${pageIndex + 1}" aria-label="Next">
+							            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+							                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+							            </svg>
+							        </a>
+							    </c:if>
+							    <c:if test="${pageIndex >= totalPage}">
+							        <a class="btn btn-primary disabled d-flex align-items-center justify-content-center py-2 px-2"
+							           href="#" aria-label="Next">
+							            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+							                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+							            </svg>
+							        </a>
+							    </c:if>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<c:if test="${not empty products}">
-							<h1 class="mb-3 fs-3">Tìm thấy (${products.size()} sản phẩm)</h1>
+							<h1 class="mb-3 fs-3">Tìm thấy (${requestScope.totalProduct} sản phẩm)</h1>
 							<c:forEach var="p" items="${products}">
 								<c:url var="productdetail" value="/detail">
 									<c:param name="id" value="${p.id}" />
@@ -206,7 +247,9 @@
 												<h5 class="card-title">${p.title}</h5>
 											</a>
 			
-											<p class="card-text">${p.price}$</p>
+											<p class="card-text">
+											    <fmt:formatNumber value="${p.price}" type="number" groupingUsed="true" />đ
+											</p>
 											<form action="buy2" method="get"
 												onsubmit="return buy(event, this);">
 												<input type="hidden" name="id" value="${p.id}"> <input
@@ -227,19 +270,43 @@
 						</c:if>
 					</div>
 					
+					<c:set var="defaultIndexParam" value="${requestScope.param}" />
+					<c:if test="${not empty defaultIndexParam}">
+					    <c:set var="indexParam" value="${defaultIndexParam}" />
+					    <c:set var="indexParam" value="${indexParam.replaceAll('index=[^&]*&?', '')}" />
+					</c:if>
+					<c:if test="${empty defaultIndexParam}">
+					    <c:set var="indexParam" value="" />
+					</c:if>
+					
 					<nav aria-label="Page navigation">
-						<ul class="pagination justify-content-center mb-4">
-							<li class="page-item"><a class="page-link" href="#"
-								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-							</a></li>
-							<li class="page-item active"><a class="page-link" href="#">1</a></li>
-							<li class="page-item"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#"
-								aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-							</a></li>
-						</ul>
+					    <ul class="pagination justify-content-center">
+					        <c:if test="${pageIndex > 1}">
+					            <li class="page-item">
+					                <a class="page-link" href="productList?${indexParam}index=${pageIndex - 1}">
+					                    <span aria-hidden="true">&laquo;</span>
+					                </a>
+					            </li>
+					        </c:if>
+					
+					        <c:forEach begin="1" end="${totalPage}" var="i" step="1">
+					            <li class="page-item ${i == pageIndex ? 'active' : ''}">
+					                <a class="page-link" href="productList?${indexParam}index=${i}">
+					                    ${i}
+					                </a>
+					            </li>
+					        </c:forEach>
+					
+					        <c:if test="${pageIndex < totalPage}">
+					            <li class="page-item">
+					                <a class="page-link" href="productList?${indexParam}index=${pageIndex + 1}">
+					                    <span aria-hidden="true">&raquo;</span>
+					                </a>
+					            </li>
+					        </c:if>
+					    </ul>
 					</nav>
+
 				</div>
 			</div>
 		</div>
@@ -250,20 +317,63 @@
 	<script type="text/javascript">
 	function setCheck(obj, name, formId) {
 	    var checkboxes = document.getElementsByName(name);
-	    if ((obj.id == name + "All") && (checkboxes[0].checked == true)) {
+	    if (obj.id === name + "All" && obj.checked) {
 	        for (var i = 1; i < checkboxes.length; i++) {
 	            checkboxes[i].checked = false;
 	        }
 	    } else {
-	        for (var i = 1; i < checkboxes.length; i++) {
-	            if (checkboxes[i].checked == true) {
-	                checkboxes[0].checked = false;
-	                break;
-	            }
-	        }
+	        checkboxes[0].checked = false;
 	    }
 	    document.getElementById(formId).submit();
 	}
+	</script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/home.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+	<script>
+		function buy(event, form) {
+			event.preventDefault(); // Ngăn chặn hành động mặc định của form
+			const formData = $(form).serialize(); // Lấy dữ liệu từ form
+
+			$.ajax({
+				url : 'buy2', // URL xử lý yêu cầu
+				type : 'GET', // Phương thức GET
+				data : formData, // Dữ liệu gửi đi
+				success : function(response) {
+					// Tải lại header (hoặc cập nhật giỏ hàng)
+					$('#menuContainer').load('Header.jsp', function() {
+						//alert('Thêm vào giỏ hàng thành công!'); // Hiển thị thông báo thành công
+					});
+
+					// Khởi tạo Notyf để hiển thị thông báo
+					const notyf = new Notyf();
+					notyf.open({
+						duration : 1000,
+						position : {
+							x : 'right',
+							y : 'top',
+						},
+						type : 'success', // Loại thông báo thành công
+						message : 'Thêm vào giỏ hàng thành công!', // Nội dung thông báo
+					});
+				},
+				error : function(error) {
+					// Nếu có lỗi, hiển thị thông báo lỗi
+					const notyf = new Notyf();
+					notyf.open({
+						duration : 1000,
+						position : {
+							x : 'right',
+							y : 'top',
+						},
+						type : 'error', // Loại thông báo lỗi
+						message : 'Có lỗi xảy ra, vui lòng thử lại!', // Nội dung thông báo lỗi
+					});
+				}
+			});
+
+			return false; // Đảm bảo form không được gửi đi theo cách mặc định
+		}
 	</script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

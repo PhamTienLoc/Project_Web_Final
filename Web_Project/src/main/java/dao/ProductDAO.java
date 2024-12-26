@@ -198,7 +198,7 @@ public class ProductDAO implements DAOInterface<Product> {
 		return ketQua;
 	}
 
-	public ArrayList<Product> selectProductByAmount(int amount) {
+	public ArrayList<Product> getProductByAmountAndIndex(int amount, int index) {
 		ArrayList<Product> re = new ArrayList<Product>();
 		try {
 			// Bước 1: tạo kết nối đến CSDL
@@ -208,7 +208,7 @@ public class ProductDAO implements DAOInterface<Product> {
 			String sql = "SELECT * FROM product ORDER BY id DESC LIMIT ? OFFSET ?";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setInt(1, amount);
-			st.setInt(2, amount);
+			st.setInt(2, (index - 1) * amount);
 
 			// Bước 3: thực thi câu lệnh SQL
 			System.out.println(sql);
@@ -216,10 +216,19 @@ public class ProductDAO implements DAOInterface<Product> {
 
 			// Bước 4:
 			while (rs.next()) {
-				Product p = new Product(rs.getInt("id"), rs.getString("title"), rs.getDouble("price"),
-						rs.getInt("discount"), rs.getInt("warranty"), rs.getInt("inventoryNumber"),
-						rs.getString("description"), rs.getString("thumbnail"), rs.getDate("createdAt"),
-						rs.getDate("updatedAt"), rs.getInt("categoryId"), rs.getInt("numOfPur"));
+				Product p = new Product(
+						rs.getInt("id"), 
+						rs.getString("title"), 
+						rs.getDouble("price"),
+						rs.getInt("discount"), 
+						rs.getInt("warranty"), 
+						rs.getInt("inventoryNumber"),
+						rs.getString("description"), 
+						rs.getString("thumbnail"), 
+						rs.getDate("createdAt"),
+						rs.getDate("updatedAt"), 
+						rs.getInt("categoryId"), 
+						rs.getInt("numOfPur"));
 				re.add(p);
 			}
 			// Bước 5:

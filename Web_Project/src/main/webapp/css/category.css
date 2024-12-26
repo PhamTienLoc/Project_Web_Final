@@ -82,13 +82,6 @@
     cursor: pointer;
 }
 
-.mini-page--controller button {
-    line-height: 16px;
-    border-radius: 50%;
-    margin: 0 2px;
-    padding: 10px;
-}
-
 .mini-page--controller .page-index:hover {
     text-decoration: underline;
 }
