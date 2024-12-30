@@ -41,7 +41,7 @@
 						<p>${success}</p>
 					</div>
 				</div>
-				<!-- Table for managing users -->
+				
 				<table class="table table-striped table-bordered">
 					<thead>
 						<tr>
@@ -82,7 +82,8 @@
 									<button 
 										class="btn btn-danger btn-sm" 
 										data-bs-toggle="modal"
-										data-bs-target="#deleteUserModal">
+										data-bs-target="#deleteUserModal"
+										data-id="${user.id}">
 										<i class="bi bi-trash"></i> Xóa
 									</button> 
 								</td>
@@ -174,6 +175,21 @@
 							errorMessage.style.display = 'none';
 						}
 					}, 1500); // Ẩn sau 3 giây
+		});
+		
+		document.addEventListener('DOMContentLoaded', function () {
+		    const deleteUserModal = document.getElementById('deleteUserModal');
+
+		    deleteUserModal.addEventListener('show.bs.modal', function (event) {
+		        const button = event.relatedTarget;
+
+		        const userId = button.getAttribute('data-id');
+
+		        const userIdInput = deleteUserModal.querySelector('#userId');
+		        if (userIdInput) {
+		            userIdInput.value = userId;
+		        }
+		    });
 		});
 	</script>
 </body>

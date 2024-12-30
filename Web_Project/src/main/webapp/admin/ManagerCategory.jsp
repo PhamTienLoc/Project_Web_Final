@@ -2,17 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<!-- Add the fmt taglib -->
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Quản lý Thể loại</title>
+<title>Quản lý danh mục</title>
 <!-- Bootstrap CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-<!-- Optional Bootstrap Icons -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
 	rel="stylesheet">
@@ -25,10 +23,11 @@
 
 			<!-- Main content -->
 			<main class="col-md-9 ms-sm-auto col-lg-10 px-4">
-				<h2>Quản lý thể loại</h2>
-
+				<h2>Quản lý danh mục</h2>
 				<div class="d-flex justify-content-between mb-3">
-					<button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+					<button 
+						class="btn btn-primary btn-sm" 
+						data-bs-toggle="modal"
 						data-bs-target="#addCategoryModal">
 						<i class="bi bi-plus-circle"></i> Thêm mới
 					</button>
@@ -43,45 +42,50 @@
 						<p>${success}</p>
 					</div>
 				</div>
+				
 				<table class="table table-striped table-bordered">
 					<thead>
 						<tr>
 							<th>ID</th>
-							<th>Tên</th>
+							<th>Tên danh mục</th>
+							<th>Đường dẫn ảnh</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody>
-						<!-- JSTL foreach loop to display dynamic rows -->
 						<c:forEach var="category" items="${listc}">
 							<tr>
 								<td>${category.cid}</td>
 								<td>${category.cname}</td>
-
+								<td class="text-truncate">${category.thumb}</td>
 								<td>
-									<c:url var="deletecate" value="/deletecategory">
-										<c:param name="id" value="${category.cid}"></c:param>
-									</c:url>
 									<button 
 										type="button" 
 										class="btn btn-warning btn-sm"
 										onclick="loadModal(${category.cid})">
 										<i class="bi bi-pencil"></i> Sửa
 									</button> 
-										<a 
-											href="${deletecate}"
-											class="btn btn-danger btn-sm">
-											<i class="bi bi-trash"></i>Xóa
-										</a>
+									<button 
+										class="btn btn-danger btn-sm" 
+										data-bs-toggle="modal"
+										data-bs-target="#deleteCategoryModal"
+										data-id="${category.cid}">
+										<i class="bi bi-trash"></i> Xóa
+									</button>
 								</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-				<!-- chỗ này là modal edit -->
+				<!-- Edit modal -->
 				<div id="modalContainer"></div>
-				<!-- Chỗn này là modal add -->
-				<jsp:include page="ModalAddDiscount.jsp" />
+				
+				<!-- Add modal -->
+				<jsp:include page="ModalAddCategory.jsp" />
+				
+				<!-- Delete modal -->
+				<jsp:include page="ModalDeleteCategory.jsp" />
+				
 				<!-- Phân trang -->
 				<nav aria-label="Page navigation">
 					<ul class="pagination justify-content-center">
@@ -116,7 +120,8 @@
 	</div>
 
 	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
+	</script>
 	<script>
 		function loadModal(categoryId) {
 			// Gửi AJAX đến servlet để lấy modal
@@ -128,8 +133,7 @@
 					document.getElementById('modalContainer').innerHTML = xhr.responseText;
 
 					// Mở modal
-					var myModal = new bootstrap.Modal(document
-							.getElementById('editCategoryModal'));
+					var myModal = new bootstrap.Modal(document.getElementById('editCategoryModal'));
 					myModal.show();
 				}
 			};
@@ -157,6 +161,21 @@
 							errorMessage.style.display = 'none';
 						}
 					}, 1500); // Ẩn sau 3 giây
+		});
+		
+		document.addEventListener('DOMContentLoaded', function () {
+		    const deleteCategoryModal = document.getElementById('deleteCategoryModal');
+
+		    deleteCategoryModal.addEventListener('show.bs.modal', function (event) {
+		        const button = event.relatedTarget;
+
+		        const categoryId = button.getAttribute('data-id');
+
+		        const categoryIdInput = deleteCategoryModal.querySelector('#categoryId');
+		        if (categoryIdInput) {
+		        	categoryIdInput.value = categoryId;
+		        }
+		    });
 		});
 	</script>
 </body>
