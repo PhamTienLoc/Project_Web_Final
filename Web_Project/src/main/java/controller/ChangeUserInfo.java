@@ -59,7 +59,7 @@ public class ChangeUserInfo extends HttpServlet {
 			int id = checkedUser.getId();
 			User u = new User(id, "", fullname, "", gender, Date.valueOf(birthday), email, phoneNumber, address, null,
 					new java.util.Date(), false);
-			userDAO.updateInfo(u);
+			userDAO.update(u);
 			url = "/ChangeUserInfo.jsp";
 			status = "Cập nhật thông tin thành công";
 			User updatedUser = userDAO.selectById(u);

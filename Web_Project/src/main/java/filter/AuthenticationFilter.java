@@ -66,7 +66,7 @@ public class AuthenticationFilter implements Filter {
 			return;
 		}
 
-		if (uri.matches(".*/admin/.*") || accessLevel.equalsIgnoreCase("ADMIN")) {
+		if (uri.matches(".*/admin.*") || accessLevel.equalsIgnoreCase("ADMIN")) {
 			if (user == null || !user.isAdmin()) {
 				res.sendError(403, "Bạn không có quyền truy cập trang này. Vui lòng liên hệ admin.");
 				return;

@@ -7,11 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Quản lý người dùng</title>
-<!-- Bootstrap CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-<!-- Optional Bootstrap Icons -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
 	rel="stylesheet">
@@ -26,8 +24,10 @@
 			<main class="col-md-9 ms-sm-auto col-lg-10 px-4">
 				<h2>Quản lý người dùng</h2>
 				<div class="d-flex justify-content-between mb-3">
-					<button class="btn btn-primary btn-sm" data-bs-toggle="modal"
-						data-bs-target="">
+					<button 
+						class="btn btn-primary btn-sm" 
+						data-bs-toggle="modal"
+						data-bs-target="#addUserModal">
 						<i class="bi bi-plus-circle"></i> Thêm mới
 					</button>
 				</div>
@@ -51,41 +51,54 @@
 							<th>Số điện thoại</th>
 							<th>Quyền hạn</th>
 							<th>Ngày đăng ký</th>
+							<th>Ngày cập nhật</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody>
-						<!-- JSTL foreach loop to display dynamic rows -->
 						<c:forEach var="user" items="${listu}">
 							<tr>
 								<td>${user.id}</td>
 								<td>${user.user}</td>
 								<td>${user.email}</td>
 								<td>${user.phoneNumber}</td>
-
-
 								<td><c:if test="${user.admin}">
-                    Quản trị viên
-                  </c:if> <c:if test="${!user.admin}">
-                    Khách hàng
-                  </c:if></td>
-
-
+										Quản trị viên
+									</c:if> <c:if test="${!user.admin}">
+                    					Khách hàng
+              						</c:if>
+           						</td>
 								<td><fmt:formatDate value="${user.createdAt}"
 										pattern="dd/MM/yyyy" /></td>
-
-								<td><button type="button" class="btn btn-warning btn-sm"
+								<td><fmt:formatDate value="${user.updatedAt}"
+										pattern="dd/MM/yyyy" /></td>		
+								<td>
+									<button 
+										type="button" 
+										class="btn btn-warning btn-sm"
 										onclick="loadModal(${user.id})">
 										<i class="bi bi-pencil"></i> Sửa
-									</button> <a href=""
-									class="btn btn-danger btn-sm"><i class="bi bi-trash"></i>
-										Xóa</a></td>
+									</button>
+									<button 
+										class="btn btn-danger btn-sm" 
+										data-bs-toggle="modal"
+										data-bs-target="#deleteUserModal">
+										<i class="bi bi-trash"></i> Xóa
+									</button> 
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-				<!-- chỗ này là modal edit -->
+				<!-- Edit modal -->
 				<div id="modalContainer"></div>
+				
+				<!-- Add modal -->
+				<jsp:include page="ModalAddUser.jsp" />
+				
+				<!-- Delete modal -->
+				<jsp:include page="ModalDeleteUser.jsp" />
+				
 				<!-- Pagination -->
 				<nav aria-label="Page navigation">
 					<ul class="pagination justify-content-center">
@@ -117,10 +130,10 @@
 			</main>
 		</div>
 	</div>
-	</div>
 
 	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
+	</script>
 	<script>
 		function loadModal(userId) {
 			// Gửi AJAX đến servlet để lấy modal
@@ -132,8 +145,7 @@
 					document.getElementById('modalContainer').innerHTML = xhr.responseText;
 
 					// Mở modal
-					var myModal = new bootstrap.Modal(document
-							.getElementById('editUserModal'));
+					var myModal = new bootstrap.Modal(document.getElementById('editUserModal'));
 					myModal.show();
 				}
 			};

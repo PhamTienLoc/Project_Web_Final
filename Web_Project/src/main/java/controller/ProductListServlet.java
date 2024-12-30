@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +29,8 @@ public class ProductListServlet extends HttpServlet {
 	private CategoryDAO categoryDAO = new CategoryDAO();
 	private ProductDAO productDAO = new ProductDAO();
 	private ProductService service = new ProductService();
+	private static final int PRODUCTS_PER_PAGE = 8;
+	private static final double MAX_PRICE = Double.MAX_VALUE;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -61,6 +64,7 @@ public class ProductListServlet extends HttpServlet {
 		String[] priceIds = request.getParameterValues("priceId");
 		String param = request.getQueryString();
 		if (param == null) param = "";
+//		System.out.println("Before param: " + param);
 		
 		// Filter
 		int[] categoryId = null;
@@ -79,54 +83,30 @@ public class ProductListServlet extends HttpServlet {
 		}
 
 		if (priceIds != null) {
-			double from = 0, to = 0;
-			for (int i = 0; i < priceIds.length; i++) {
-				List<Product> temp = new ArrayList<Product>();
-				if (priceIds[i].equals("0")) {
-					from = 0;
-					to = 100000000;
-					products = productDAO.getProductByPriceRange(from, to);
-					priceRangeChecked[0] = true;
-					break;
-				} else {
-					param = updateParam(param, "priceId", priceIds[i]);
-					if (priceIds[i].equals("1")) {
-						from = 0;
-						to = 1000000;
-						temp = productDAO.getProductByPriceRange(from, to);
-						products.addAll(temp);
-						priceRangeChecked[1] = true;
-					}
-					if (priceIds[i].equals("2")) {
-						from = 1000000;
-						to = 2000000;
-						temp = productDAO.getProductByPriceRange(from, to);
-						products.addAll(temp);
-						priceRangeChecked[2] = true;
-					}
-					if (priceIds[i].equals("3")) {
-						from = 2000000;
-						to = 5000000;
-						temp = productDAO.getProductByPriceRange(from, to);
-						products.addAll(temp);
-						priceRangeChecked[3] = true;
-					}
-					if (priceIds[i].equals("4")) {
-						from = 5000000;
-						to = 10000000;
-						temp = productDAO.getProductByPriceRange(from, to);
-						products.addAll(temp);
-						priceRangeChecked[4] = true;
-					}
-					if (priceIds[i].equals("5")) {
-						from = 10000000;
-						to = 100000000;
-						temp = productDAO.getProductByPriceRange(from, to);
-						products.addAll(temp);
-						priceRangeChecked[5] = true;
-					}
-				}
-			}
+		    double[][] priceRanges = {
+		        {0, MAX_PRICE},    
+		        {0, 1000000},             
+		        {1000000, 2000000},      
+		        {2000000, 5000000},       
+		        {5000000, 10000000},      
+		        {10000000, MAX_PRICE}     
+		    };
+
+		    for (String priceId : priceIds) {
+		        int id = Integer.parseInt(priceId);
+		        param = updateParam(param, "priceId", priceId);
+		        
+		        if (id == 0) { 
+		            products = productDAO.getProductByPriceRange(priceRanges[0][0], priceRanges[0][1]);
+		            Arrays.fill(priceRangeChecked, false); 
+		            priceRangeChecked[0] = true;          
+		            break;                                
+		        } else if (id >= 1 && id < priceRanges.length) {
+		            List<Product> temp = productDAO.getProductByPriceRange(priceRanges[id][0], priceRanges[id][1]);
+		            products.addAll(temp);
+		            priceRangeChecked[id] = true;
+		        }
+		    }
 		}
 
 		if (priceIds == null && categoryId_raw == null) {
@@ -144,11 +124,7 @@ public class ProductListServlet extends HttpServlet {
 		if ((categoryId_raw != null) && (categoryId[0] != 0)) {
 			categoryChecked[0] = false;
 			for (int i = 1; i < categoryChecked.length; i++) {
-				if (isChecked(categories.get(i - 1).getCid(), categoryId)) {
-					categoryChecked[i] = true;
-				} else {
-					categoryChecked[i] = false;
-				}
+				categoryChecked[i] = isChecked(categories.get(i - 1).getCid(), categoryId);
 			}
 		}
 		
@@ -160,15 +136,13 @@ public class ProductListServlet extends HttpServlet {
 		    param = updateParam(param, "sortBy", sortBy);
 		}
 		
-		System.out.println("Final param: " + param);
-		
 		ArrayList<Product> sortedProductList = service.sortProductListBy(products, sortBy);
 
 		// Pagination
 		String index = request.getParameter("index");
 		int pageIndex = (index == null) ? 1 : Integer.parseInt(index);
 		param = updateParam(param, "index", String.valueOf(pageIndex));
-		int productPerPage = 8;
+		int productPerPage = PRODUCTS_PER_PAGE;
 		int totalProduct = products.size();
 		int totalPage = (totalProduct % productPerPage == 0 ? (totalProduct / productPerPage)
 				: ((totalProduct / productPerPage) + 1));
@@ -176,7 +150,35 @@ public class ProductListServlet extends HttpServlet {
 		int beginIndex = (pageIndex - 1) * productPerPage;
 		int endIndex = Math.min(pageIndex * productPerPage, totalProduct);
 		List<Product> displayProductsByPage = sortedProductList.subList(beginIndex, endIndex);
-
+//		System.out.println("Products: " + displayProductsByPage.size());
+//		System.out.println("Final param: " + param);
+		
+//		response.setContentType("text/html");
+//        response.setCharacterEncoding("UTF-8");
+//        PrintWriter out = response.getWriter();
+//        for (Product product : displayProductsByPage) {
+//        	System.out.println(product);
+//            out.println("<div class=\"product col-md-3 mb-4\">");
+//            out.println("    <div class=\"card card-hover\">");
+//            out.println("        <a href=\"/detail?id=" + product.getId() + "&cid=" + product.getCid() + "\">");
+//            out.println("            <img src=\"" + product.getThumbnail() + "\" class=\"card-img-top\" alt=\"Product Image\">");
+//            out.println("        </a>");
+//            out.println("        <div class=\"card-body text-center\">");
+//            out.println("            <a href=\"/detail?id=" + product.getId() + "&cid=" + product.getCid() + "\" class=\"text-decoration-none\">");
+//            out.println("                <h5 class=\"card-title\">" + product.getTitle() + "</h5>");
+//            out.println("            </a>");
+//            out.println("            <p class=\"card-text\">" + String.format("%,.2f", product.getPrice()) + "đ</p>");
+//            out.println("            <form action=\"buy2\" method=\"get\" onsubmit=\"return buy(event, this);\">");
+//            out.println("                <input type=\"hidden\" name=\"id\" value=\"" + product.getId() + "\">");
+//            out.println("                <input type=\"hidden\" name=\"quantity\" value=\"1\">");
+//            out.println("                <button type=\"submit\" class=\"btn btn-success\">Thêm vào giỏ hàng</button>");
+//            out.println("            </form>");
+//            out.println("        </div>");
+//            out.println("    </div>");
+//            out.println("</div>");
+//        }
+//        out.close();
+		
 		request.setAttribute("categories", categories);
 		request.setAttribute("categoryChecked", categoryChecked);
 		request.setAttribute("param", param);
@@ -208,25 +210,25 @@ public class ProductListServlet extends HttpServlet {
 	        param = "";
 	    }
 
-	    String[] pairs = param.split("&");
+	    String[] keyPairs = param.split("&");
 	    List<String> updatedParams = new ArrayList<>();
-	    List<String> valuesForKey = new ArrayList<>();
+	    List<String> keyValues = new ArrayList<>();
 
-	    boolean keyExists = false;
-	    for (String pair : pairs) {
+	    boolean exist = false;
+	    for (String pair : keyPairs) {
 	        if (pair.startsWith(key + "=")) {
-	            keyExists = true;
-	            valuesForKey.add(pair.split("=")[1]);
+	        	exist = true;
+	        	keyValues.add(pair.split("=")[1]);
 	        } else {
 	            updatedParams.add(pair);
 	        }
 	    }
 
-	    if (!keyExists) {
+	    if (!exist) {
 	        updatedParams.add(key + "=" + value);
 	    } else {
-	        if (!valuesForKey.contains(value)) {
-	            valuesForKey.add(value);
+	        if (!keyValues.contains(value)) {
+	        	keyValues.add(value);
 	        }
 
 	        List<String> toRemove = new ArrayList<>();
@@ -237,7 +239,7 @@ public class ProductListServlet extends HttpServlet {
 	        }
 	        updatedParams.removeAll(toRemove); 
 
-	        for (String newValue : valuesForKey) {
+	        for (String newValue : keyValues) {
 	            updatedParams.add(key + "=" + newValue);
 	        }
 	    }

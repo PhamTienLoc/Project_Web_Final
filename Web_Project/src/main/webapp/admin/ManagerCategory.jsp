@@ -59,15 +59,21 @@
 								<td>${category.cname}</td>
 
 								<td>
-								<c:url var="deletecate" value="/deletecategory">
-								<c:param name="id" value="${category.cid}"></c:param>
-								</c:url>
-								<button type="button" class="btn btn-warning btn-sm"
+									<c:url var="deletecate" value="/deletecategory">
+										<c:param name="id" value="${category.cid}"></c:param>
+									</c:url>
+									<button 
+										type="button" 
+										class="btn btn-warning btn-sm"
 										onclick="loadModal(${category.cid})">
 										<i class="bi bi-pencil"></i> Sửa
-									</button> <a href="${deletecate}"
-									class="btn btn-danger btn-sm"><i class="bi bi-trash"></i>
-										Xóa</a></td>
+									</button> 
+										<a 
+											href="${deletecate}"
+											class="btn btn-danger btn-sm">
+											<i class="bi bi-trash"></i>Xóa
+										</a>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -107,7 +113,6 @@
 
 			</main>
 		</div>
-	</div>
 	</div>
 
 	<script

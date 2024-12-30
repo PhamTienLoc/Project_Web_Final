@@ -43,7 +43,7 @@ public class EditUserControl extends HttpServlet {
 			us.setId(uid);
 			User us1 = ud.selectById(us);
 			request.setAttribute("user", us1);
-			RequestDispatcher rd =getServletContext().getRequestDispatcher("/admin/ModalEditUser.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/admin/ModalEditUser.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
 			// TODO: handle exception

@@ -33,7 +33,7 @@
 					Thể loại 
 				</a>
 				<ul class="dropdown-menu" aria-labelledby="featuresDropdown">
-					<li><a class="dropdown-header text-decoration-none text-dark fw-bold fs-6" href="${pageContext.request.contextPath}/productList?cid=0">Tất cả</a></li>
+					<li><a class="dropdown-header text-decoration-none text-dark fw-bold fs-6" href="${pageContext.request.contextPath}/productList?categoryId=0">Tất cả</a></li>
 					<c:forEach var="c" items="${categories}">
 						<c:url var="category" value="/productList">
 							<c:param name="categoryId" value="${c.cid}" />

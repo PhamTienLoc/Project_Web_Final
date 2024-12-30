@@ -155,35 +155,35 @@
 						<span class="product-sort--label me-2">Sắp xếp theo</span>
 						<div class="product-sort--options">
 						<c:set var="defaultSortParam" value="${requestScope.param}" />
-							<c:if test="${not empty defaultSortParam}">
-							    <c:set var="sortParam" value="${defaultSortParam}" />
-							    <c:set var="sortParam" value="${sortParam.replaceAll('sortBy=[^&]*&?', '')}" />
-							</c:if>
-							<c:if test="${empty defaultSortParam}">
-							    <c:set var="sortParam" value="" />
-							</c:if>
-							<div class="dropdown">
-							    <button class="btn btn-primary dropdown-toggle" 
-									    type="button" 
-									    id="sortDropdown" 
-									    data-bs-toggle="dropdown" 
-									    aria-expanded="false">
-							        <c:choose>
-							            <c:when test="${sortBy == 'newest'}">Sản phẩm mới nhất</c:when>
-							            <c:when test="${sortBy == 'price_asc'}">Giá thấp đến cao</c:when>
-							            <c:when test="${sortBy == 'price_desc'}">Giá cao đến thấp</c:when>
-							            <c:when test="${sortBy == 'name_asc'}">Tên từ A - Z</c:when>
-							            <c:when test="${sortBy == 'name_desc'}">Tên từ Z - A</c:when>
-							        </c:choose>
-							    </button>
-							    <ul class="dropdown-menu dropdown-menu-end pe-5" aria-labelledby="sortDropdown">
-							        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=newest">Sản phẩm mới nhất</a></li>
-							        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=price_asc">Giá thấp đến cao</a></li>
-							        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=price_desc">Giá cao đến thấp</a></li>
-							        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=name_asc">Tên từ A - Z</a></li>
-							        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=name_desc">Tên từ Z - A</a></li>
-							    </ul>
-							</div>
+						<c:if test="${not empty defaultSortParam}">
+						    <c:set var="sortParam" value="${defaultSortParam}" />
+						    <c:set var="sortParam" value="${sortParam.replaceAll('sortBy=[^&]*&?', '')}" />
+						</c:if>
+						<c:if test="${empty defaultSortParam}">
+						    <c:set var="sortParam" value="" />
+						</c:if>
+						<div class="dropdown">
+						    <button class="btn btn-primary dropdown-toggle" 
+								    type="button" 
+								    id="sortDropdown" 
+								    data-bs-toggle="dropdown" 
+								    aria-expanded="false">
+						        <c:choose>
+						            <c:when test="${sortBy == 'newest'}">Sản phẩm mới nhất</c:when>
+						            <c:when test="${sortBy == 'price_asc'}">Giá thấp đến cao</c:when>
+						            <c:when test="${sortBy == 'price_desc'}">Giá cao đến thấp</c:when>
+						            <c:when test="${sortBy == 'name_asc'}">Tên từ A - Z</c:when>
+						            <c:when test="${sortBy == 'name_desc'}">Tên từ Z - A</c:when>
+						        </c:choose>
+						    </button>
+						    <ul class="dropdown-menu dropdown-menu-end pe-5" aria-labelledby="sortDropdown">
+						        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=newest">Sản phẩm mới nhất</a></li>
+						        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=price_asc">Giá thấp đến cao</a></li>
+						        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=price_desc">Giá cao đến thấp</a></li>
+						        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=name_asc">Tên từ A - Z</a></li>
+						        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=name_desc">Tên từ Z - A</a></li>
+						    </ul>
+						</div>
 
 						</div>
 						<div class="mini-page--controller d-flex flex-grow-1 justify-content-end align-items-center">
@@ -228,40 +228,40 @@
 					</div>
 					<div class="row">
 						<c:if test="${not empty products}">
-							<h1 class="mb-3 fs-3">Tìm thấy (${requestScope.totalProduct} sản phẩm)</h1>
-							<c:forEach var="p" items="${products}">
-								<c:url var="productdetail" value="/detail">
-									<c:param name="id" value="${p.id}" />
-									<c:param name="cid" value="${p.cid}" />
-								</c:url>
-								<div class="product col-md-3 mb-4">
-									<div class="card card-hover">
-										<!-- Link bọc hình ảnh -->
-										<a href="${productdetail}"> <img src="${p.thumbnail}"
-											class="card-img-top" alt="Product Image">
+						<h1 class="mb-3 fs-3">Tìm thấy (${requestScope.totalProduct} sản phẩm)</h1>
+						<c:forEach var="p" items="${products}">
+							<c:url var="productdetail" value="/detail">
+								<c:param name="id" value="${p.id}" />
+								<c:param name="cid" value="${p.cid}" />
+							</c:url>
+							<div class="product col-md-3 mb-4">
+								<div class="card card-hover">
+									<!-- Link bọc hình ảnh -->
+									<a href="${productdetail}"> <img src="${p.thumbnail}"
+										class="card-img-top" alt="Product Image">
+									</a>
+									<div class="card-body text-center">
+		
+										<!-- Link bọc title, đảm bảo không có khoảng trắng bên trong -->
+										<a href="${productdetail}" class="text-decoration-none">
+											<h5 class="card-title">${p.title}</h5>
 										</a>
-										<div class="card-body text-center">
-			
-											<!-- Link bọc title, đảm bảo không có khoảng trắng bên trong -->
-											<a href="${productdetail}" class="text-decoration-none">
-												<h5 class="card-title">${p.title}</h5>
-											</a>
-			
-											<p class="card-text">
-											    <fmt:formatNumber value="${p.price}" type="number" groupingUsed="true" />đ
-											</p>
-											<form action="buy2" method="get"
-												onsubmit="return buy(event, this);">
-												<input type="hidden" name="id" value="${p.id}"> <input
-													type="hidden" name="quantity" value="1">
-												<button type="submit" class="btn btn-success">
-													Thêm vào giỏ hàng
-												</button>
-											</form>
-										</div>
+		
+										<p class="card-text">
+										    <fmt:formatNumber value="${p.price}" type="number" groupingUsed="true" />đ
+										</p>
+										<form action="buy2" method="get"
+											onsubmit="return buy(event, this);">
+											<input type="hidden" name="id" value="${p.id}"> <input
+												type="hidden" name="quantity" value="1">
+											<button type="submit" class="btn btn-success">
+												Thêm vào giỏ hàng
+											</button>
+										</form>
 									</div>
 								</div>
-							</c:forEach>
+							</div>
+						</c:forEach>
 						</c:if>
 						<c:if test="${empty products}">
 							<div class="text-center">
@@ -314,6 +314,10 @@
 
 	<jsp:include page="Footer.jsp"></jsp:include>
 
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/home.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/category.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 	<script type="text/javascript">
 	function setCheck(obj, name, formId) {
 	    var checkboxes = document.getElementsByName(name);
@@ -327,9 +331,6 @@
 	    document.getElementById(formId).submit();
 	}
 	</script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/home.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 	<script>
 		function buy(event, form) {
 			event.preventDefault(); // Ngăn chặn hành động mặc định của form

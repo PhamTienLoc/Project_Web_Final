@@ -24,7 +24,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="adminmanageruser">
+                <a class="nav-link" href="adminUserManager">
                   <i class="bi bi-person-circle"></i>
                   Quản lý người dùng
                 </a>
