@@ -24,15 +24,15 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="adminmanageruser">
+                <a class="nav-link" href="adminUserManager">
                   <i class="bi bi-person-circle"></i>
                   Quản lý người dùng
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="adminmanagercategory">
+                <a class="nav-link" href="adminCategoryManager">
                   <i class="bi bi-cart-check"></i>
-                  Quản lý Thể loại
+                  Quản lý danh mục
                 </a>
               </li>
               <li class="nav-item">

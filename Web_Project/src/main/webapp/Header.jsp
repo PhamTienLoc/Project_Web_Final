@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+	.dropdown-item:hover {
+		color: #0d6efd;
+	}
+</style>
 <header class="container-fluid bg-light py-3 border-bottom shadow-sm">
 	<div
 		class="d-flex flex-wrap align-items-center justify-content-between">
@@ -17,19 +22,31 @@
 			<li><a href="home" class="nav-link px-3 link-secondary">Trang chủ</a></li>
 
 			<!-- Dropdown Menu -->
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle px-3 link-dark" href="#"
-				id="featuresDropdown" role="button" data-bs-toggle="dropdown"
-				aria-expanded="false"> Thể loại </a>
+			<li class="nav-item dropdown">
+				<a 
+					class="nav-link dropdown-toggle px-3 link-dark"
+					href="#"
+					id="featuresDropdown" 
+					role="button" 
+					data-bs-toggle="dropdown"
+					aria-expanded="false"> 
+					Thể loại 
+				</a>
 				<ul class="dropdown-menu" aria-labelledby="featuresDropdown">
-					<li><a class="dropdown-item" href="#">Feature 1</a></li>
-					<li><a class="dropdown-item" href="#">Feature 2</a></li>
-					<li><a class="dropdown-item" href="#">Feature 3</a></li>
-				</ul></li>
+					<li><a class="dropdown-header text-decoration-none text-dark fw-bold fs-6" href="${pageContext.request.contextPath}/productList?categoryId=0">Tất cả</a></li>
+					<c:forEach var="c" items="${categories}">
+						<c:url var="category" value="/productList">
+							<c:param name="categoryId" value="${c.cid}" />
+						</c:url>
+						<li><a class="dropdown-item" href="${category}">${c.cname}</a></li>
+					</c:forEach>
+				</ul>
+			</li>
 
-			<li><a href="blogs" class="nav-link px-3 link-dark">Blog</a></li>
-			<li><a href="Policy.jsp" class="nav-link px-3 link-dark">Chính sách</a></li>
-			<li><a href="About.jsp" class="nav-link px-3 link-dark">About</a></li>
+			<li><a href="blogs" class="nav-link px-3 link-dark">Tin tức</a></li>
+			<li><a href="Policy.jsp" class="nav-link px-3 link-dark">Chính
+					sách</a></li>
+			<li><a href="About.jsp" class="nav-link px-3 link-dark">Về chúng tôi</a></li>
 		</ul>
 
 		<!-- Search, Cart, and Login Button -->
@@ -68,10 +85,14 @@
 							${sessionScope.user.fullName}</button>
 						<ul class="dropdown-menu dropdown-menu-end"
 							aria-labelledby="loginDropdown">
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/ChangeUserInfo.jsp">Thay đổi thông tin</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/ChangePassWord.jsp">Đổi
+							<li><a class="dropdown-item"
+								href="${pageContext.request.contextPath}/ChangeUserInfo.jsp">Thay
+									đổi thông tin</a></li>
+							<li><a class="dropdown-item"
+								href="${pageContext.request.contextPath}/ChangePassWord.jsp">Đổi
 									mật khẩu</a></li>
-							<li><a class="dropdown-item" href="listhoadon">Xem hóa đơn</a></li>
+							<li><a class="dropdown-item" href="listhoadon">Xem hóa
+									đơn</a></li>
 							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item"
 								href="${pageContext.request.contextPath}/logout">Đăng xuất</a></li>
@@ -87,6 +108,5 @@
 
 		</div>
 	</div>
-
 </header>
 

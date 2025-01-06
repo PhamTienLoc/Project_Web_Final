@@ -109,19 +109,18 @@ public class UserDAO implements DAOInterface<User> {
 		return ketQua;
 	}
 
-	public User selectByUsernameAndPassword(User u) {
-		User user = null;
+	public User selectByUsername(String username) {
+		User re = null;
 
 		try {
 			// Bước 1: tạo kết nối đến CSDL
 			Connection con = JDBCUtil.getConnection();
 
 			// Bước 2: tạo ra đối tượng statement
-			String sql = "SELECT * FROM USER WHERE USER=? AND PASSWORD=?";
+			String sql = "SELECT * FROM USER WHERE USER=?";
 
 			PreparedStatement st = con.prepareStatement(sql);
-			st.setString(1, u.getUser());
-			st.setString(2, u.getPassword());
+			st.setString(1, username);
 
 			// Bước 3: thực thi câu lệnh SQL
 			ResultSet rs = st.executeQuery();
@@ -129,7 +128,7 @@ public class UserDAO implements DAOInterface<User> {
 			// Bước 4:
 			while (rs.next()) {
 				int id = rs.getInt("id");
-				String username = rs.getString("user");
+				String user = rs.getString("user");
 				String fullname = rs.getString("fullname");
 				String password = rs.getString("password");
 				boolean gender = rs.getBoolean("gender");
@@ -141,7 +140,7 @@ public class UserDAO implements DAOInterface<User> {
 				Date updatedAt = rs.getDate("updatedAt");
 				boolean isAmind = rs.getBoolean("isAdmin");
 
-				user = new User(id, username, fullname, password, gender, birthDay, email, phoneNumber, address,
+				re = new User(id, user, fullname, password, gender, birthDay, email, phoneNumber, address,
 						createdAt, updatedAt, isAmind);
 
 			}
@@ -153,7 +152,7 @@ public class UserDAO implements DAOInterface<User> {
 			e.printStackTrace();
 		}
 
-		return user;
+		return re;
 	}
 
 	@Override
@@ -164,12 +163,12 @@ public class UserDAO implements DAOInterface<User> {
 			Connection con = JDBCUtil.getConnection();
 
 			// Bước 2: tạo ra đối tượng statement
-			String sql = "INSERT INTO user(fullname,user,password,gender,birthday,email,phoneNumber,address,createdAt,updatedAt,isAdmin)\r\n"
-					+ "VALUES (?,?,?,?,?,?,?,?,?,?,0)";
+			String sql = "INSERT INTO user(user,fullname,password,gender,birthday,email,phoneNumber,address,createdAt,updatedAt,isAdmin)\r\n"
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
 			PreparedStatement st = con.prepareStatement(sql);
-			st.setString(1, t.getFullName());
-			st.setString(2, t.getUser());
+			st.setString(1, t.getUser());
+			st.setString(2, t.getFullName());
 			st.setString(3, t.getPassword());
 			st.setBoolean(4, t.isGender());
 			st.setDate(5, new java.sql.Date(t.getBirthDay().getTime()));
@@ -178,6 +177,7 @@ public class UserDAO implements DAOInterface<User> {
 			st.setString(8, t.getAddress());
 			st.setDate(9, new java.sql.Date(t.getCreatedAt().getTime()));
 			st.setDate(10, new java.sql.Date(t.getUpdatedAt().getTime()));
+			st.setBoolean(11, t.isAdmin());
 
 			// Bước 3: thực thi câu lệnh SQL
 			ketQua = st.executeUpdate();
@@ -203,9 +203,34 @@ public class UserDAO implements DAOInterface<User> {
 	}
 
 	@Override
-	public int delete(User t) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int delete(User u) {
+		int res = 0;
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "DELETE FROM `user` WHERE id=?";
+
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, u.getId());
+			// Bước 3: thực thi câu lệnh SQL
+
+			System.out.println(sql);
+			res = st.executeUpdate();
+
+			// Bước 4:
+			System.out.println("Bạn đã thực thi: " + sql);
+			System.out.println("Có " + res + " dòng bị thay đổi!");
+
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return res;
 	}
 
 	@Override
@@ -215,12 +240,7 @@ public class UserDAO implements DAOInterface<User> {
 	}
 
 	@Override
-	public int update(User t) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public int updateInfo(User u) {
+	public int update(User u) {
 		int res = 0;
 		try {
 			// Bước 1: tạo kết nối đến CSDL

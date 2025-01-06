@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import database.JDBCUtil;
@@ -83,7 +84,7 @@ public class CategoryDAO implements DAOInterface<Category> {
 
 		return ketQua;
 	}
-	
+
 	public int deleteCategory(String cid) {
 		int ketQua = 0;
 		try {
@@ -108,12 +109,66 @@ public class CategoryDAO implements DAOInterface<Category> {
 		return ketQua;
 
 	}
-	
+
+	public boolean checkCategoryName(String cname) {
+		boolean ketQua = false;
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "SELECT * FROM category WHERE name=?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, cname);
+
+			// Bước 3: thực thi câu lệnh SQL
+			System.out.println(sql);
+			ResultSet rs = st.executeQuery();
+
+			// Bước 4:
+			while (rs.next()) {
+				ketQua = true;
+			}
+
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return ketQua;
+	}
 
 	@Override
-	public int insert(Category t) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insert(Category c) {
+		int ketQua = 0;
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "INSERT INTO category(name,thumb)\r\n" + "VALUES (?,?)";
+
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, c.getCname());
+			st.setString(2, c.getThumb());
+
+			// Bước 3: thực thi câu lệnh SQL
+			ketQua = st.executeUpdate();
+
+			// Bước 4:
+			System.out.println("Bạn đã thực thi: " + sql);
+			System.out.println("Có " + ketQua + " dòng bị thay đổi!");
+
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return ketQua;
 	}
 
 	@Override
@@ -123,9 +178,34 @@ public class CategoryDAO implements DAOInterface<Category> {
 	}
 
 	@Override
-	public int delete(Category t) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int delete(Category c) {
+		int res = 0;
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "DELETE FROM `category` WHERE id=?";
+
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, c.getCid());
+			// Bước 3: thực thi câu lệnh SQL
+
+			System.out.println(sql);
+			res = st.executeUpdate();
+
+			// Bước 4:
+			System.out.println("Bạn đã thực thi: " + sql);
+			System.out.println("Có " + res + " dòng bị thay đổi!");
+
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return res;
 	}
 
 	@Override
@@ -135,10 +215,38 @@ public class CategoryDAO implements DAOInterface<Category> {
 	}
 
 	@Override
-	public int update(Category t) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int update(Category c) {
+		int res = 0;
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "UPDATE category SET name=?, thumb=? WHERE id=?";
+
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, c.getCname());
+			st.setString(2, c.getThumb());
+			st.setInt(3, c.getCid());
+			// Bước 3: thực thi câu lệnh SQL
+
+			System.out.println(sql);
+			res = st.executeUpdate();
+
+			// Bước 4:
+			System.out.println("Bạn đã thực thi: " + sql);
+			System.out.println("Có " + res + " dòng bị thay đổi!");
+
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return res;
 	}
+
 	public ArrayList<Category> getListBypage(ArrayList<Category> list, int start, int end) {
 		ArrayList<Category> arr = new ArrayList<Category>();
 		for (int i = start; i < end; i++) {
