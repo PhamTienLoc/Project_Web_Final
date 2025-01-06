@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.UserDAO;
 import model.User;
+import util.PasswordUtil;
 
 /**
  * Servlet implementation class AdminManagerUserControl
@@ -165,6 +166,7 @@ public class AdminManagerUserControl extends HttpServlet {
 			request.setAttribute("fail", fail);
 		} else {
 			u.setUser(username);
+			password = PasswordUtil.toBcrypt(password);
 			u.setPassword(password);
 			u.setFullName(fullname);
 			

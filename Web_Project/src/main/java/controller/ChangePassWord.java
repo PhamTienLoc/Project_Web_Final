@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import dao.UserDAO;
 import model.User;
+import util.PasswordUtil;
 
 /**
  * Servlet implementation class ChangePassWord
@@ -51,12 +52,13 @@ public class ChangePassWord extends HttpServlet {
 			fail = "Bạn chưa đăng nhập vào hệ thống!";
 		} else {
 			// Neu khach hang da dang nhap
-			if (!currPass.equals(us.getPassword())) {
+			if (!PasswordUtil.checkPassword(currPass, us.getPassword())) {
 				fail = "Mật khẩu hiện tại không chính xác!";
 			} else {
 				if (!newPass.equals(reNewPass)) {
 					fail = "Mật khẩu nhập lại không khớp!";
 				} else {
+					newPass = PasswordUtil.toBcrypt(newPass);
 					us.setPassword(newPass);
 					UserDAO usd = new UserDAO();
 					if (usd.changePassword(us)) {

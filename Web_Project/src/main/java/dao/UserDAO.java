@@ -109,19 +109,18 @@ public class UserDAO implements DAOInterface<User> {
 		return ketQua;
 	}
 
-	public User selectByUsernameAndPassword(User u) {
-		User user = null;
+	public User selectByUsername(String username) {
+		User re = null;
 
 		try {
 			// Bước 1: tạo kết nối đến CSDL
 			Connection con = JDBCUtil.getConnection();
 
 			// Bước 2: tạo ra đối tượng statement
-			String sql = "SELECT * FROM USER WHERE USER=? AND PASSWORD=?";
+			String sql = "SELECT * FROM USER WHERE USER=?";
 
 			PreparedStatement st = con.prepareStatement(sql);
-			st.setString(1, u.getUser());
-			st.setString(2, u.getPassword());
+			st.setString(1, username);
 
 			// Bước 3: thực thi câu lệnh SQL
 			ResultSet rs = st.executeQuery();
@@ -129,7 +128,7 @@ public class UserDAO implements DAOInterface<User> {
 			// Bước 4:
 			while (rs.next()) {
 				int id = rs.getInt("id");
-				String username = rs.getString("user");
+				String user = rs.getString("user");
 				String fullname = rs.getString("fullname");
 				String password = rs.getString("password");
 				boolean gender = rs.getBoolean("gender");
@@ -141,7 +140,7 @@ public class UserDAO implements DAOInterface<User> {
 				Date updatedAt = rs.getDate("updatedAt");
 				boolean isAmind = rs.getBoolean("isAdmin");
 
-				user = new User(id, username, fullname, password, gender, birthDay, email, phoneNumber, address,
+				re = new User(id, user, fullname, password, gender, birthDay, email, phoneNumber, address,
 						createdAt, updatedAt, isAmind);
 
 			}
@@ -153,7 +152,7 @@ public class UserDAO implements DAOInterface<User> {
 			e.printStackTrace();
 		}
 
-		return user;
+		return re;
 	}
 
 	@Override

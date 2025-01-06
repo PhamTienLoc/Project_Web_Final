@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.UserDAO;
 import model.User;
+import util.PasswordUtil;
 
 /**
  * Servlet implementation class SignUpControl
@@ -88,6 +89,7 @@ public class SignUpControl extends HttpServlet {
 			url = "/Signup.jsp";
 		} else {
 			success = "Đăng ký thành công";
+			passWord = PasswordUtil.toBcrypt(passWord);
 			User us = new User(userName, fullName, passWord, gioiTinh, Date.valueOf(birthDay), email, phoneNumber, address, new java.util.Date(), new java.util.Date(), false);
 			ud.insert(us);
 			request.setAttribute("success", success);

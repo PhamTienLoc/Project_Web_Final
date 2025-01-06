@@ -14,6 +14,7 @@ import com.mysql.cj.Session;
 
 import dao.UserDAO;
 import model.User;
+import util.PasswordUtil;
 
 /**
  * Servlet implementation class LoginServlet
@@ -37,21 +38,17 @@ public class LoginServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
-		User user = new User();
-		user.setUser(username);
-		user.setPassword(password);
-		
 		String error = "";
 		String url = "";
 		
 		UserDAO userDAO = new UserDAO();
+		User user = userDAO.selectByUsername(username);
 		
-		User checkUser = userDAO.selectByUsernameAndPassword(user);
-		if (checkUser != null) {
+		if (user != null && PasswordUtil.checkPassword(password, user.getPassword())) {
 			HttpSession session = request.getSession();
-			session.setAttribute("user", checkUser);
+			session.setAttribute("user", user);
 			
-			if(checkUser.isAdmin()) {
+			if(user.isAdmin()) {
 				url="/admindashboard";
 			}else {
 				url = "/home";
