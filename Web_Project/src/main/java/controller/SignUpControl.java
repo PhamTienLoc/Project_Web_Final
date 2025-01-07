@@ -2,7 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import javax.servlet.RequestDispatcher;
@@ -11,9 +11,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.UserDAO;
 import model.User;
+import util.Email2;
+import util.GenerateOTP;
 import util.PasswordUtil;
 
 /**
@@ -65,7 +68,7 @@ public class SignUpControl extends HttpServlet {
 		} else if (gender.equals("female")) {
 			gioiTinh = false;
 		}
-	
+
 		String fail = "";
 		String success = "";
 		String url = "";
@@ -77,6 +80,9 @@ public class SignUpControl extends HttpServlet {
 			fail = "Tên đăng nhập đã tồn tại";
 		}
 
+		if (ud.checkEmail(email)) {
+			fail = "Email đã được sử dụng, bạn hãy dùng email khác đi";
+		}
 		if (fail.length() > 0) {
 			request.setAttribute("userName", userName);
 			request.setAttribute("fullName", fullName);
@@ -88,18 +94,34 @@ public class SignUpControl extends HttpServlet {
 			request.setAttribute("fail", fail);
 			url = "/Signup.jsp";
 		} else {
-			success = "Đăng ký thành công";
+			success = "Qua email của bạn để nhận OTP";
 			passWord = PasswordUtil.toBcrypt(passWord);
-			User us = new User(userName, fullName, passWord, gioiTinh, Date.valueOf(birthDay), email, phoneNumber, address, new java.util.Date(), new java.util.Date(), false);
+			User us = new User(userName, fullName, passWord, gioiTinh, Date.valueOf(birthDay), email, phoneNumber,
+					address, new java.util.Date(), new java.util.Date(), false, false);
 			ud.insert(us);
+			String otp = GenerateOTP.generateOTP(6);
+
+			HttpSession session = request.getSession();
+			session.setAttribute("OTP", otp);
+			session.setAttribute("Email", email);
+			LocalDateTime expiryTime = LocalDateTime.now().plusMinutes(5);
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+			String formattedExpiryTime = expiryTime.format(formatter);
+
+			// Lưu vào session
+			session.setAttribute("OTPExpiryTime", formattedExpiryTime);
+
+			Email2.sendEmail(email, "Mã OTP của bạn để xác nhận tài khoản",
+					"<h1>Mã xác nhận của bạn là :" + otp + "<h1>");
+
 			request.setAttribute("success", success);
-			url = "/Signup.jsp";
+			url = "/ConfirmOTP.jsp";
 		}
 
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
 		rd.forward(request, response);
 
-		doGet(request, response);
+//		doGet(request, response);
 	}
 
 }

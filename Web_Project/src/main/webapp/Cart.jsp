@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,13 +62,21 @@
 							<div class="col-md-8">
 								<div class="card-body">
 									<h5 class="card-title">${item.product.title}</h5>
-									<p class="card-text text-muted">Price (per item):
-										$${item.product.price}</p>
-									<p class="card-text text-muted">Total:
-										$${item.product.price * item.quantity}</p>
-									<p class="card-text">
+									<p class="card-text text-muted">
+										Giá (per item):
+										<fmt:formatNumber value="${item.product.price}" type="number"
+											groupingUsed="true" />
+										VNĐ
+									</p>
+									<p class="card-text text-muted">
+										Tổng tiền:
+										<fmt:formatNumber
+											value="${item.product.price * item.quantity}" type="number"
+											groupingUsed="true" />
+										VNĐ
+									</p>
 
-										<!-- Form cho nút trừ -->
+									<!-- Form cho nút trừ -->
 									<form action="updatequantity" method="get"
 										onsubmit="return updatequantity(event,this);"
 										style="display: inline;">
@@ -104,16 +113,20 @@
 			<div id="cartSummary" class="col-md-4">
 				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title">Cart Summary</h5>
+						<h5 class="card-title">Tổng kết Giỏ hàng</h5>
 
 						<p class="card-text">
-							Subtotal: <strong>${sessionScope.cart.geTotalMoney()} $</strong>
+							Subtotal: <strong><fmt:formatNumber
+									value="${sessionScope.cart.geTotalMoney()}" type="number"
+									groupingUsed="true" /> VNĐ</strong>
 						</p>
 						<hr>
 
 
 						<p class="card-text">
-							Total: <strong>${sessionScope.cart.geTotalMoney()} $</strong>
+							Total: <strong><fmt:formatNumber
+									value="${sessionScope.cart.geTotalMoney()}" type="number"
+									groupingUsed="true" /> VNĐ</strong>
 						</p>
 
 

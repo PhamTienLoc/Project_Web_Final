@@ -6,13 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import database.JDBCUtil;
-import model.Discount;
-import model.Product;
 import model.User;
 
 public class UserDAO implements DAOInterface<User> {
@@ -139,9 +135,10 @@ public class UserDAO implements DAOInterface<User> {
 				Date createdAt = rs.getDate("createdAt");
 				Date updatedAt = rs.getDate("updatedAt");
 				boolean isAmind = rs.getBoolean("isAdmin");
+				boolean isConfirmEmail= rs.getBoolean("isConfirmEmail");
 
-				re = new User(id, user, fullname, password, gender, birthDay, email, phoneNumber, address,
-						createdAt, updatedAt, isAmind);
+				re = new User(id, user, fullname, password, gender, birthDay, email, phoneNumber, address, createdAt,
+						updatedAt, isAmind,isConfirmEmail);
 
 			}
 
@@ -155,6 +152,79 @@ public class UserDAO implements DAOInterface<User> {
 		return re;
 	}
 
+	public User selectByEmail(String email1) {
+		User re = null;
+
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "SELECT * FROM USER WHERE email=?";
+
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, email1);
+
+			// Bước 3: thực thi câu lệnh SQL
+			ResultSet rs = st.executeQuery();
+
+			// Bước 4:
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String user = rs.getString("user");
+				String fullname = rs.getString("fullname");
+				String password = rs.getString("password");
+				boolean gender = rs.getBoolean("gender");
+				Date birthDay = rs.getDate("birthDay");
+				String email = rs.getString("email");
+				String phoneNumber = rs.getString("phoneNumber");
+				String address = rs.getString("address");
+				Date createdAt = rs.getDate("createdAt");
+				Date updatedAt = rs.getDate("updatedAt");
+				boolean isAmind = rs.getBoolean("isAdmin");
+				boolean isConfirmEmail = rs.getBoolean("isConfirmEmail");
+				re = new User(id, user, fullname, password, gender, birthDay, email, phoneNumber, address, createdAt,
+						updatedAt, isAmind, isConfirmEmail);
+			}
+
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return re;
+	}
+
+	public boolean updateUser(User us) {
+		try {
+			// Bước 1: Tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: Tạo câu lệnh SQL để cập nhật thông tin người dùng
+			String sql = "UPDATE USER SET isConfirmEmail = ? WHERE email = ?";
+
+			// Bước 3: Tạo đối tượng PreparedStatement
+			PreparedStatement st = con.prepareStatement(sql);
+
+			// Gán giá trị cho các tham số trong câu lệnh SQL
+			st.setBoolean(1, us.isConfirmEmail()); // confirmEmail lấy từ đối tượng User
+			st.setString(2, us.getEmail()); // email để xác định người dùng cần cập nhật
+
+			// Bước 4: Thực thi câu lệnh SQL
+			int rowsUpdated = st.executeUpdate();
+
+			// Bước 5: Kiểm tra xem có bản ghi nào được cập nhật không
+			JDBCUtil.closeConnection(con);
+			return rowsUpdated > 0; // Trả về true nếu cập nhật thành công
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false; // Trả về false nếu xảy ra lỗi
+	}
+
 	@Override
 	public int insert(User t) {
 		int ketQua = 0;
@@ -163,8 +233,8 @@ public class UserDAO implements DAOInterface<User> {
 			Connection con = JDBCUtil.getConnection();
 
 			// Bước 2: tạo ra đối tượng statement
-			String sql = "INSERT INTO user(user,fullname,password,gender,birthday,email,phoneNumber,address,createdAt,updatedAt,isAdmin)\r\n"
-					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO user(user,fullname,password,gender,birthday,email,phoneNumber,address,createdAt,updatedAt,isAdmin,isConfirmEmail)\r\n"
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, t.getUser());
@@ -178,6 +248,7 @@ public class UserDAO implements DAOInterface<User> {
 			st.setDate(9, new java.sql.Date(t.getCreatedAt().getTime()));
 			st.setDate(10, new java.sql.Date(t.getUpdatedAt().getTime()));
 			st.setBoolean(11, t.isAdmin());
+			st.setBoolean(12, t.isConfirmEmail());
 
 			// Bước 3: thực thi câu lệnh SQL
 			ketQua = st.executeUpdate();
@@ -289,6 +360,36 @@ public class UserDAO implements DAOInterface<User> {
 			String sql = "SELECT * FROM user WHERE user=?";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, tenDangNhap);
+
+			// Bước 3: thực thi câu lệnh SQL
+			System.out.println(sql);
+			ResultSet rs = st.executeQuery();
+
+			// Bước 4:
+			while (rs.next()) {
+				ketQua = true;
+			}
+
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return ketQua;
+	}
+
+	public boolean checkEmail(String email) {
+		boolean ketQua = false;
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "SELECT * FROM user WHERE email=?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, email);
 
 			// Bước 3: thực thi câu lệnh SQL
 			System.out.println(sql);

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +28,8 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/home.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
 <style type="text/css">
 .notyf {
 	z-index: 9999 !important;
@@ -77,13 +80,17 @@
 									<h5 class="card-title">${p.title}</h5>
 								</a>
 
-								<p class="card-text">${p.price}$</p>
+								<p class="card-text">
+									<fmt:formatNumber value="${p.price}" type="number"
+										groupingUsed="true" />
+									VNĐ
+								</p>
 								<form action="buy2" method="get"
 									onsubmit="return buy(event, this);">
 									<input type="hidden" name="id" value="${p.id}"> <input
 										type="hidden" name="quantity" value="1">
-									<button type="submit" class="btn btn-primary">Thêm vào giỏ hàng
-										</button>
+									<button type="submit" class="btn btn-primary">Thêm vào
+										giỏ hàng</button>
 								</form>
 							</div>
 						</div>
@@ -138,12 +145,17 @@
 									<h5 class="card-title">${p.title}</h5>
 								</a>
 
-								<p class="card-text">${p.price}$</p>
+								<p class="card-text">
+									<fmt:formatNumber value="${p.price}" type="number"
+										groupingUsed="true" />
+									VNĐ
+								</p>
 								<form action="buy2" method="get"
 									onsubmit="return buy(event, this);">
 									<input type="hidden" name="id" value="${p.id}"> <input
 										type="hidden" name="quantity" value="1">
-									<button type="submit" class="btn btn-success">Thêm vào giỏ hàng</button>
+									<button type="submit" class="btn btn-success">Thêm vào
+										giỏ hàng</button>
 								</form>
 							</div>
 						</div>
@@ -153,8 +165,8 @@
 
 			<!-- Căn giữa và thêm margin-bottom -->
 			<div class="d-flex justify-content-center mb-3">
-				<button onclick="loadMore()" class="btn btn-primary">Xem thêm
-					</button>
+				<button onclick="loadMore()" class="btn btn-primary">Xem
+					thêm</button>
 			</div>
 		</section>
 	</div>
