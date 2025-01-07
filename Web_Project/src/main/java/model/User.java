@@ -15,6 +15,7 @@ public class User {
 	private Date createdAt;
 	private Date updatedAt;
 	private boolean admin;
+	private boolean isConfirmEmail;
 
 	public User() {
 	}
@@ -49,6 +50,41 @@ public class User {
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.admin = admin;
+	}
+
+	public User(String user, String fullName, String password, boolean gender, Date birthDay, String email,
+			String phoneNumber, String address, Date createdAt, Date updatedAt, boolean admin, boolean isConfirmEmail) {
+		super();
+		this.user = user;
+		this.fullName = fullName;
+		this.password = password;
+		this.gender = gender;
+		this.birthDay = birthDay;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.admin = admin;
+		this.isConfirmEmail = isConfirmEmail;
+	}
+
+	public User(int id, String user, String fullName, String password, boolean gender, Date birthDay, String email,
+			String phoneNumber, String address, Date createdAt, Date updatedAt, boolean admin, boolean isConfirmEmail) {
+		super();
+		this.id = id;
+		this.user = user;
+		this.fullName = fullName;
+		this.password = password;
+		this.gender = gender;
+		this.birthDay = birthDay;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.admin = admin;
+		this.isConfirmEmail = isConfirmEmail;
 	}
 
 	public int getId() {
@@ -147,6 +183,20 @@ public class User {
 		this.admin = admin;
 	}
 
-	
+	public boolean isConfirmEmail() {
+		return isConfirmEmail;
+	}
+
+	public void setConfirmEmail(boolean isConfirmEmail) {
+		this.isConfirmEmail = isConfirmEmail;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", user=" + user + ", fullName=" + fullName + ", password=" + password + ", gender="
+				+ gender + ", birthDay=" + birthDay + ", email=" + email + ", phoneNumber=" + phoneNumber + ", address="
+				+ address + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", admin=" + admin
+				+ ", isConfirmEmail=" + isConfirmEmail + "]";
+	}
 
 }

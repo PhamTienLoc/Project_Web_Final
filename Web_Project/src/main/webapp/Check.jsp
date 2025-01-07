@@ -49,7 +49,6 @@
 	text-align: right;
 	margin-top: 15px;
 }
-
 </style>
 </head>
 <body>
@@ -60,12 +59,15 @@
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="home">Trang chủ</a></li>
 			<li class="breadcrumb-item"><a href="Cart.jsp">Giỏ Hàng</a></li>
-			<li class="breadcrumb-item"><a href="FormCheckOut.jsp">Kiêm tra thông tin</a></li>
-			<li class="breadcrumb-item"><a href="PaymentMethod.jsp">Phương thưc thanh toán</a></li>
-			<li class="breadcrumb-item active" aria-current="page">Thanh toán</li>
+			<li class="breadcrumb-item"><a href="FormCheckOut.jsp">Kiêm
+					tra thông tin</a></li>
+			<li class="breadcrumb-item"><a href="PaymentMethod.jsp">Phương
+					thưc thanh toán</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Thanh
+				toán</li>
 		</ol>
 	</nav>
-	
+
 	<div class="container mt-5 mb-5">
 		<div class="row">
 			<!-- Cột bên trái: Thông tin khách hàng -->
@@ -126,33 +128,40 @@
 							<!-- Tên sản phẩm -->
 							<span><c:out value="${item.product.title}" /></span>
 							<!-- Số lượng x Giá tiền của một sản phẩm -->
-							<span>(<c:out value="${item.quantity}" /> x <c:out
-									value="${item.product.price}" /> $)
+							<span>( <c:out value="${item.quantity}" /> x <fmt:formatNumber
+									value="${item.product.price}" type="number" groupingUsed="true" />
+								VNĐ )
 							</span>
 							<!-- Tổng giá trị -->
-							<span style="float: right;"><c:out
-									value="${item.product.price * item.quantity}" /> $</span>
+							<span style="float: right;"> <fmt:formatNumber
+									value="${item.product.price * item.quantity}" type="number"
+									groupingUsed="true" /> ₫
+							</span>
 						</div>
 					</c:forEach>
 					<!-- Tổng cộng -->
 					<div class="total" id="total">
 						<c:if test="${empty totalMoneyUseDis || totalMoneyUseDis == 0}">
                         Tổng cộng: 
-                        <span><fmt:formatNumber
+                       <span> <fmt:formatNumber
 									value="${sessionScope.cart.geTotalMoney()}" type="number"
-									minFractionDigits="2" maxFractionDigits="2" /> $</span>
+									groupingUsed="true"  />
+								VNĐ
+							</span>
 						</c:if>
 						<c:if
 							test="${not empty totalMoneyUseDis && totalMoneyUseDis != 0}">
                         Tổng cộng: 
-                        <span
+                       <span
 								style="text-decoration: line-through; color: gray;"> <fmt:formatNumber
 									value="${sessionScope.cart.geTotalMoney()}" type="number"
-									minFractionDigits="2" maxFractionDigits="2" /> $
+									groupingUsed="true"  />
+								VNĐ
 							</span>
 							<span style="margin-left: 10px; color: red; font-weight: bold;">
 								<fmt:formatNumber value="${totalMoneyUseDis}" type="number"
-									minFractionDigits="2" maxFractionDigits="2" /> $
+									groupingUsed="true"  />
+								VNĐ
 							</span>
 						</c:if>
 					</div>

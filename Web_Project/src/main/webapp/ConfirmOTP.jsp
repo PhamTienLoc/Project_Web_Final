@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Thay Đổi Mật Khẩu</title>
+<title>ConfirmOTP</title>
 <!-- Bootstrap CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
@@ -27,21 +27,41 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/home.css">
+<style>
+.countdown {
+	font-size: 24px;
+	font-weight: bold;
+	color: #ff0000;
+	text-align: center;
+	margin-top: 20px;
+}
+
+.form-container {
+	max-width: 400px;
+	margin: 50px auto;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.resend-link {
+	color: #007bff;
+	text-decoration: none;
+}
+
+.resend-link:hover {
+	text-decoration: underline;
+}
+</style>
 </head>
 <body>
+
 	<jsp:include page="Header.jsp"></jsp:include>
-	<nav aria-label="breadcrumb">
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="home">Trang chủ</a></li>
-			<li class="breadcrumb-item active" aria-current="page">Thay đổi
-				mật khẩu</li>
-		</ol>
-	</nav>
-	<div class="container mt-5 mb-5">
-		<div class="row justify-content-center">
-			<div class="col-md-6">
-				<h3 class="text-center">Thay Đổi Mật Khẩu</h3>
-				<div class="d-flex justify-content-between mb-3">
+	<div class="form-container">
+	
+		<h3 class="text-center">Xác nhận OTP</h3>
+		<div class="d-flex justify-content-between mb-3">
 					<div class="alert alert-danger flex-fill me-2" id="errorMessage"
 						style="display: ${fail != null && fail != '' ? 'block' : 'none'};">
 						<p>${fail}</p>
@@ -51,29 +71,17 @@
 						<p>${success}</p>
 					</div>
 				</div>
-				<form action="changepass" method="post">
-					<div class="form-group">
-						<label for="currentPassword">Mật khẩu hiện tại</label> <input
-							type="password" class="form-control" id="currentPassword"
-							name="currPass" placeholder="Nhập mật khẩu hiện tại" required>
-					</div>
-
-					<div class="form-group">
-						<label for="newPassword">Mật khẩu mới</label> <input
-							type="password" class="form-control" id="newPassword"
-							name="newPass" placeholder="Nhập mật khẩu mới" required>
-					</div>
-
-					<div class="form-group">
-						<label for="confirmNewPassword">Nhập lại mật khẩu mới</label> <input
-							type="password" class="form-control" id="confirmNewPassword"
-							name="renewPass" placeholder="Nhập lại mật khẩu mới" required>
-					</div>
-
-					<button type="submit" class="btn btn-primary btn-block">Lưu
-						thay đổi</button>
-				</form>
+		<div class="countdown" id="countdown">Thời gian còn lại: 5:00</div>
+		<form action="confirmotp" method="post">
+			<div class="mb-3">
+				<label for="otp" class="form-label">Nhập mã OTP:</label> <input
+					type="text" class="form-control" id="otp" name="otp" required>
 			</div>
+			<button type="submit" class="btn btn-primary w-100">Xác nhận</button>
+		</form>
+		<div id="resend-link" class="text-center mt-3" style="display: none;">
+			<a href="resendotp" class="resend-link">Nhấn vào đây để gửi lại
+				mã OTP</a>
 		</div>
 	</div>
 
@@ -85,5 +93,8 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/js/confirmOtp.js"></script>
+
 </body>
 </html>

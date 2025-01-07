@@ -43,7 +43,12 @@
 					Ngày Mua:
 					<fmt:formatDate value="${order.orderDate}" pattern="dd/MM/yyyy" />
 				</p>
-				<p class="card-text">Tổng Tiền: ${order.totalMoney}$</p>
+				<p class="card-text">
+					Tổng Tiền:
+					<fmt:formatNumber value="${order.totalMoney}" type="number"
+						groupingUsed="true" />
+					VNĐ
+				</p>
 				<p class="card-text">
 					Trạng Thái:
 					<c:choose>
@@ -72,16 +77,19 @@
 					<tr>
 						<td>${orderdetails.product.title}</td>
 						<td>${orderdetails.quantity}</td>
-						<td>${orderdetails.price}$</td>
-						<td>${orderdetails.quantity * orderdetails.price}$</td>
+						<td><fmt:formatNumber value="${orderdetails.price}"
+								type="number" groupingUsed="true" /> VNĐ</td>
+						<td><fmt:formatNumber
+								value="${orderdetails.quantity * orderdetails.price}"
+								type="number" groupingUsed="true" /> VNĐ</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 
 		<!-- Nút quay lại -->
-		<a href="listhoadon" class="btn btn-secondary mt-3">Quay lại
-			danh sách</a>
+		<a href="listhoadon" class="btn btn-secondary mt-3">Quay lại danh
+			sách</a>
 	</div>
 
 

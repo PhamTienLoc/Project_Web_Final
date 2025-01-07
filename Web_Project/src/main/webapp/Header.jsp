@@ -47,6 +47,7 @@
 			<li><a href="Policy.jsp" class="nav-link px-3 link-dark">Chính
 					sách</a></li>
 			<li><a href="About.jsp" class="nav-link px-3 link-dark">Về chúng tôi</a></li>
+			<li><a href="Contact.jsp" class="nav-link px-3 link-dark">Liên hệ</a></li>
 		</ul>
 
 		<!-- Search, Cart, and Login Button -->
