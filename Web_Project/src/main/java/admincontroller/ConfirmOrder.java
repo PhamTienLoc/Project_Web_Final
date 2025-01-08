@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.OrderDAO;
+import model.Order;
+import util.Email2;
 
 /**
  * Servlet implementation class ConfirmOrder
@@ -41,22 +43,19 @@ public class ConfirmOrder extends HttpServlet {
 			id =Integer.parseInt(id_raw);
 			OrderDAO od = new OrderDAO();
 			boolean check =od.confirmOrder(id);
+			Order od22=od.selectById(id);
 			
 			if(check) {
+				Email2.sendEmail(od22.getEmail(),"Xác nhận đơn hàng","<h1>Đơn hàng của bạn đã được xác nhận<h1>");
 				success="Xác nhận đơn hàng thành công";
 			}else {
 				fail= "Đơn hàng xác nhận thất bại";
 			}
-			
-			request.setAttribute("fail", fail);
-			request.setAttribute("success", success);
-			
-			
-			
-			
 		}catch (NumberFormatException e) {
 			// TODO: handle exception
 		}
+		request.setAttribute("fail", fail);
+		request.setAttribute("success", success);
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/adminmanagerorder");
 		rd.forward(request, response);
 		
