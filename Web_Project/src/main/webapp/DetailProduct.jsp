@@ -60,9 +60,9 @@
 			<div class="col-md-6 d-flex">
 				<!-- Ảnh Thu Nhỏ -->
 				<div class="me-3 d-flex flex-column thumbnail-container">
-					<img src="${img.image1}" class="img-thumbnail mb-2 thumbnail-image"
+					<img src="${pageContext.request.contextPath}/image/image1/${img.image1}" class="img-thumbnail mb-2 thumbnail-image"
 						alt="Thumbnail 1" data-bs-slide-to="0"> <img
-						src="${img.image2}" class="img-thumbnail thumbnail-image"
+						src="${pageContext.request.contextPath}/image/image2/${img.image2}" class="img-thumbnail thumbnail-image"
 						alt="Thumbnail 2" data-bs-slide-to="1">
 				</div>
 				<!-- Ảnh Chính -->
@@ -71,10 +71,10 @@
 					data-bs-ride="carousel" data-bs-interval="2000">
 					<div class="carousel-inner">
 						<div class="carousel-item active">
-							<img src="${img.image1}" class="d-block w-100" alt="Image 1">
+							<img src="${pageContext.request.contextPath}/image/image1/${img.image1}" class="d-block w-100" alt="Image 1">
 						</div>
 						<div class="carousel-item">
-							<img src="${img.image2}" class="d-block w-100" alt="Image 2">
+							<img src="${pageContext.request.contextPath}/image/image2/${img.image2}" class="d-block w-100" alt="Image 2">
 						</div>
 					</div>
 					<button class="carousel-control-prev" type="button"
@@ -140,7 +140,7 @@
 					<div class="product col-md-3 mb-4">
 						<div class="card card-hover">
 							<!-- Link bọc hình ảnh -->
-							<a href="${productdetail}"> <img src="${p.thumbnail}"
+							<a href="${productdetail}"> <img src="${pageContext.request.contextPath}/image/image1/${p.thumbnail}"
 								class="card-img-top" alt="Product Image">
 							</a>
 							<div class="card-body text-center">

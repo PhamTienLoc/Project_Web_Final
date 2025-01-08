@@ -106,6 +106,54 @@ public class OrderDAO implements DAOInterface<Order> {
 
 		return ketQua;
 	}
+	
+	public Order selectById(int id1) {
+		Order ketQua = null;
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "SELECT * FROM `order` where id=?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, id1);
+
+			// Bước 3: thực thi câu lệnh SQL
+			System.out.println(sql);
+			ResultSet rs = st.executeQuery();
+
+			// Bước 4:
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				int userId = rs.getInt("userId");
+				String fullName = rs.getString("fullname");
+				String email = rs.getString("email");
+				String phoneNumber = rs.getString("phoneNumber");
+				String address = rs.getString("address");
+				String note = rs.getString("note");
+				Date orderDate = rs.getDate("orderDate");
+				String status = rs.getString("status");
+				double totalMoeny = rs.getDouble("totalMoney");
+				String paymentMethod = rs.getString("paymentmethod");
+
+				Order o1 = new Order(id, userId, fullName, email, phoneNumber, address, note, orderDate, status,
+						totalMoeny, paymentMethod);
+
+				ketQua =o1;
+
+			}
+
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return ketQua;
+	}
+	
+	
+	
 
 	@Override
 	public int insert(Order t) {
@@ -279,6 +327,97 @@ public class OrderDAO implements DAOInterface<Order> {
 
 		return ketQua;
 	}
+	
+	
+	public boolean confirmOrder(int id) {
+	    Connection con = null;
+	    try {
+	        // Bước 1: Tạo kết nối đến CSDL
+	        con = JDBCUtil.getConnection();
+	        con.setAutoCommit(false); // Bắt đầu transaction
+
+	        // Bước 2: Lấy thông tin order
+	        String sqlGetOrder = "SELECT * FROM `order` WHERE id = ?";
+	        PreparedStatement stGetOrder = con.prepareStatement(sqlGetOrder);
+	        stGetOrder.setInt(1, id);
+	        ResultSet rsOrder = stGetOrder.executeQuery();
+	        if (!rsOrder.next()) {
+	            // Không tìm thấy order
+	            return false;
+	        }
+
+	        // Bước 3: Cập nhật trạng thái của order
+	        String sqlUpdateOrderStatus = "UPDATE `order` SET status = 'confirmed' WHERE id = ?";
+	        PreparedStatement stUpdateOrder = con.prepareStatement(sqlUpdateOrderStatus);
+	        stUpdateOrder.setInt(1, id);
+	        stUpdateOrder.executeUpdate();
+
+	        // Bước 4: Lấy thông tin orderDetail
+	        String sqlGetOrderDetail = "SELECT * FROM orderdetails WHERE orderId = ?";
+	        PreparedStatement stGetOrderDetail = con.prepareStatement(sqlGetOrderDetail);
+	        stGetOrderDetail.setInt(1, id);
+	        ResultSet rsOrderDetail = stGetOrderDetail.executeQuery();
+
+	        // Bước 5: Cập nhật tồn kho cho từng sản phẩm trong orderDetail
+	        while (rsOrderDetail.next()) {
+	            int productId = rsOrderDetail.getInt("productId");
+	            int quantity = rsOrderDetail.getInt("quantity");
+
+	            // Lấy thông tin sản phẩm
+	            String sqlGetProduct = "SELECT inventoryNumber FROM product WHERE id = ?";
+	            PreparedStatement stGetProduct = con.prepareStatement(sqlGetProduct);
+	            stGetProduct.setInt(1, productId);
+	            ResultSet rsProduct = stGetProduct.executeQuery();
+
+	            if (rsProduct.next()) {
+	                int stock = rsProduct.getInt("inventoryNumber");
+
+	                // Kiểm tra tồn kho
+	                if (stock < quantity) {
+	                    throw new SQLException("Không đủ tồn kho cho sản phẩm ID: " + productId);
+	                }
+
+	                // Cập nhật số lượng tồn kho
+	                int newStock = stock - quantity;
+	                String sqlUpdateProductStock = "UPDATE product SET inventoryNumber = ? WHERE id = ?";
+	                PreparedStatement stUpdateProductStock = con.prepareStatement(sqlUpdateProductStock);
+	                stUpdateProductStock.setInt(1, newStock);
+	                stUpdateProductStock.setInt(2, productId);
+	                stUpdateProductStock.executeUpdate();
+	            }
+	        }
+
+	        // Bước 6: Commit transaction nếu không có lỗi
+	        con.commit();
+	        return true;
+
+	    } catch (SQLException e) {
+	        if (con != null) {
+	            try {
+	                // Rollback nếu có lỗi
+	                con.rollback();
+	            } catch (SQLException rollbackEx) {
+	                rollbackEx.printStackTrace();
+	            }
+	        }
+	        e.printStackTrace();
+	        return false;
+
+	    } finally {
+	        if (con != null) {
+	            try {
+	                // Đặt lại chế độ tự động commit và đóng kết nối
+	                con.setAutoCommit(true);
+	                JDBCUtil.closeConnection(con);
+	            } catch (SQLException closeEx) {
+	                closeEx.printStackTrace();
+	            }
+	        }
+	    }
+	}
+	
+	
+	
 
 	// Để làm chức năng phân trang cực kì thú vị kk
 	public ArrayList<Order> getListBypage(ArrayList<Order> list, int start, int end) {

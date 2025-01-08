@@ -56,7 +56,7 @@
 					<div class="card mb-3">
 						<div class="row g-0">
 							<div class="col-md-4">
-								<img src="${item.product.thumbnail}"
+								<img src="${pageContext.request.contextPath}/image/image1/${item.product.thumbnail}"
 									class="img-fluid rounded-start" alt="Product Image">
 							</div>
 							<div class="col-md-8">

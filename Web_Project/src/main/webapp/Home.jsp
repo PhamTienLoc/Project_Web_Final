@@ -71,7 +71,7 @@
 								<c:param name="id" value="${p.id}" />
 								<c:param name="cid" value="${p.cid}" />
 							</c:url>
-							<a href="${productdetail}"> <img src="${p.thumbnail}"
+							<a href="${productdetail}"> <img src="${pageContext.request.contextPath}/image/image1/${p.thumbnail}"
 								class="card-img-top" alt="Product Image">
 							</a>
 							<div class="card-body text-center">
@@ -128,20 +128,13 @@
 			<div id="content" class="row">
 				<!-- Sử dụng JSTL để lặp qua danh sách loạt sản phẩm -->
 				<c:forEach var="p" items="${listP}">
-					<c:url var="productdetail" value="/detail">
-						<c:param name="id" value="${p.id}" />
-						<c:param name="cid" value="${p.cid}" />
-					</c:url>
 					<div class="product col-md-3 mb-4">
 						<div class="card card-hover">
-							<!-- Link bọc hình ảnh -->
-							<a href="${productdetail}"> <img src="${p.thumbnail}"
+							<a href="detail?id=${p.id}&cid=${p.cid}"> <img src="${pageContext.request.contextPath}/image/image1/${p.thumbnail}"
 								class="card-img-top" alt="Product Image">
 							</a>
 							<div class="card-body text-center">
-
-								<!-- Link bọc title, đảm bảo không có khoảng trắng bên trong -->
-								<a href="${productdetail}" class="text-decoration-none">
+								<a href="detail?id=${p.id}&cid=${p.cid}" class="text-decoration-none">
 									<h5 class="card-title">${p.title}</h5>
 								</a>
 

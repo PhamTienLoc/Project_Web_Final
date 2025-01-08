@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import dao.OrderDAO;
 import model.Order;
 import model.User;
+import util.Email2;
 
 /**
  * Servlet implementation class DeleteOrderControl
@@ -51,6 +52,7 @@ public class DeleteOrderControl extends HttpServlet {
 			int ketQua = oD.delete(od);
 			if (ketQua > 0) {
 				success = "Bạn đã hủy đơn hàng thành công";
+				
 
 			} else {
 				fail = "Bạn đã hủy đơn hàng thất bại";

@@ -237,7 +237,7 @@
 							<div class="product col-md-3 mb-4">
 								<div class="card card-hover">
 									<!-- Link bọc hình ảnh -->
-									<a href="${productdetail}"> <img src="${p.thumbnail}"
+									<a href="${productdetail}"> <img src="${pageContext.request.contextPath}/image/image1/${p.thumbnail}"
 										class="card-img-top" alt="Product Image">
 									</a>
 									<div class="card-body text-center">

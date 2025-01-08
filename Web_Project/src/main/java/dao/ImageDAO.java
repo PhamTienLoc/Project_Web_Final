@@ -90,5 +90,33 @@ public class ImageDAO implements DAOInterface<Image> {
 
 		return ketQua;
 	}
+	// Xóa Image theo id
+	public boolean deleteImageById(int imageId) {
+	    boolean result = false;
+	    try (Connection con = JDBCUtil.getConnection()) {
+	        String sql = "DELETE FROM image WHERE mid = ?";
+	        PreparedStatement st = con.prepareStatement(sql);
+	        st.setInt(1, imageId);
+	        result = st.executeUpdate() > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return result;
+	}
+	public boolean updateImage(Image image) {
+	    boolean result = false;
+	    try (Connection con = JDBCUtil.getConnection()) {
+	        String sql = "UPDATE image SET image1 = ?, image2 = ? WHERE mid = ?";
+	        PreparedStatement ps = con.prepareStatement(sql);
+	        ps.setString(1, image.getImage1());
+	        ps.setString(2, image.getImage2());
+	        ps.setInt(3, image.getMid());
+
+	        result = ps.executeUpdate() > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return result;
+	}
 
 }
