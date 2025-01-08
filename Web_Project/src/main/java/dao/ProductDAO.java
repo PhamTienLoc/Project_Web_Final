@@ -216,19 +216,10 @@ public class ProductDAO implements DAOInterface<Product> {
 
 			// Bước 4:
 			while (rs.next()) {
-				Product p = new Product(
-						rs.getInt("id"), 
-						rs.getString("title"), 
-						rs.getDouble("price"),
-						rs.getInt("discount"), 
-						rs.getInt("warranty"), 
-						rs.getInt("inventoryNumber"),
-						rs.getString("description"), 
-						rs.getString("thumbnail"), 
-						rs.getDate("createdAt"),
-						rs.getDate("updatedAt"), 
-						rs.getInt("categoryId"), 
-						rs.getInt("numOfPur"));
+				Product p = new Product(rs.getInt("id"), rs.getString("title"), rs.getDouble("price"),
+						rs.getInt("discount"), rs.getInt("warranty"), rs.getInt("inventoryNumber"),
+						rs.getString("description"), rs.getString("thumbnail"), rs.getDate("createdAt"),
+						rs.getDate("updatedAt"), rs.getInt("categoryId"), rs.getInt("numOfPur"));
 				re.add(p);
 			}
 			// Bước 5:
@@ -266,19 +257,10 @@ public class ProductDAO implements DAOInterface<Product> {
 
 			// Bước 4:
 			while (rs.next()) {
-				Product p = new Product(
-						rs.getInt("id"), 
-						rs.getString("title"), 
-						rs.getDouble("price"),
-						rs.getInt("discount"), 
-						rs.getInt("warranty"), 
-						rs.getInt("inventoryNumber"),
-						rs.getString("description"), 
-						rs.getString("thumbnail"), 
-						rs.getDate("createdAt"),
-						rs.getDate("updatedAt"), 
-						rs.getInt("categoryId"), 
-						rs.getInt("numOfPur"));
+				Product p = new Product(rs.getInt("id"), rs.getString("title"), rs.getDouble("price"),
+						rs.getInt("discount"), rs.getInt("warranty"), rs.getInt("inventoryNumber"),
+						rs.getString("description"), rs.getString("thumbnail"), rs.getDate("createdAt"),
+						rs.getDate("updatedAt"), rs.getInt("categoryId"), rs.getInt("numOfPur"));
 				re.add(p);
 			}
 			// Bước 5:
@@ -289,7 +271,7 @@ public class ProductDAO implements DAOInterface<Product> {
 		}
 		return re;
 	}
-	
+
 	public ArrayList<Product> getProductByPriceRange(double from, double to) {
 		ArrayList<Product> re = new ArrayList<Product>();
 		try {
@@ -307,19 +289,10 @@ public class ProductDAO implements DAOInterface<Product> {
 
 			// Bước 4:
 			while (rs.next()) {
-				Product p = new Product(
-						rs.getInt("id"), 
-						rs.getString("title"), 
-						rs.getDouble("price"),
-						rs.getInt("discount"), 
-						rs.getInt("warranty"), 
-						rs.getInt("inventoryNumber"),
-						rs.getString("description"), 
-						rs.getString("thumbnail"), 
-						rs.getDate("createdAt"),
-						rs.getDate("updatedAt"), 
-						rs.getInt("categoryId"), 
-						rs.getInt("numOfPur"));
+				Product p = new Product(rs.getInt("id"), rs.getString("title"), rs.getDouble("price"),
+						rs.getInt("discount"), rs.getInt("warranty"), rs.getInt("inventoryNumber"),
+						rs.getString("description"), rs.getString("thumbnail"), rs.getDate("createdAt"),
+						rs.getDate("updatedAt"), rs.getInt("categoryId"), rs.getInt("numOfPur"));
 				re.add(p);
 			}
 			// Bước 5:
@@ -549,6 +522,20 @@ public class ProductDAO implements DAOInterface<Product> {
 
 		return ketQua;
 	}
+	
+	
+	public boolean deleteProductById(int id) {
+	    boolean result = false;
+	    try (Connection con = JDBCUtil.getConnection()) {
+	        String sql = "DELETE FROM product WHERE id = ?";
+	        PreparedStatement st = con.prepareStatement(sql);
+	        st.setInt(1, id);
+	        result = st.executeUpdate() > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return result;
+	}
 
 	public Product getProductByID(int id) {
 		Product ketQua = null;
@@ -570,6 +557,7 @@ public class ProductDAO implements DAOInterface<Product> {
 				int id1 = rs.getInt("id");
 				int cid = rs.getInt("categoryId");
 				String title = rs.getString("title");
+				String brand=rs.getString("brand");
 				double price = rs.getDouble("price");
 				int discount = rs.getInt("discount");
 				int warranty = rs.getInt("warranty");
@@ -580,8 +568,7 @@ public class ProductDAO implements DAOInterface<Product> {
 				Date updateAt = rs.getDate("updatedAt");
 				int numOfPur = rs.getInt("numOfPur");
 
-				Product p = new Product(id1, title, price, discount, warranty, inventoryNumber, description, thumbnail,
-						createAt, updateAt, cid, numOfPur);
+				Product p = new Product(id1, title, brand, price, discount, warranty, inventoryNumber, description, thumbnail, createAt, updateAt, cid, numOfPur);
 
 				ketQua = p;
 			}
@@ -603,6 +590,149 @@ public class ProductDAO implements DAOInterface<Product> {
 		}
 		return arr;
 	}
+
+	public boolean insertProduct(Product p, String image2) {
+		boolean result = false;
+
+		Connection con = null;
+		PreparedStatement stProduct = null;
+		PreparedStatement stImage = null;
+
+		try {
+			// Bước 1: Tạo kết nối đến CSDL
+			con = JDBCUtil.getConnection();
+
+			// Bước 2: Tắt chế độ tự động commit (bắt đầu transaction)
+			con.setAutoCommit(false);
+
+			// Bước 3: Insert vào bảng product
+			String sqlProduct = "INSERT INTO product (categoryId, title, brand, price, discount, warranty, inventoryNumber, description, thumbnail, createdAt, updatedAt, numOfPur) "
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			stProduct = con.prepareStatement(sqlProduct, PreparedStatement.RETURN_GENERATED_KEYS);
+
+			// Gán giá trị cho các tham số
+			stProduct.setInt(1, p.getCid());
+			stProduct.setString(2, p.getTitle());
+			stProduct.setString(3, p.getBrand());
+			stProduct.setDouble(4, p.getPrice());
+			stProduct.setInt(5, p.getDiscount());
+			stProduct.setInt(6, p.getWarranty());
+			stProduct.setInt(7, p.getInventoryNumber());
+			stProduct.setString(8, p.getDescription());
+			stProduct.setString(9, p.getThumbnail());
+			stProduct.setDate(10, new java.sql.Date(p.getCreatedAt().getTime()));
+			stProduct.setDate(11, new java.sql.Date(p.getUpdatedAt().getTime()));
+			stProduct.setInt(12, p.getNumOfPur());
+
+			// Thực thi câu lệnh insert
+			int rowsInserted = stProduct.executeUpdate();
+
+			if (rowsInserted > 0) {
+				// Lấy ID của product vừa được thêm
+				ResultSet rs = stProduct.getGeneratedKeys();
+				if (rs.next()) {
+					int productId = rs.getInt(1);
+
+					// Bước 4: Insert vào bảng image
+					String sqlImage = "INSERT INTO image (pid, image1, image2) VALUES (?, ?, ?)";
+					stImage = con.prepareStatement(sqlImage);
+
+					// Gán giá trị cho các tham số
+					stImage.setInt(1, productId);
+					stImage.setString(2, p.getThumbnail()); // image1 là thumbnail của product
+					stImage.setString(3, image2); // image2 được truyền vào từ tham số
+
+					// Thực thi câu lệnh insert vào bảng image
+					int imageRowsInserted = stImage.executeUpdate();
+
+					if (imageRowsInserted > 0) {
+						// Commit transaction nếu cả hai bước đều thành công
+						con.commit();
+						result = true;
+					} else {
+						throw new SQLException("Failed to insert image data.");
+					}
+				} else {
+					throw new SQLException("Failed to retrieve product ID.");
+				}
+			} else {
+				throw new SQLException("Failed to insert product data.");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				// Rollback nếu có lỗi xảy ra
+				if (con != null) {
+					con.rollback();
+				}
+			} catch (SQLException rollbackEx) {
+				rollbackEx.printStackTrace();
+			}
+		} finally {
+			try {
+				// Đóng các tài nguyên
+				if (stImage != null)
+					stImage.close();
+				if (stProduct != null)
+					stProduct.close();
+				if (con != null) {
+					// Bật lại chế độ tự động commit
+					con.setAutoCommit(true);
+					con.close();
+				}
+			} catch (SQLException closeEx) {
+				closeEx.printStackTrace();
+			}
+		}
+
+		return result;
+	}
+	
+	public boolean updateProduct(Product p) {
+	    boolean result = false; // Biến để lưu trạng thái cập nhật
+	    try {
+	        // Bước 1: tạo kết nối đến CSDL
+	        Connection con = JDBCUtil.getConnection();
+
+	        // Bước 2: tạo ra đối tượng statement
+	        String sql = "UPDATE product SET categoryId=?, title=?, brand=?, price=?, discount=?, warranty=?, inventoryNumber=?, description=?, thumbnail=?, updatedAt=? WHERE id=?";
+	        PreparedStatement st = con.prepareStatement(sql);
+	        st.setInt(1, p.getCid());
+	        st.setString(2, p.getTitle());
+	        st.setString(3, p.getBrand());
+	        st.setDouble(4, p.getPrice());
+	        st.setInt(5, p.getDiscount());
+	        st.setInt(6, p.getWarranty());
+	        st.setInt(7, p.getInventoryNumber());
+	        st.setString(8, p.getDescription());
+	        st.setString(9, p.getThumbnail());
+	        st.setDate(10, new java.sql.Date(p.getUpdatedAt().getTime()));
+	        st.setInt(11, p.getId());
+
+	        // Bước 3: thực thi câu lệnh SQL
+	        System.out.println("SQL: " + sql);
+	        int rowsUpdated = st.executeUpdate(); // Thực thi lệnh UPDATE
+
+	        // Kiểm tra xem có dòng nào được cập nhật hay không
+	        if (rowsUpdated > 0) {
+	            result = true;
+	            System.out.println("Cập nhật sản phẩm thành công.");
+	        } else {
+	            System.out.println("Không có sản phẩm nào được cập nhật.");
+	        }
+
+	        // Bước 5: đóng kết nối
+	        JDBCUtil.closeConnection(con);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return result;
+	}
+	
+	
+	
+	
+	
 
 	public static void main(String[] args) {
 		ProductDAO pd = new ProductDAO();

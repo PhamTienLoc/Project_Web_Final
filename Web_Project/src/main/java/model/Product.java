@@ -5,6 +5,7 @@ import java.util.Date;
 public class Product {
 	private int id;
 	private String title;
+	private String brand;
 	private double price;
 	private int discount;
 	private int warranty;
@@ -16,7 +17,6 @@ public class Product {
 	private int cid;
 	private int numOfPur;
 	private Category category;
-	
 
 	public Product(int id, String title, double price, int discount, int warranty, int inventoryNumber,
 			String description, String thumbnail, Date createdAt, Date updatedAt, int cid, int numOfPur,
@@ -41,10 +41,52 @@ public class Product {
 		super();
 	}
 
+	public Product(int id, String title, String thumbnail) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.thumbnail = thumbnail;
+	}
+
+	public Product(String title, String brand, double price, int discount, int warranty, int inventoryNumber,
+			String description, String thumbnail, Date createdAt, Date updatedAt, int cid, int numOfPur) {
+		super();
+		this.title = title;
+		this.brand = brand;
+		this.price = price;
+		this.discount = discount;
+		this.warranty = warranty;
+		this.inventoryNumber = inventoryNumber;
+		this.description = description;
+		this.thumbnail = thumbnail;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.cid = cid;
+		this.numOfPur = numOfPur;
+	}
+
 	public Product(int id, String title) {
 		super();
 		this.id = id;
 		this.title = title;
+	}
+
+	public Product(int id, String title, String brand, double price, int discount, int warranty, int inventoryNumber,
+			String description, String thumbnail, Date createdAt, Date updatedAt, int cid, int numOfPur) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.brand = brand;
+		this.price = price;
+		this.discount = discount;
+		this.warranty = warranty;
+		this.inventoryNumber = inventoryNumber;
+		this.description = description;
+		this.thumbnail = thumbnail;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.cid = cid;
+		this.numOfPur = numOfPur;
 	}
 
 	public Product(int id, String title, double price, int discount, int inventoryNumber, String description,
@@ -86,9 +128,6 @@ public class Product {
 		this.numOfPur = numOfPur;
 	}
 
-	
-	
-	
 	public int getNumOfPur() {
 		return numOfPur;
 	}
@@ -184,7 +223,6 @@ public class Product {
 	public void setCid(int cid) {
 		this.cid = cid;
 	}
-	
 
 	public Category getCategory() {
 		return category;
@@ -199,6 +237,14 @@ public class Product {
 		return "Product [id=" + id + ", title=" + title + ", price=" + price + ", discount=" + discount
 				+ ", inventoryNumber=" + inventoryNumber + ", description=" + description + ", thumbnail=" + thumbnail
 				+ ", cid=" + cid + "]";
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 
 //	@Override

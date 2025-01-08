@@ -72,7 +72,7 @@
 		<div class="row">
 			<!-- Cột bên trái: Thông tin khách hàng -->
 			<div class="col-md-7 checkout-form-container">
-				<form action="confirmcheckout" method="get">
+				<form action="confirmcheckout" method="post">
 					<h2 class="text-center mb-4">Thanh toán</h2>
 					<p class="text-center text-muted">Vui lòng kiểm tra thông tin
 						khách hàng và đơn hàng trước khi đặt hàng.</p>

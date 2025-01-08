@@ -86,8 +86,10 @@
 									<button type="button" class="btn btn-warning btn-sm"
 										onclick="loadModal(${discountCode.id})">
 										<i class="bi bi-pencil"></i> Sửa
-									</button> <a href="${deletediscount}" class="btn btn-danger btn-sm"><i
-										class="bi bi-trash"></i> Xóa</a></td>
+									</button> <a href="javascript:void(0);" class="btn btn-danger btn-sm"
+									onclick="showDeleteModal('${deletediscount}')"> <i
+										class="bi bi-trash"></i> Xóa
+								</a>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -128,7 +130,26 @@
 		</div>
 	</div>
 	</div>
-
+	<!-- Modal xác nhận xóa -->
+	<div class="modal fade" id="deleteConfirmModal" tabindex="-1"
+		aria-labelledby="deleteConfirmLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="deleteConfirmLabel">Xác nhận xóa</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">Bạn có chắc chắn muốn xóa thẻ giảm giá
+					này không?</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Hủy</button>
+					<a id="confirmDeleteButton" href="#" class="btn btn-danger">Xóa</a>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 	<script
@@ -169,6 +190,16 @@
             }
         }, 1500); // Ẩn sau 3 giây
     });
+</script>
+	<script>
+function showDeleteModal(deleteUrl) {
+    // Gắn URL xóa vào nút xác nhận trong modal
+    document.getElementById('confirmDeleteButton').setAttribute('href', deleteUrl);
+    
+    // Hiển thị modal xác nhận
+    var deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+    deleteModal.show();
+}
 </script>
 </body>
 </html>

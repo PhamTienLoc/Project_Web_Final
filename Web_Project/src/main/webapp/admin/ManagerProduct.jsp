@@ -27,10 +27,9 @@
 			<main class="col-md-9 ms-sm-auto col-lg-10 px-4">
 				<h2>Quản lý Sản phẩm</h2>
 				<div class="d-flex justify-content-between mb-3">
-					<button class="btn btn-primary btn-sm" data-bs-toggle="modal"
-						data-bs-target="#addDiscountModal">
-						<i class="bi bi-plus-circle"></i> Thêm mới
-					</button>
+					<a href="addproduct1" class="btn btn-primary btn-sm" d> <i
+						class="bi bi-plus-circle"></i> Thêm mới
+					</a>
 				</div>
 				<div class="d-flex justify-content-between mb-3">
 					<div class="alert alert-danger flex-fill me-2" id="errorMessage"
@@ -47,6 +46,7 @@
 					<thead>
 						<tr>
 							<th>ID</th>
+							<th>Hình ảnh</th>
 							<th>Tên sản phẩm</th>
 							<th>Giá</th>
 							<th>Số lượng tồn kho</th>
@@ -61,6 +61,10 @@
 						<c:forEach var="product" items="${listp}">
 							<tr>
 								<td>${product.id}</td>
+								<td><img
+									src="${pageContext.request.contextPath}/image/image1/${product.thumbnail}"
+									alt="Product Image" style="width: 100px; height: auto;">
+								</td>
 								<td>${product.title}</td>
 								<td>${product.price}</td>
 								<td>${product.inventoryNumber}</td>
@@ -73,14 +77,19 @@
 										test="${product.inventoryNumber > 0}">
                               Còn hàng
                                 </c:if></td>
-								<td><a href="" class="btn btn-warning btn-sm"><i
-										class="bi bi-pencil"></i> Sửa</a> <a href=""
-									class="btn btn-danger btn-sm"><i class="bi bi-trash"></i>
-										Xóa</a></td>
+								<td><a href="editproduct1?id=${product.id}" class="btn btn-warning btn-sm"><i
+										class="bi bi-pencil"></i> Sửa</a> <a href="#"
+									class="btn btn-danger btn-sm" data-bs-toggle="modal"
+									data-bs-target="#deleteModal" data-id="${product.id}"
+									data-title="${product.title}"> <i class="bi bi-trash"></i>
+										Xóa
+								</a>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
+
+
 
 				<!-- Phân trang -->
 				<nav aria-label="Page navigation">
@@ -115,8 +124,54 @@
 		</div>
 	</div>
 	</div>
+	<!-- Modal xóa	 -->
+	<div class="modal fade" id="deleteModal" tabindex="-1"
+		aria-labelledby="deleteModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="deleteModalLabel">Xác nhận xóa</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>
+						Bạn có chắc chắn muốn xóa sản phẩm <strong id="productTitle"></strong>
+						không?
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Hủy</button>
+					<form action="deleteproduct" method="post" id="deleteForm">
+						<input type="hidden" name="id" id="productId">
+						<button type="submit" class="btn btn-danger">Xác nhận</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+	<script>
+		// Khi modal được hiển thị
+		var deleteModal = document.getElementById('deleteModal');
+		deleteModal.addEventListener('show.bs.modal', function(event) {
+			// Lấy nút được nhấn
+			var button = event.relatedTarget;
+			// Lấy dữ liệu từ data-id và data-title
+			var productId = button.getAttribute('data-id');
+			var productTitle = button.getAttribute('data-title');
+
+			// Gán dữ liệu vào modal
+			var modalTitle = deleteModal.querySelector('#productTitle');
+			var modalInput = deleteModal.querySelector('#productId');
+			modalTitle.textContent = productTitle;
+			modalInput.value = productId;
+		});
+	</script>
 </body>
 </html>
