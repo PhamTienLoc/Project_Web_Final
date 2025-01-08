@@ -60,6 +60,8 @@ public class CancelOrder extends HttpServlet {
 			e.printStackTrace();
 
 		}
+		request.setAttribute("fail", fail);
+		request.setAttribute("success", success);
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/adminmanagerorder");
 		rd.forward(request, response);
 	}
