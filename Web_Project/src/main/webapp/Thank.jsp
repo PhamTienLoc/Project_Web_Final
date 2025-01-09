@@ -44,7 +44,7 @@
 			<p>
 				Nếu bạn có bất kỳ câu hỏi hoặc cần hỗ trợ, đừng ngần ngại liên hệ
 				với chúng tôi qua: <br>
-				<strong>Email:</strong> support@cuahangcuatoi.com | <strong>Hotline:</strong>
+				<strong>Email:</strong> support@cuahangcuatoi.com | <strong>Đường dây nóng:</strong>
 				1900-123-456
 			</p>
 			<a href="home" class="btn btn-primary btn-lg mt-3">Quay về trang chủ</a>

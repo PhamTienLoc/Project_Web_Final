@@ -2,7 +2,9 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,7 +36,8 @@ public class LoadMoreControl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+		Locale userLocale = request.getLocale(); 
+		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(userLocale);
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		String amount = request.getParameter("exist");
@@ -43,6 +46,7 @@ public class LoadMoreControl extends HttpServlet {
 		ArrayList<Product> list = pd.ChiLay4SPTiepTheo(iamount);
 		PrintWriter out = response.getWriter();
 		for (Product p : list) {
+			String formatPrice = currencyFormat.format(p.getPrice());
 			out.println("<div class=\"product col-md-3 mb-4\">\r\n"
 					+ "						<div class=\"card card-hover\">\r\n"
 					+ "							<a href=\"detail?id="+p.getId()+"&cid="+p.getCid()+"\"> <img src=\"/Web_Project/image/image1/"+p.getThumbnail()+"\"\r\n"
@@ -52,14 +56,8 @@ public class LoadMoreControl extends HttpServlet {
 					+ "								<a href=\"detail?id="+p.getId()+"&cid="+p.getCid()+"\" class=\"text-decoration-none\">\r\n"
 					+ "									<h5 class=\"card-title\">"+p.getTitle()+"</h5>\r\n"
 					+ "								</a>\r\n"
-					+ "\r\n"
-					+ "								<p class=\"card-text\">\r\n"
-					+ "									<fmt:formatNumber value=\""+p.getPrice()+"\" type=\"number\"\r\n"
-					+ "										groupingUsed=\"true\" />\r\n"
-					+ "									"+p.getPrice()+ "VNĐ\r\n"
-					+ "								</p>\r\n"
-					+ "								<form action=\"buy2\" method=\"get\"\r\n"
-					+ "									onsubmit=\"return buy(event, this);\">\r\n"
+					+ "								<p class=\"card-text\">"+formatPrice+"</p>\r\n"
+					+ "								<form action=\"buy2\" method=\"get\" onsubmit=\"return buy(event, this);\">\r\n"
 					+ "									<input type=\"hidden\" name=\"id\" value=\""+p.getId()+"\"> <input\r\n"
 					+ "										type=\"hidden\" name=\"quantity\" value=\"1\">\r\n"
 					+ "									<button type=\"submit\" class=\"btn btn-success\">Thêm vào\r\n"

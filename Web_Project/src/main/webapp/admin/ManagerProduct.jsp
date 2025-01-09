@@ -66,7 +66,7 @@
 									alt="Product Image" style="width: 100px; height: auto;">
 								</td>
 								<td>${product.title}</td>
-								<td>${product.price}</td>
+								<td><fmt:formatNumber value="${product.price}" type="currency" groupingUsed="true" /></td>
 								<td>${product.inventoryNumber}</td>
 								<td>${product.category.cname}</td>
 								<td><fmt:formatDate value="${product.createdAt}"

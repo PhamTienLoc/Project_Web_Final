@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.lang}" />
+<fmt:setBundle basename="lang.Language" var="bundle" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shopping Cart</title>
+<title><fmt:message key="cart" bundle="${bundle}" /></title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -40,12 +42,12 @@
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a
-				href="${pageContext.request.contextPath}/home">Trang chủ</a></li>
-			<li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
+				href="${pageContext.request.contextPath}/home"><fmt:message key="home" bundle="${bundle}" /></a></li>
+			<li class="breadcrumb-item active" aria-current="page"><fmt:message key="cart" bundle="${bundle}" /></li>
 		</ol>
 	</nav>
 	<div class="container mt-5 mb-3">
-		<h1 class="text-center mb-4">Giỏ hàng</h1>
+		<h1 class="text-center mb-4"><fmt:message key="cart" bundle="${bundle}" /></h1>
 
 
 		<div class="row">
@@ -62,19 +64,13 @@
 							<div class="col-md-8">
 								<div class="card-body">
 									<h5 class="card-title">${item.product.title}</h5>
-									<p class="card-text text-muted">
-										Giá (per item):
-										<fmt:formatNumber value="${item.product.price}" type="number"
-											groupingUsed="true" />
-										VNĐ
+									<p class="card-text text-muted"><fmt:message key="cart.item_price" bundle="${bundle}" />:
+										<fmt:formatNumber value="${item.product.price}" type="currency" groupingUsed="true" />
 									</p>
-									<p class="card-text text-muted">
-										Tổng tiền:
-										<fmt:formatNumber
-											value="${item.product.price * item.quantity}" type="number"
-											groupingUsed="true" />
-										VNĐ
+									<p class="card-text text-muted"><fmt:message key="cart.total" bundle="${bundle}" />:
+										<fmt:formatNumber value="${item.product.price * item.quantity}" type="currency" groupingUsed="true" />
 									</p>
+									<p class="card-text">
 
 									<!-- Form cho nút trừ -->
 									<form action="updatequantity" method="get"
@@ -100,7 +96,7 @@
 									<form action="deleteitem" method="get" class="d-inline"
 										onsubmit="return remove(event, this);">
 										<input type="hidden" name="id" value="${item.product.id}">
-										<button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+										<button type="submit" class="btn btn-danger btn-sm"><fmt:message key="cart.delete" bundle="${bundle}" /></button>
 									</form>
 								</div>
 							</div>
@@ -113,20 +109,20 @@
 			<div id="cartSummary" class="col-md-4">
 				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title">Tổng kết Giỏ hàng</h5>
+						<h5 class="card-title"><fmt:message key="cart.summary" bundle="${bundle}" /></h5>
 
 						<p class="card-text">
-							Subtotal: <strong><fmt:formatNumber
-									value="${sessionScope.cart.geTotalMoney()}" type="number"
-									groupingUsed="true" /> VNĐ</strong>
+							<fmt:message key="cart.subtotal" bundle="${bundle}" />: 
+							<strong>
+								<fmt:formatNumber value="${sessionScope.cart.geTotalMoney()}" type="currency" groupingUsed="true" />
+							</strong>
 						</p>
 						<hr>
-
-
 						<p class="card-text">
-							Total: <strong><fmt:formatNumber
-									value="${sessionScope.cart.geTotalMoney()}" type="number"
-									groupingUsed="true" /> VNĐ</strong>
+							<fmt:message key="cart.total" bundle="${bundle}" />: 
+							<strong>
+								<fmt:formatNumber value="${sessionScope.cart.geTotalMoney()}" type="currency" groupingUsed="true" />
+							</strong>
 						</p>
 
 

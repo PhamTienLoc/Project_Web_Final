@@ -114,6 +114,7 @@ public class AdminManagerUserControl extends HttpServlet {
 		String phoneNumber = request.getParameter("phoneNumber");
 		String address = request.getParameter("address");
 		String isAdmin = request.getParameter("isAdmin");
+		String isConfirmEmail = request.getParameter("isConfirmEmail");
 		String fail = "";
 		String success = "";
 		
@@ -135,6 +136,9 @@ public class AdminManagerUserControl extends HttpServlet {
 		boolean quanTri = isAdmin.equals("yes") ? true : false;
 		checkUser.setAdmin(quanTri);
 		
+		boolean daXacThuc = isConfirmEmail.equals("yes") ? true : false;
+		checkUser.setConfirmEmail(daXacThuc);
+		
 		int row = userDAO.update(checkUser);
 		
 		if (row > 0) {
@@ -147,7 +151,7 @@ public class AdminManagerUserControl extends HttpServlet {
 
 	}
 
-	private void AddUser(HttpServletRequest request, HttpServletResponse response) {
+	private void AddUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String fullname = request.getParameter("fullname");
@@ -157,12 +161,17 @@ public class AdminManagerUserControl extends HttpServlet {
 		String phoneNumber = request.getParameter("phoneNumber");
 		String address = request.getParameter("address");
 		String isAdmin = request.getParameter("isAdmin");
+		String isConfirmEmail = request.getParameter("isConfirmEmail");
 		String fail = "";
 		String success = "";
 
 		User u = new User();
 		if (userDAO.checkUser(username)) {
 			fail = "Tên đăng nhập đã tồn tại";
+			request.setAttribute("fail", fail);
+		}
+		if (userDAO.checkEmail(email)) {
+			fail = "Email đã được sử dụng, vui lòng đổi email khác";
 			request.setAttribute("fail", fail);
 		} else {
 			u.setUser(username);
@@ -182,6 +191,9 @@ public class AdminManagerUserControl extends HttpServlet {
 			
 			boolean quanTri = isAdmin.equals("yes") ? true : false;
 			u.setAdmin(quanTri);
+			
+			boolean daXacThuc = isConfirmEmail.equals("yes") ? true : false;
+			u.setConfirmEmail(daXacThuc);
 			
 			int row = userDAO.insert(u);
 			

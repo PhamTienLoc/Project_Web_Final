@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.lang}" />
+<fmt:setBundle basename="lang.Language" var="bundle" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Thay đổi thông tin</title>
+<title><fmt:message key="change_info" bundle="${bundle}" /></title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
 <link rel="stylesheet"
@@ -24,7 +26,6 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
 	rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/changeInfo.css">
-<title>Thay đổi thông tin</title>
 </head>
 <body>
 <jsp:include page="Header.jsp"></jsp:include>
@@ -41,46 +42,49 @@
                 </div>
                 <div class="list-group rounded-0">
                     <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                        Thông tin khách hàng
+                        <fmt:message key="user.info" bundle="${bundle}" />
                     </a>
-                    <a href="${pageContext.request.contextPath}/ChangePassWord.jsp" class="list-group-item list-group-item-action">Đổi mật khẩu</a>
-                    <a href="#" class="list-group-item list-group-item-action">Lịch sử mua hàng</a>
+                    <a href="${pageContext.request.contextPath}/ChangePassWord.jsp" 
+                    	class="list-group-item list-group-item-action">
+                    	<fmt:message key="change_password" bundle="${bundle}" />
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action"><fmt:message key="view_invoice" bundle="${bundle}" /></a>
                 </div>
             </div>
 
             <!-- Main UserInfo content -->
             <div class="col-md-9 ml-sm-auto col-lg-10 px-md-4 pb-4 user-info__content">
-                <h1 class="fs-4 fw-normal mt-3 ">Hồ sơ của tôi</h1>
-                <p class=" fs-5 fw-light">Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
+                <h1 class="fs-4 fw-normal mt-3 "><fmt:message key="user.profile" bundle="${bundle}" /></h1>
+                <p class=" fs-5 fw-light"><fmt:message key="user.profile_management" bundle="${bundle}" /></p>
                 <hr>
                 <p class=" fs-5 fw-light text-success" style="display: ${status != null ? 'block' : 'none'};">${status}</p>
                 <div class="d-flex">
                     <form action="changeInfo" method="post">
                         <table class="table table-borderless align-middle">
                             <tr>
-                                <td class="text-end text-muted pb-3">Họ và tên</td>
+                                <td class="text-end text-muted pb-3"><fmt:message key="auth.username" bundle="${bundle}" /></td>
                                 <td class="user-info__data text-start pb-3">
                                     <input type="text" class="form-control" name="fullName" value="${user.fullName}"
                                            required>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-end text-muted pb-3">Giới tính</td>
+                                <td class="text-end text-muted pb-3"><fmt:message key="auth.gender" bundle="${bundle}" /></td>
                                 <td class="user-info__data text-start pb-3">
                                     <div class="flex form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="gender"
                                                id="male" value="male" ${user.gender eq "true"?"checked":""}>
-                                        <label class="form-check-label" for="male">Nam</label>
+                                        <label class="form-check-label" for="male"><fmt:message key="auth.gender_male" bundle="${bundle}" /></label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="gender"
                                                id="female" value="female" ${user.gender eq "false"?"checked":""}>
-                                        <label class="form-check-label" for="female">Nữ</label>
+                                        <label class="form-check-label" for="female"><fmt:message key="auth.gender_female" bundle="${bundle}" /></label>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-end text-muted pb-3">Ngày sinh</td>
+                                <td class="text-end text-muted pb-3"><fmt:message key="auth.date_of_birth" bundle="${bundle}" /></td>
                                 <td class="user-info__data text-start pb-3">
                                     <input type="date" class="form-control" id="birthday" name="birthday" value="${user.birthDay}" required>
                                 </td>
@@ -92,25 +96,25 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-end text-muted pb-3">Số điện thoại</td>
+                                <td class="text-end text-muted pb-3"><fmt:message key="auth.phone_number" bundle="${bundle}" /></td>
                                 <td class="user-info__data text-start pb-3">
-                                    <input type="tel" class="form-control"
-                                           placeholder="Số điện thoại của bạn" name="phoneNumber"
+                                    <input type="tel" class="form-control" name="phoneNumber"
                                            value="${user.phoneNumber}" required>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-end text-muted pb-3">Địa chỉ</td>
+                                <td class="text-end text-muted pb-3"><fmt:message key="auth.address" bundle="${bundle}" /></td>
                                 <td class="user-info__data text-start pb-3">
                                     <input type="text" class="form-control" name="address"
-                                           value="${user.address}"
-                                           placeholder="Địa chỉ của bạn" required>
+                                           value="${user.address}" required>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="text-end"></td>
                                 <td class="user-info__data text-start">
-                                    <button type="submit" class="btn btn-danger rounded-1">Lưu</button>
+                                    <button type="submit" class="btn btn-danger rounded-1">
+                                    	<fmt:message key="save" bundle="${bundle}" />
+                                    </button>
                                 </td>
                             </tr>
                         </table>

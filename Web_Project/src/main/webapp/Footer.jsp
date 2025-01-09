@@ -1,24 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.lang}" />
+<fmt:setBundle basename="lang.Language" var="bundle" />
 <footer class="container-fluid bg-dark text-center text-white py-4 mt-auto">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4">
-				<h5>VỀ PLJ</h5>
-				<p>PLJ không ngừng sáng tạo để mang lại những sản phẩm tinh tế
-					với giá trị thật để tôn vinh vẻ đẹp cho con người và cuộc sống.</p>
+				<h5><fmt:message key="about_plj" bundle="${bundle}" /></h5>
+				<p><fmt:message key="plj_description" bundle="${bundle}" /></p>
 			</div>
 			<div class="col-md-4">
-				<h5>LIÊN HỆ</h5>
+				<h5><fmt:message key="contact" bundle="${bundle}" /></h5>
 				<ul class="list-unstyled">
-					<li>Email: PLJ@gmail.com</li>
-					<li>Điện thoại: +123 456 7890</li>
-					<li>Địa chỉ: Trường Đại học Nông Lâm, khu phố 6, Thủ Đức, Hồ
-						Chí Minh</li>
+					<li><fmt:message key="email" bundle="${bundle}" /></li>
+					<li><fmt:message key="phone" bundle="${bundle}" /></li>
+					<li><fmt:message key="address" bundle="${bundle}" /></li>
 				</ul>
 			</div>
 			<div class="col-md-4">
-				<h5>KẾT NỐI VỚI CHÚNG TÔI</h5>
+				<h5><fmt:message key="connect_with_us" bundle="${bundle}" /></h5>
 				<div>
 					<a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
 					<a href="#" class="text-white me-3"><i class="bi bi-twitter"></i></a>
@@ -28,7 +29,7 @@
 			</div>
 		</div>
 		<div class="text-center mt-4">
-			<p class="mb-0">&copy; 2024 Công Ty Cổ Phần Bạc Đá Quý Phát Lộc</p>
+			<p class="mb-0"><fmt:message key="copyright" bundle="${bundle}" /></p>
 		</div>
 	</div>
 </footer>

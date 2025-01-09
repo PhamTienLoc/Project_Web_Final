@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.lang}" />
+<fmt:setBundle basename="lang.Language" var="bundle" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -128,14 +130,12 @@
 							<!-- Tên sản phẩm -->
 							<span><c:out value="${item.product.title}" /></span>
 							<!-- Số lượng x Giá tiền của một sản phẩm -->
-							<span>( <c:out value="${item.quantity}" /> x <fmt:formatNumber
-									value="${item.product.price}" type="number" groupingUsed="true" />
-								VNĐ )
+							<span>(<c:out value="${item.quantity}" /> x 
+									<fmt:formatNumber value="${item.product.price}" type="currency" groupingUsed="true" />)
 							</span>
 							<!-- Tổng giá trị -->
-							<span style="float: right;"> <fmt:formatNumber
-									value="${item.product.price * item.quantity}" type="number"
-									groupingUsed="true" /> ₫
+							<span style="float: right;">
+								<fmt:formatNumber value="${item.product.price * item.quantity}" type="currency" groupingUsed="true" />
 							</span>
 						</div>
 					</c:forEach>
@@ -143,25 +143,21 @@
 					<div class="total" id="total">
 						<c:if test="${empty totalMoneyUseDis || totalMoneyUseDis == 0}">
                         Tổng cộng: 
-                       <span> <fmt:formatNumber
-									value="${sessionScope.cart.geTotalMoney()}" type="number"
-									groupingUsed="true"  />
-								VNĐ
-							</span>
+                        <span><fmt:formatNumber
+									value="${sessionScope.cart.geTotalMoney()}" type="currency" groupingUsed="true"
+									minFractionDigits="2" maxFractionDigits="2" /></span>
 						</c:if>
 						<c:if
 							test="${not empty totalMoneyUseDis && totalMoneyUseDis != 0}">
                         Tổng cộng: 
                        <span
 								style="text-decoration: line-through; color: gray;"> <fmt:formatNumber
-									value="${sessionScope.cart.geTotalMoney()}" type="number"
-									groupingUsed="true"  />
-								VNĐ
+									value="${sessionScope.cart.geTotalMoney()}" type="currency" groupingUsed="true"
+									minFractionDigits="2" maxFractionDigits="2" />
 							</span>
 							<span style="margin-left: 10px; color: red; font-weight: bold;">
-								<fmt:formatNumber value="${totalMoneyUseDis}" type="number"
-									groupingUsed="true"  />
-								VNĐ
+								<fmt:formatNumber value="${totalMoneyUseDis}" type="currency" groupingUsed="true"
+									minFractionDigits="2" maxFractionDigits="2" />
 							</span>
 						</c:if>
 					</div>

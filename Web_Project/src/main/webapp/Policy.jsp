@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.lang}" />
+<fmt:setBundle basename="lang.Language" var="bundle" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Chính sách</title>
+<title><fmt:message key="policy" bundle="${bundle}" /></title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
 <link rel="stylesheet"
@@ -35,8 +38,8 @@
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb p-3 bg-body-tertiary rounded-3">
 				<li class="breadcrumb-item"><a class="text-decoration-none"
-					href="#">Home</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Chính sách</li>
+					href="#"><fmt:message key="home" bundle="${bundle}" /></a></li>
+				<li class="breadcrumb-item active" aria-current="page"><fmt:message key="policy" bundle="${bundle}" /></li>
 			</ol>
 		</nav>
 	</div>
@@ -44,8 +47,9 @@
 
 	<main class="flex-grow-1 my-3">
 		<div class="container">
-			<h2 class="policy-title text-center text-uppercase fw-bold my-3">Chính
-				sách cửa hàng</h2>
+			<h2 class="policy-title text-center text-uppercase fw-bold my-3">
+				<fmt:message key="policy.store" bundle="${bundle}" />
+			</h2>
 
 			<div class="accordion mx-auto" id="accordionExample">
 				<!-- Policy item -->
@@ -56,10 +60,11 @@
 							<a
 								class="policy-type btn btn-link d-flex align-items-center justify-content-between px-0 collapsed"
 								data-bs-toggle="collapse" href="#collapseOne"
-								aria-expanded="true" aria-controls="collapseOne"> Chính sách
-								hoàn tiền <span class="icon"> <i
-									class="fa fa-chevron-down"></i>
-							</span>
+								aria-expanded="true" aria-controls="collapseOne"> 
+								<fmt:message key="policy.refund" bundle="${bundle}" /> 
+								<span class="icon"> 
+									<i class="fa fa-chevron-down"></i>
+								</span>
 							</a>
 						</h2>
 					</div>
@@ -67,7 +72,7 @@
 						data-bs-parent="#accordionExample">
 						<hr class="mx-2 my-0">
 						<div class="policy-content card-body">
-							<p>Để đảm bảo quyền lợi của quý khách, Phát Lộc chấp nhận yêu
+							 <p>Để đảm bảo quyền lợi của quý khách, Phát Lộc chấp nhận yêu
 								cầu đổi/ trả sản phẩm hoặc hoàn tiền/ cọc theo các điều khoản và
 								dịch vụ như sau:</p>
 							<h5>Những trường hợp đổi/ trả hoặc hoàn tiền/ cọc:</h5>
@@ -116,10 +121,11 @@
 							<a
 								class="policy-type btn btn-link d-flex align-items-center justify-content-between px-0 collapsed"
 								data-bs-toggle="collapse" href="#collapseTwo"
-								aria-expanded="false" aria-controls="collapseTwo"> Chính
-								sách giao hàng <span class="icon"> <i
-									class="fa fa-chevron-down"></i>
-							</span>
+								aria-expanded="false" aria-controls="collapseTwo"> 
+								<fmt:message key="policy.delivery" bundle="${bundle}" />  
+								<span class="icon"> 
+									<i class="fa fa-chevron-down"></i>
+								</span>
 							</a>
 						</h2>
 					</div>
@@ -180,10 +186,11 @@
 							<a
 								class="policy-type btn btn-link d-flex align-items-center justify-content-between px-0 collapsed"
 								data-bs-toggle="collapse" href="#collapseThree"
-								aria-expanded="false" aria-controls="collapseThree"> Chính
-								sách bảo hành <span class="icon"> <i
-									class="fa fa-chevron-down"></i>
-							</span>
+								aria-expanded="false" aria-controls="collapseThree"> 
+								<fmt:message key="policy.warranty" bundle="${bundle}" /> 
+								<span class="icon"> 
+									<i class="fa fa-chevron-down"></i>
+								</span>
 							</a>
 						</h2>
 					</div>
@@ -238,10 +245,11 @@
 							<a
 								class="policy-type btn btn-link d-flex align-items-center justify-content-between px-0 collapsed"
 								data-bs-toggle="collapse" href="#collapseFour"
-								aria-expanded="false" aria-controls="collapseFour"> Chính
-								sách bảo mật thông tin khách hàng <span class="icon"> <i
-									class="fa fa-chevron-down"></i>
-							</span>
+								aria-expanded="false" aria-controls="collapseFour">
+								<fmt:message key="policy.privacy" bundle="${bundle}" /> 
+								<span class="icon"> 
+									<i class="fa fa-chevron-down"></i>
+								</span>
 							</a>
 						</h2>
 					</div>
@@ -320,10 +328,11 @@
 							<a
 								class="policy-type btn btn-link d-flex align-items-center justify-content-between px-0 collapsed"
 								data-bs-toggle="collapse" href="#collapseFive"
-								aria-expanded="false" aria-controls="collapseFive"> Chính
-								sách xử lý dữ liệu cá nhân <span class="icon"> <i
-									class="fa fa-chevron-down"></i>
-							</span>
+								aria-expanded="false" aria-controls="collapseFive"> 
+								<fmt:message key="policy.data_handling" bundle="${bundle}" /> 
+								<span class="icon"> 
+									<i class="fa fa-chevron-down"></i>
+								</span>
 							</a>
 						</h2>
 					</div>
