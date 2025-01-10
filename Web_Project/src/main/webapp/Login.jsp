@@ -59,7 +59,7 @@
 				<button class="w-100 btn btn-lg btn-primary mt-2" type="submit"><fmt:message key="login" bundle="${bundle}" /></button>
 				
 				<div class="mt-3 justify-content-evenly">
-					<a class="text-decoration-none" href="#"><fmt:message key="auth.forgot_password" bundle="${bundle}" /></a> - 
+					<a class="text-decoration-none" href="ForgotPassword.jsp"><fmt:message key="auth.forgot_password" bundle="${bundle}" /></a> - 
 					<a class="text-decoration-none" href="Signup.jsp"><fmt:message key="auth.register" bundle="${bundle}" /></a>
 				</div>
 			</form>
