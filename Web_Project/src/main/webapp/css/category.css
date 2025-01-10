@@ -94,3 +94,24 @@
 .card-title {
 	height: 50px;
 }
+
+.mini-page--controller .search-box {
+    max-width: 500px;
+    position: relative;
+}
+.mini-page--controller .search-box input {
+    padding-left: 40px;
+}
+
+.mini-page--controller .search-box .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: #6c757d;
+}
+.mini-page--controller .form-control {
+    border-radius: 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}

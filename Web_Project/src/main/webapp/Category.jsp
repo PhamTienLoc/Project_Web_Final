@@ -197,6 +197,19 @@
 
 						</div>
 						<div class="mini-page--controller d-flex flex-grow-1 justify-content-end align-items-center">
+							<div class="search-box me-2">
+								<span class="search-icon">
+					                <i class="bi bi-search"></i>
+					            </span>
+					            <input 
+					                type="text" 
+					                class="form-control"
+					                name="searchString" 
+					                placeholder="<fmt:message key="search_placeholder" bundle="${bundle}" />" 
+					                oninput="handleSearch(this)" 
+					                id="searchInput">
+					        </div>
+							
 							<div class="page-number">
 								<span class="page-index">${pageIndex}</span>/<span class="page-total">${totalPage}</span>
 							</div>
@@ -236,7 +249,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
+					<div id="content" class="row">
 						<c:if test="${not empty products}">
 						<h1 class="mb-3 fs-3">
 							<fmt:message key="products.found" bundle="${bundle}" >
@@ -324,17 +337,42 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 	<script type="text/javascript">
-	function setCheck(obj, name, formId) {
-	    var checkboxes = document.getElementsByName(name);
-	    if (obj.id === name + "All" && obj.checked) {
-	        for (var i = 1; i < checkboxes.length; i++) {
-	            checkboxes[i].checked = false;
-	        }
-	    } else {
-	        checkboxes[0].checked = false;
-	    }
-	    document.getElementById(formId).submit();
-	}
+		function setCheck(obj, name, formId) {
+		    var checkboxes = document.getElementsByName(name);
+		    if (obj.id === name + "All" && obj.checked) {
+		        for (var i = 1; i < checkboxes.length; i++) {
+		            checkboxes[i].checked = false;
+		        }
+		    } else {
+		        checkboxes[0].checked = false;
+		    }
+		    document.getElementById(formId).submit();
+		}
+		
+		let originalContent = document.getElementById("content").innerHTML;
+		
+		function handleSearch(param) {
+			const searchString = param.value;
+			const row = document.getElementById("content");
+			
+			if (searchString.trim() === "") {
+		        row.innerHTML = originalContent;
+		    } else {
+				$.ajax({
+					url : 'searchAjax', 
+					type : 'GET',
+					data : {
+						searchString: searchString
+					}, 
+					success : function(data) {
+						row.innerHTML = data;
+					},
+					error : function(error) {
+						
+					}
+				});
+		    }
+		}
 	</script>
 	<script>
 		function buy(event, form) {

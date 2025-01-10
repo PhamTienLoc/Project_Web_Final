@@ -61,6 +61,8 @@
 			<fmt:message key="policy" bundle="${bundle}" /></a></li>
 			<li><a href="About.jsp" class="nav-link px-3 link-dark">
 			<fmt:message key="about_us" bundle="${bundle}" /></a></li>
+			<li><a href="Contact.jsp" class="nav-link px-3 link-dark">
+			<fmt:message key="contact_us" bundle="${bundle}" /></a></li>
 		</ul>
 
 		<!-- Search, Cart, and Login Button -->
