@@ -56,9 +56,8 @@ public class ChangeUserInfo extends HttpServlet {
 
 		User checkedUser = (User) request.getSession().getAttribute("user");
 		if (checkedUser != null) {
-			int id = checkedUser.getId();
-			User u = new User(id, "", fullname, "", gender, Date.valueOf(birthday), email, phoneNumber, address, null,
-					new java.util.Date(), false);
+			User u = new User(checkedUser.getId(), "", fullname, "", gender, Date.valueOf(birthday), email, phoneNumber, address, checkedUser.getCreatedAt(),
+					new java.util.Date(), checkedUser.isAdmin(), checkedUser.isConfirmEmail());
 			userDAO.update(u);
 			url = "/ChangeUserInfo.jsp";
 			status = "Cập nhật thông tin thành công";

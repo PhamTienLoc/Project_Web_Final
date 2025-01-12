@@ -42,9 +42,10 @@ public class UserDAO implements DAOInterface<User> {
 				Date createdAt = rs.getDate("createdAt");
 				Date updatedAt = rs.getDate("updatedAt");
 				boolean isAdmin = rs.getBoolean("isAdmin");
+				boolean isConfirmEmail = rs.getBoolean("isConfirmEmail");
 
 				User us = new User(id, user, fullName, pass, gender, birthDay, email, phoneNumber, address, createdAt,
-						updatedAt, isAdmin);
+						updatedAt, isAdmin, isConfirmEmail);
 				ketQua.add(us);
 			}
 
@@ -90,9 +91,10 @@ public class UserDAO implements DAOInterface<User> {
 				Date createdAt = rs.getDate("createdAt");
 				Date updatedAt = rs.getDate("updatedAt");
 				boolean isAdmin = rs.getBoolean("isAdmin");
+				boolean isConfirmEmail = rs.getBoolean("isConfirmEmail");
 
 				User us = new User(id, user, fullName, pass, gender, birthDay, email, phoneNumber, address, createdAt,
-						updatedAt, isAdmin);
+						updatedAt, isAdmin, isConfirmEmail);
 				ketQua = us;
 			}
 
@@ -319,7 +321,7 @@ public class UserDAO implements DAOInterface<User> {
 
 			// Bước 2: tạo ra đối tượng statement
 			String sql = "UPDATE user " + " SET " + " fullname=?" + ", gender=?" + ", birthDay=?" + ", email=?"
-					+ ", phoneNumber=?" + ", address=?" + ", updatedAt=?" + " WHERE id=?";
+					+ ", phoneNumber=?" + ", address=?" + ", updatedAt=?" + ", isAdmin=?" + ", isConfirmEmail=?" + " WHERE id=?";
 
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, u.getFullName());
@@ -330,7 +332,9 @@ public class UserDAO implements DAOInterface<User> {
 			st.setString(6, u.getAddress());
 			Timestamp updateTime = new Timestamp(u.getUpdatedAt().getTime());
 			st.setTimestamp(7, updateTime);
-			st.setInt(8, u.getId());
+			st.setBoolean(8, u.isAdmin());
+			st.setBoolean(9, u.isConfirmEmail());
+			st.setInt(10, u.getId());
 			// Bước 3: thực thi câu lệnh SQL
 
 			System.out.println(sql);

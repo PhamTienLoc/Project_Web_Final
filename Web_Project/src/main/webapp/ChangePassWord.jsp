@@ -1,22 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.lang}" />
+<fmt:setBundle basename="lang.Language" var="bundle" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Thay Đổi Mật Khẩu</title>
+<title><fmt:message key="change_password" bundle="${bundle}" /></title>
 <!-- Bootstrap CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
-
 <script
 	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script
@@ -32,15 +33,14 @@
 	<jsp:include page="Header.jsp"></jsp:include>
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="home">Trang chủ</a></li>
-			<li class="breadcrumb-item active" aria-current="page">Thay đổi
-				mật khẩu</li>
+			<li class="breadcrumb-item"><a href="home"><fmt:message key="home" bundle="${bundle}" /></a></li>
+			<li class="breadcrumb-item active" aria-current="page"><fmt:message key="change_password" bundle="${bundle}" /></li>
 		</ol>
 	</nav>
 	<div class="container mt-5 mb-5">
 		<div class="row justify-content-center">
 			<div class="col-md-6">
-				<h3 class="text-center">Thay Đổi Mật Khẩu</h3>
+				<h3 class="text-center"><fmt:message key="change_password" bundle="${bundle}" /></h3>
 				<div class="d-flex justify-content-between mb-3">
 					<div class="alert alert-danger flex-fill me-2" id="errorMessage"
 						style="display: ${fail != null && fail != '' ? 'block' : 'none'};">
@@ -53,25 +53,26 @@
 				</div>
 				<form action="changepass" method="post">
 					<div class="form-group">
-						<label for="currentPassword">Mật khẩu hiện tại</label> <input
+						<label for="currentPassword"><fmt:message key="password.current" bundle="${bundle}" /></label> <input
 							type="password" class="form-control" id="currentPassword"
-							name="currPass" placeholder="Nhập mật khẩu hiện tại" required>
+							name="currPass" placeholder="<fmt:message key="password.current_input" bundle="${bundle}" />" required>
 					</div>
 
 					<div class="form-group">
-						<label for="newPassword">Mật khẩu mới</label> <input
+						<label for="newPassword"><fmt:message key="password.new" bundle="${bundle}" /></label> <input
 							type="password" class="form-control" id="newPassword"
-							name="newPass" placeholder="Nhập mật khẩu mới" required>
+							name="newPass" placeholder="<fmt:message key="password.new_input" bundle="${bundle}" />" required>
 					</div>
 
 					<div class="form-group">
-						<label for="confirmNewPassword">Nhập lại mật khẩu mới</label> <input
+						<label for="confirmNewPassword"><fmt:message key="password.new_confirm" bundle="${bundle}" /></label> <input
 							type="password" class="form-control" id="confirmNewPassword"
-							name="renewPass" placeholder="Nhập lại mật khẩu mới" required>
+							name="renewPass" placeholder="<fmt:message key="password.new_confirm" bundle="${bundle}" />" required>
 					</div>
 
-					<button type="submit" class="btn btn-primary btn-block">Lưu
-						thay đổi</button>
+					<button type="submit" class="btn btn-primary btn-block">
+						<fmt:message key="save" bundle="${bundle}" />
+					</button>
 				</form>
 			</div>
 		</div>

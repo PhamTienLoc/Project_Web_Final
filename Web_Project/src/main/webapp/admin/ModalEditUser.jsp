@@ -80,6 +80,15 @@
 							<label class="form-check-label" for="isAdminNo">Không</label>
 						</div>
 					</div>
+					
+					<!-- Email Confirm -->
+					<div class="mb-3">
+				        <label for="isConfirmEmail" class="form-label">Trạng thái Email</label>
+				        <select class="form-control" id="isConfirmEmail" name="isConfirmEmail" required>
+				            <option value="yes"  ${user.confirmEmail ? 'selected' : ''}>Đã xác thực</option>
+				            <option value="no" ${!user.confirmEmail ? 'selected' : ''}>Chưa xác thực</option>
+				        </select>
+				    </div>
 
 					<!-- Submit Button -->
 					<div class="modal-footer"> 

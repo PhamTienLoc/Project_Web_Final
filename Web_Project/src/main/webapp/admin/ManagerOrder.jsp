@@ -66,7 +66,7 @@
 										<c:otherwise>Chưa xử lý</c:otherwise>
 									</c:choose></td>
 								<td>${order.paymentMethod}</td>
-								<td>${order.totalMoney}</td>
+								<td><fmt:formatNumber value="${order.totalMoney}" type="currency" groupingUsed="true" /></td>
 								<td><c:if test="${order.status == 'pending'}">
 										<c:url var="confirmOrder" value="/confirmorder">
 											<c:param name="id" value="${order.id}" />

@@ -66,7 +66,7 @@
 			</div>
 			<!-- Address -->
 			<div class="mb-3">
-				<label for="address" class="form-label">Address</label> <input
+				<label for="address" class="form-label">Địa chỉ</label> <input
 					type="text" class="form-control" id="address" name="address"
 					value="${sessionScope.user.address}"
 					placeholder="Enter your address" required="required">

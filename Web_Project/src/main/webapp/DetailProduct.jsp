@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,7 +93,7 @@
 			<!-- Phần Thông Tin Sản Phẩm -->
 			<div class="col-md-6">
 				<h2 class="product-title">${p.title}</h2>
-				<p class="product-price">Giá: ${p.price} $</p>
+				<p class="product-price">Giá: <fmt:formatNumber value="${p.price}" type="currency" groupingUsed="true" /></p>
 				<form action="buy" method="get" onsubmit="return buy(event, this);">
 					<div class="product-quantity">
 						<label for="quantity">Số lượng:</label> <input type="number"
@@ -103,7 +104,7 @@
 						type="hidden" name="cid" value="${p.cid}">
 					<div class="mt-3">
 						<input type="submit" class="btn btn-success w-50"
-							value="Add to Cart">
+							value="Thêm vào giỏ hàng">
 					</div>
 				</form>
 			</div>
@@ -148,13 +149,13 @@
 								<a href="${productdetail}" class="text-decoration-none">
 									<h5 class="card-title">${p.title}</h5>
 								</a>
-								<p class="card-text">${p.price}$</p>
+								<p class="card-text"><fmt:formatNumber value="${p.price}" type="currency" groupingUsed="true" /></p>
 								<form action="buy" method="get"
 									onsubmit="return buy(event, this);">
 									<input type="hidden" name="id" value="${p.id}"> <input
 										type="hidden" name="cid" value="${p.cid}"> <input
 										type="hidden" name="quantity" value="1"> <input
-										type="submit" class="btn btn-success" value="Add to Cart">
+										type="submit" class="btn btn-success" value="Thêm vào giỏ hàng">
 								</form>
 							</div>
 						</div>

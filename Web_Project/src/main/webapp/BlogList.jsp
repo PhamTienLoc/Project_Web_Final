@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.lang}" />
+<fmt:setBundle basename="lang.Language" var="bundle" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Danh mục Blog</title>
+<title><fmt:message key="blogs" bundle="${bundle}" /></title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
 <link rel="stylesheet"
@@ -34,8 +37,8 @@
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb p-3 bg-body-tertiary rounded-3">
 				<li class="breadcrumb-item"><a class="text-decoration-none"
-					href="#">Home</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Blogs</li>
+					href="#"><fmt:message key="home" bundle="${bundle}" /></a></li>
+				<li class="breadcrumb-item active" aria-current="page"><fmt:message key="blogs" bundle="${bundle}" /></li>
 			</ol>
 		</nav>
 	</div>
@@ -45,8 +48,7 @@
 		<div class="container px-5">
 			<!-- Blog nổi bật -->
 			<section class="mb-5">
-				<h2 class="mb-4 text-center text-capitalize fw-bold">Bài viết
-					nổi bật</h2>
+				<h2 class="mb-4 text-center text-capitalize fw-bold"><fmt:message key="blog.featured_posts" bundle="${bundle}" /></h2>
 				<div class="row">
 					<!-- Blog -->
 					<c:forEach var="blog" items="${top3}">
@@ -72,8 +74,7 @@
 
 			<!-- Danh sách Blog -->
 			<section>
-				<h2 class="mb-4 text-center text-capitalize fw-bold">Các bài
-					viết đáng chú ý</h2>
+				<h2 class="mb-4 text-center text-capitalize fw-bold"><fmt:message key="blog.notable_posts" bundle="${bundle}" /></h2>
 				<c:forEach var="blog" items="${remain}">
 					<!-- Blog Item -->
 					<div class="blog-list-item">

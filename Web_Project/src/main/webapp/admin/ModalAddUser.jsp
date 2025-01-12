@@ -91,6 +91,15 @@
 						</div>
 					</div>
 					
+					<!-- Email Confirm -->
+					<div class="mb-3">
+				        <label for="isConfirmEmail" class="form-label">Trạng thái Email</label>
+				        <select class="form-control" id="isConfirmEmail" name="isConfirmEmail" required>
+				            <option value="yes">Đã xác thực</option>
+				            <option value="no">Chưa xác thực</option>
+				        </select>
+				    </div>
+					
 					<!-- Submit Button -->
 					<div class="modal-footer"> 
 						<button type="button" class="btn btn-secondary"

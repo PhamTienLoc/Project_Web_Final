@@ -52,6 +52,7 @@
 							<th>Quyền hạn</th>
 							<th>Ngày đăng ký</th>
 							<th>Ngày cập nhật</th>
+							<th>Trạng thái Email</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
@@ -64,14 +65,22 @@
 								<td>${user.phoneNumber}</td>
 								<td><c:if test="${user.admin}">
 										Quản trị viên
-									</c:if> <c:if test="${!user.admin}">
+									</c:if> 
+									<c:if test="${!user.admin}">
                     					Khách hàng
               						</c:if>
            						</td>
 								<td><fmt:formatDate value="${user.createdAt}"
 										pattern="dd/MM/yyyy" /></td>
 								<td><fmt:formatDate value="${user.updatedAt}"
-										pattern="dd/MM/yyyy" /></td>		
+										pattern="dd/MM/yyyy" /></td>
+								<td><c:if test="${user.confirmEmail}">
+										Đã xác thực
+									</c:if> 
+									<c:if test="${!user.confirmEmail}">
+                    					Chưa xác thực
+              						</c:if>
+           						</td>				
 								<td>
 									<button 
 										type="button" 

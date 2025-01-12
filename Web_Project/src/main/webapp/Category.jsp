@@ -2,13 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<fmt:setLocale value="vi_VN" />
+<fmt:setLocale value="${sessionScope.lang}" />
+<fmt:setBundle basename="lang.Language" var="bundle" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Danh sách sản phẩm</title>
+<title><fmt:message key="product_list" bundle="${bundle}" /></title>
 <!-- Thư viện ngoài -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
@@ -39,8 +40,8 @@
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb p-3 bg-body-tertiary rounded-3">
 				<li class="breadcrumb-item"><a class="text-decoration-none"
-					href="#">Trang chủ</a></li>
-				<li class="breadcrumb-item active" aria-current="page">Danh sách sản phẩm</li>
+					href="#"><fmt:message key="home" bundle="${bundle}" /></a></li>
+				<li class="breadcrumb-item active" aria-current="page"><fmt:message key="product_list" bundle="${bundle}" /></li>
 			</ol>
 		</nav>
 	</div>
@@ -74,11 +75,11 @@
 					<div class="filter-sidebar d-none d-md-block">
 						<div class="filter-title mb-4">
 							<h1>
-								<i class="bi bi-funnel me-1"></i> BỘ LỌC TÌM KIẾM
+								<i class="bi bi-funnel me-1"></i><fmt:message key="filter.search_title" bundle="${bundle}" />
 							</h1>
 						</div>
 						<div class="category-filter">
-							<h2>Theo Danh Mục</h2>
+							<h2><fmt:message key="filter.by_category" bundle="${bundle}" /></h2>
 							<c:set var="c" value="${categories}"/>
 							<c:set var="cc" value="${requestScope.categoryChecked}"/>
 							<form action="productList" method="get" id="categoryForm">
@@ -91,7 +92,7 @@
 										${cc[0] ? "checked" : ""}
 										value="${0}"
 										onClick="setCheck(this, 'categoryId', 'categoryForm')">
-									<label class="form-check-label" for="categoryIdAll"> Tất cả </label>
+									<label class="form-check-label" for="categoryIdAll"><fmt:message key="all" bundle="${bundle}" /></label>
 								</div>
 								<c:forEach begin="0" end="${c.size() - 1}" var="i">
 									<div class="form-check">
@@ -114,7 +115,7 @@
 						</div>
 						<hr>
 						<div class="price-filter">
-							<h2>Khoảng Giá</h2>
+							<h2><fmt:message key="filter.by_price_range" bundle="${bundle}" /></h2>
 							<c:set var="pr" value="${requestScope.priceRange}"/>
 							<c:set var="prc" value="${requestScope.priceRangeChecked}"/>
 							<form action="productList" method="get" id="priceRangeForm">
@@ -127,7 +128,7 @@
 										${prc[0] ? "checked" : ""}
 										value="${0}"
 										onClick="setCheck(this, 'priceId', 'priceRangeForm')">
-									<label class="form-check-label" for="priceIdAll"> Tất cả </label>
+									<label class="form-check-label" for="priceIdAll"><fmt:message key="all" bundle="${bundle}" /></label>
 								</div>
 								<c:forEach begin="0" end="4" var="i">
 									<div class="form-check">
@@ -152,7 +153,7 @@
 				</div>
 				<div class="product-list">
 					<div class="product-sort d-flex align-items-center">
-						<span class="product-sort--label me-2">Sắp xếp theo</span>
+						<span class="product-sort--label me-2"><fmt:message key="sort.label" bundle="${bundle}" /></span>
 						<div class="product-sort--options">
 						<c:set var="defaultSortParam" value="${requestScope.param}" />
 						<c:if test="${not empty defaultSortParam}">
@@ -169,24 +170,46 @@
 								    data-bs-toggle="dropdown" 
 								    aria-expanded="false">
 						        <c:choose>
-						            <c:when test="${sortBy == 'newest'}">Sản phẩm mới nhất</c:when>
-						            <c:when test="${sortBy == 'price_asc'}">Giá thấp đến cao</c:when>
-						            <c:when test="${sortBy == 'price_desc'}">Giá cao đến thấp</c:when>
-						            <c:when test="${sortBy == 'name_asc'}">Tên từ A - Z</c:when>
-						            <c:when test="${sortBy == 'name_desc'}">Tên từ Z - A</c:when>
+						            <c:when test="${sortBy == 'newest'}"><fmt:message key="sort.newest" bundle="${bundle}" /></c:when>
+						            <c:when test="${sortBy == 'price_asc'}"><fmt:message key="sort.price_asc" bundle="${bundle}" /></c:when>
+						            <c:when test="${sortBy == 'price_desc'}"><fmt:message key="sort.price_desc" bundle="${bundle}" /></c:when>
+						            <c:when test="${sortBy == 'name_asc'}"><fmt:message key="sort.name_asc" bundle="${bundle}" /></c:when>
+						            <c:when test="${sortBy == 'name_desc'}"><fmt:message key="sort.name_desc" bundle="${bundle}" /></c:when>
 						        </c:choose>
 						    </button>
 						    <ul class="dropdown-menu dropdown-menu-end pe-5" aria-labelledby="sortDropdown">
-						        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=newest">Sản phẩm mới nhất</a></li>
-						        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=price_asc">Giá thấp đến cao</a></li>
-						        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=price_desc">Giá cao đến thấp</a></li>
-						        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=name_asc">Tên từ A - Z</a></li>
-						        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=name_desc">Tên từ Z - A</a></li>
+						        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=newest"><fmt:message key="sort.newest" bundle="${bundle}" /></a></li>
+						        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=price_asc"><fmt:message key="sort.price_asc" bundle="${bundle}" /></a></li>
+						        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=price_desc"><fmt:message key="sort.price_desc" bundle="${bundle}" /></a></li>
+						        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=name_asc"><fmt:message key="sort.name_asc" bundle="${bundle}" /></a></li>
+						        <li><a class="dropdown-item" href="productList?${sortParam}&sortBy=name_desc"><fmt:message key="sort.name_desc" bundle="${bundle}" /></a></li>
 						    </ul>
 						</div>
 
+						<c:set var="defaultIndexParam" value="${requestScope.param}" />
+						<c:if test="${not empty defaultIndexParam}">
+						    <c:set var="indexParam" value="${defaultIndexParam}" />
+						    <c:set var="indexParam" value="${indexParam.replaceAll('index=[^&]*&?', '')}" />
+						</c:if>
+						<c:if test="${empty defaultIndexParam}">
+						    <c:set var="indexParam" value="" />
+						</c:if>
+
 						</div>
 						<div class="mini-page--controller d-flex flex-grow-1 justify-content-end align-items-center">
+							<div class="search-box me-2">
+								<span class="search-icon">
+					                <i class="bi bi-search"></i>
+					            </span>
+					            <input 
+					                type="text" 
+					                class="form-control"
+					                name="searchString" 
+					                placeholder="<fmt:message key="search_placeholder" bundle="${bundle}" />" 
+					                oninput="handleSearch(this)" 
+					                id="searchInput">
+					        </div>
+							
 							<div class="page-number">
 								<span class="page-index">${pageIndex}</span>/<span class="page-total">${totalPage}</span>
 							</div>
@@ -226,9 +249,13 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
+					<div id="content" class="row">
 						<c:if test="${not empty products}">
-						<h1 class="mb-3 fs-3">Tìm thấy (${requestScope.totalProduct} sản phẩm)</h1>
+						<h1 class="mb-3 fs-3">
+							<fmt:message key="products.found" bundle="${bundle}" >
+						        <fmt:param value="${requestScope.totalProduct}" />
+						    </fmt:message>
+						</h1>
 						<c:forEach var="p" items="${products}">
 							<c:url var="productdetail" value="/detail">
 								<c:param name="id" value="${p.id}" />
@@ -238,7 +265,7 @@
 								<div class="card card-hover">
 									<!-- Link bọc hình ảnh -->
 									<a href="${productdetail}"> <img src="${pageContext.request.contextPath}/image/image1/${p.thumbnail}"
-										class="card-img-top" alt="Product Image">
+										class="card-img-top" alt="<fmt:message key="product.image_alt" bundle="${bundle}" />">
 									</a>
 									<div class="card-body text-center">
 		
@@ -248,14 +275,14 @@
 										</a>
 		
 										<p class="card-text">
-										    <fmt:formatNumber value="${p.price}" type="number" groupingUsed="true" />đ
+										    <fmt:formatNumber value="${p.price}" type="currency" groupingUsed="true" />
 										</p>
 										<form action="buy2" method="get"
 											onsubmit="return buy(event, this);">
 											<input type="hidden" name="id" value="${p.id}"> <input
 												type="hidden" name="quantity" value="1">
 											<button type="submit" class="btn btn-success">
-												Thêm vào giỏ hàng
+												<fmt:message key="add_to_cart" bundle="${bundle}" />
 											</button>
 										</form>
 									</div>
@@ -265,19 +292,10 @@
 						</c:if>
 						<c:if test="${empty products}">
 							<div class="text-center">
-								<h1 class="my-3">Không tìm thấy sản phẩm phù hợp!</h1>
+								<h1 class="my-3"><fmt:message key="products.not_found" bundle="${bundle}" /></h1>
 							</div>
 						</c:if>
 					</div>
-					
-					<c:set var="defaultIndexParam" value="${requestScope.param}" />
-					<c:if test="${not empty defaultIndexParam}">
-					    <c:set var="indexParam" value="${defaultIndexParam}" />
-					    <c:set var="indexParam" value="${indexParam.replaceAll('index=[^&]*&?', '')}" />
-					</c:if>
-					<c:if test="${empty defaultIndexParam}">
-					    <c:set var="indexParam" value="" />
-					</c:if>
 					
 					<nav aria-label="Page navigation">
 					    <ul class="pagination justify-content-center">
@@ -319,17 +337,42 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 	<script type="text/javascript">
-	function setCheck(obj, name, formId) {
-	    var checkboxes = document.getElementsByName(name);
-	    if (obj.id === name + "All" && obj.checked) {
-	        for (var i = 1; i < checkboxes.length; i++) {
-	            checkboxes[i].checked = false;
-	        }
-	    } else {
-	        checkboxes[0].checked = false;
-	    }
-	    document.getElementById(formId).submit();
-	}
+		function setCheck(obj, name, formId) {
+		    var checkboxes = document.getElementsByName(name);
+		    if (obj.id === name + "All" && obj.checked) {
+		        for (var i = 1; i < checkboxes.length; i++) {
+		            checkboxes[i].checked = false;
+		        }
+		    } else {
+		        checkboxes[0].checked = false;
+		    }
+		    document.getElementById(formId).submit();
+		}
+		
+		let originalContent = document.getElementById("content").innerHTML;
+		
+		function handleSearch(param) {
+			const searchString = param.value;
+			const row = document.getElementById("content");
+			
+			if (searchString.trim() === "") {
+		        row.innerHTML = originalContent;
+		    } else {
+				$.ajax({
+					url : 'searchAjax', 
+					type : 'GET',
+					data : {
+						searchString: searchString
+					}, 
+					success : function(data) {
+						row.innerHTML = data;
+					},
+					error : function(error) {
+						
+					}
+				});
+		    }
+		}
 	</script>
 	<script>
 		function buy(event, form) {

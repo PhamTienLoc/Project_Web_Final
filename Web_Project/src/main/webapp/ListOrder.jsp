@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.lang}" />
+<fmt:setBundle basename="lang.Language" var="bundle" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Danh sách Hóa Đơn</title>
+<title><fmt:message key="invoice.list" bundle="${bundle}" /></title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -44,14 +46,13 @@
 	</div>
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="home">Trang chủ</a></li>
-			<li class="breadcrumb-item active" aria-current="page">Danh sách
-				Hóa Đơn</li>
+			<li class="breadcrumb-item"><a href="home"><fmt:message key="home" bundle="${bundle}" /></a></li>
+			<li class="breadcrumb-item active" aria-current="page"><fmt:message key="invoice.list" bundle="${bundle}" /></li>
 		</ol>
 	</nav>
 	<!-- Tiêu đề danh sách hóa đơn -->
 	<div class="container my-4">
-		<h1 class="text-center mb-4">Danh sách Hóa Đơn</h1>
+		<h1 class="text-center mb-4"><fmt:message key="invoice.list" bundle="${bundle}" /></h1>
 		<div class="d-flex justify-content-between mb-3">
 			<div class="alert alert-danger flex-fill me-2" id="errorMessage"
 				style="display: ${fail != null && fail != '' ? 'block' : 'none'};">
@@ -66,12 +67,12 @@
 		<table class="table table-bordered table-striped table-hover">
 			<thead class="table-dark">
 				<tr>
-					<th scope="col">Mã Hóa Đơn</th>
-					<th scope="col">Ngày Mua</th>
-					<th scope="col">Tổng Tiền</th>
-					<th scope="col">Trạng Thái</th>
+					<th scope="col"><fmt:message key="invoice.code" bundle="${bundle}" /></th>
+					<th scope="col"><fmt:message key="invoice.date" bundle="${bundle}" /></th>
+					<th scope="col"><fmt:message key="cart.total" bundle="${bundle}" /></th>
+					<th scope="col"><fmt:message key="invoice.status" bundle="${bundle}" /></th>
 					<!-- Cột trạng thái -->
-					<th scope="col">Hành Động</th>
+					<th scope="col"><fmt:message key="invoice.action" bundle="${bundle}" /></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -89,18 +90,16 @@
 
 						<!-- Cột trạng thái -->
 						<td><c:choose>
-								<c:when test="${order.status == 'pending'}">Chờ xác nhận</c:when>
-								<c:when test="${order.status == 'confirmed'}">Đã xác nhận</c:when>
-								<c:otherwise>Đã giao hàng</c:otherwise>
+								<c:when test="${order.status == 'pending'}"><fmt:message key="invoice.status.pending" bundle="${bundle}" /></c:when>
+								<c:when test="${order.status == 'confirmed'}"><fmt:message key="invoice.status.confirmed" bundle="${bundle}" /></c:when>
+								<c:otherwise><fmt:message key="invoice.status.delivered" bundle="${bundle}" /></c:otherwise>
 							</c:choose></td>
 
 						<td><c:url var="vieworderdetail" value="/vieworderdetail">
 								<c:param name="id" value="${order.id}"></c:param>
-							</c:url> <a href="${vieworderdetail}" class="btn btn-info btn-sm">Xem
-								chi tiết</a> <c:if test="${order.status == 'pending'}">
+							</c:url> <a href="${vieworderdetail}" class="btn btn-info btn-sm"><fmt:message key="invoice.action.view_detail" bundle="${bundle}" /></a> <c:if test="${order.status == 'pending'}">
 								<button class="btn btn-danger btn-sm"
-									onclick="openConfirmCancelModal('deledeorder?oid=${order.id}')">Hủy
-									đơn</button>
+									onclick="openConfirmCancelModal('deledeorder?oid=${order.id}')"><fmt:message key="invoice.action.cancel" bundle="${bundle}" /></button>
 							</c:if></td>
 					</tr>
 				</c:forEach>

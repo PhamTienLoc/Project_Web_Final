@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.lang}" />
+<fmt:setBundle basename="lang.Language" var="bundle" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trang chủ</title>
+<title><fmt:message key="home" bundle="${bundle}" /></title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -61,7 +62,7 @@
 	<div class="container mt-5">
 		<!-- Sản phẩm nổi bật -->
 		<section class="mb-5">
-			<h2 class="text-center">Sản Phẩm Mới Nhất</h2>
+			<h2 class="text-center"><fmt:message key="newest_products" bundle="${bundle}" /></h2>
 			<div class="row">
 				<!-- Sử dụng JSTL để lặp qua danh sách sản phẩm nổi bật -->
 				<c:forEach var="p" items="${list2}">
@@ -72,25 +73,21 @@
 								<c:param name="cid" value="${p.cid}" />
 							</c:url>
 							<a href="${productdetail}"> <img src="${pageContext.request.contextPath}/image/image1/${p.thumbnail}"
-								class="card-img-top" alt="Product Image">
+								class="card-img-top" alt="<fmt:message key="product.image_alt" bundle="${bundle}" />">
 							</a>
 							<div class="card-body text-center">
 
 								<a href="${productdetail}">
 									<h5 class="card-title">${p.title}</h5>
 								</a>
-
-								<p class="card-text">
-									<fmt:formatNumber value="${p.price}" type="number"
-										groupingUsed="true" />
-									VNĐ
-								</p>
+								<p class="card-text"><fmt:formatNumber value="${p.price}" type="currency" groupingUsed="true" /></p>
 								<form action="buy2" method="get"
 									onsubmit="return buy(event, this);">
 									<input type="hidden" name="id" value="${p.id}"> <input
 										type="hidden" name="quantity" value="1">
-									<button type="submit" class="btn btn-primary">Thêm vào
-										giỏ hàng</button>
+									<button type="submit" class="btn btn-primary">
+										<fmt:message key="add_to_cart" bundle="${bundle}" />
+									</button>
 								</form>
 							</div>
 						</div>
@@ -101,7 +98,7 @@
 
 		<!-- Danh mục sản phẩm -->
 		<section class="mb-5">
-			<h2 class="text-center">Danh Mục Sản Phẩm</h2>
+			<h2 class="text-center"><fmt:message key="product_categories" bundle="${bundle}" /></h2>
 			<div class="row">
 				<!-- Sử dụng JSTL để lặp qua danh sách danh mục -->
 				<c:forEach var="c" items="${listC}">
@@ -124,31 +121,27 @@
 
 		<!-- Loạt sản phẩm -->
 		<section>
-			<h2 class="text-center">Loạt Sản Phẩm</h2>
+			<h2 class="text-center"><fmt:message key="product_series" bundle="${bundle}" /></h2>
 			<div id="content" class="row">
 				<!-- Sử dụng JSTL để lặp qua danh sách loạt sản phẩm -->
 				<c:forEach var="p" items="${listP}">
 					<div class="product col-md-3 mb-4">
 						<div class="card card-hover">
 							<a href="detail?id=${p.id}&cid=${p.cid}"> <img src="${pageContext.request.contextPath}/image/image1/${p.thumbnail}"
-								class="card-img-top" alt="Product Image">
+								class="card-img-top" alt="<fmt:message key="product.image_alt" bundle="${bundle}" />">
 							</a>
 							<div class="card-body text-center">
 								<a href="detail?id=${p.id}&cid=${p.cid}" class="text-decoration-none">
 									<h5 class="card-title">${p.title}</h5>
 								</a>
-
-								<p class="card-text">
-									<fmt:formatNumber value="${p.price}" type="number"
-										groupingUsed="true" />
-									VNĐ
-								</p>
+								<p class="card-text"><fmt:formatNumber value="${p.price}" type="currency" groupingUsed="true" /></p>
 								<form action="buy2" method="get"
 									onsubmit="return buy(event, this);">
 									<input type="hidden" name="id" value="${p.id}"> <input
 										type="hidden" name="quantity" value="1">
-									<button type="submit" class="btn btn-success">Thêm vào
-										giỏ hàng</button>
+									<button type="submit" class="btn btn-success">
+										<fmt:message key="add_to_cart" bundle="${bundle}" />
+									</button>
 								</form>
 							</div>
 						</div>
@@ -158,8 +151,9 @@
 
 			<!-- Căn giữa và thêm margin-bottom -->
 			<div class="d-flex justify-content-center mb-3">
-				<button onclick="loadMore()" class="btn btn-primary">Xem
-					thêm</button>
+				<button onclick="loadMore()" class="btn btn-primary">
+					<fmt:message key="see_more" bundle="${bundle}" />
+				</button>
 			</div>
 		</section>
 	</div>
