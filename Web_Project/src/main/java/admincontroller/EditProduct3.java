@@ -58,7 +58,8 @@ public class EditProduct3 extends HttpServlet {
 		Image image = (Image) session.getAttribute("i");
 
 		// Đường dẫn gốc của dự án
-		String projectRoot = "E:\\titvltweb\\Web_Project"; // Thay đổi theo đường dẫn của bạn
+//		String projectRoot = "E:\\titvltweb\\Web_Project"; // Thay đổi theo đường dẫn của bạn
+		String projectRoot="C:\\Users\\Admin\\eclipse-workspace\\Web_Project";
 
 		// Kiểm tra và xử lý upload file
 		DiskFileItemFactory factory = new DiskFileItemFactory();

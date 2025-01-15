@@ -41,12 +41,12 @@
 				
 				<div class="form-floating mb-2 rounded">
 					<input type="text" class="form-control" id="tenDangNhap" name="username" 
-					value="${requestScope.username!=null?requestScope.username:""}" placeholder="<fmt:message key="auth.username" bundle="${bundle}" />"> 
+					value="${requestScope.username!=null?requestScope.username:""}" placeholder="<fmt:message key="auth.username" bundle="${bundle}" />" required> 
 					<label for="tenDangNhap"><fmt:message key="auth.enter_username" bundle="${bundle}" /></label>
 				</div>
 				
 				<div class="form-floating mb-2 rounded">
-					<input type="password" class="form-control" id="matKhau" name="password" placeholder="<fmt:message key="auth.password" bundle="${bundle}" />"> 
+					<input type="password" class="form-control" id="matKhau" name="password" placeholder="<fmt:message key="auth.password" bundle="${bundle}" />" required> 
 					<label for="matKhau"><fmt:message key="auth.enter_password" bundle="${bundle}" /></label>
 				</div>
 

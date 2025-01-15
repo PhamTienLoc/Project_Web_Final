@@ -44,7 +44,7 @@ public class SearchByAjax extends HttpServlet {
 		for (Product product : list) {
           out.println("<div class=\"product col-md-3 mb-4\">");
           out.println("    <div class=\"card card-hover\">");
-          out.println("        <a href=\"/detail?id=" + product.getId() + "&cid=" + product.getCid() + "\">");
+          out.println("        <a href=\"detail?id=" + product.getId() + "&cid=" + product.getCid() + "\">");
           out.println("            <img src="+ request.getContextPath() +"/image/image1/" + product.getThumbnail() + " class=\"card-img-top\" alt=\"Product Image\">");
           out.println("        </a>");
           out.println("        <div class=\"card-body text-center\">");
