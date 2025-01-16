@@ -97,7 +97,8 @@ public class AddProductUpload extends HttpServlet {
 		String originalFileName = new File(fileItem.getName()).getName();
 		if (originalFileName.toLowerCase().endsWith(".jpg") || originalFileName.toLowerCase().endsWith(".png")) {
 			// Đường dẫn thư mục con (image1 hoặc image2)
-			String projectRoot="E:\\titvltweb\\Web_Project";
+//			String projectRoot="E:\\titvltweb\\Web_Project";
+			String projectRoot="C:\\Users\\Admin\\eclipse-workspace\\Web_Project";
 			String uploadPath = projectRoot + "/src/main/webapp/" + subFolderPath;
 			File uploadDir = new File(uploadPath);
 			if (!uploadDir.exists()) {

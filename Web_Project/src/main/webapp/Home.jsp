@@ -102,7 +102,7 @@
 			<div class="row">
 				<!-- Sử dụng JSTL để lặp qua danh sách danh mục -->
 				<c:forEach var="c" items="${listC}">
-					<div class="col-md-4 mb-4">
+					<div class="category col-md-4 mb-4">
 						<form action="category" method="get" class="text-decoration-none">
 							<input type="hidden" name="id" value="${c.cid}">
 							<button type="submit" class="btn btn-link p-0">
@@ -189,24 +189,4 @@
 						type : 'success', // Loại thông báo thành công
 						message : 'Thêm vào giỏ hàng thành công!', // Nội dung thông báo
 					});
-				},
-				error : function(error) {
-					// Nếu có lỗi, hiển thị thông báo lỗi
-					const notyf = new Notyf();
-					notyf.open({
-						duration : 1000,
-						position : {
-							x : 'right',
-							y : 'top',
-						},
-						type : 'error', // Loại thông báo lỗi
-						message : 'Có lỗi xảy ra, vui lòng thử lại!', // Nội dung thông báo lỗi
-					});
-				}
-			});
-
-			return false; // Đảm bảo form không được gửi đi theo cách mặc định
-		}
-	</script>
-</body>
-</html>
+				},12

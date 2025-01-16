@@ -51,7 +51,8 @@ public class DeleteProduct extends HttpServlet {
 		ProductDAO productDAO = new ProductDAO();
 		ImageDAO imageDAO = new ImageDAO(); // DAO cho đối tượng Image
 		 // Đường dẫn gốc của dự án
-	    String projectRoot = "E:\\titvltweb\\Web_Project";
+//	    String projectRoot = "E:\\titvltweb\\Web_Project";
+	    String projectRoot="C:\\Users\\Admin\\eclipse-workspace\\Web_Project";
 		try {
 			// Lấy thông tin sản phẩm từ CSDL
 			Product product = productDAO.getProductByID(Integer.parseInt(productId));
